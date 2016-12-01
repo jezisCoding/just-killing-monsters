@@ -5,8 +5,10 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     entity.cpp \
-    interactiveentity.cpp
+    interactiveentity.cpp \
+    environment.cpp
 
 HEADERS += \
     entity.h \
-    interactiveentity.h
+    interactiveentity.h \
+    environment.h
