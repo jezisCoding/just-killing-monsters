@@ -2,7 +2,6 @@
 
 InteractiveEntity::InteractiveEntity(std::__cxx11::string mapSign) : Entity(mapSign)
 {
-    this->mapSign = mapSign;
 }
 
 int InteractiveEntity::interaction(InteractiveEntity *with)
