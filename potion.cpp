@@ -1,6 +1,6 @@
 #include "potion.h"
 
-Potion::Potion(int healthBonus, std::__cxx11::string mapSign) : InteractiveEntity(mapSign)
+Potion::Potion(std::__cxx11::string mapSign, int healthBonus) : InteractiveEntity(mapSign)
 {
     this->healthBonus = healthBonus;
 }

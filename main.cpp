@@ -1,29 +1,23 @@
 //#include <cstdlib>
 
 #include <iostream>
+#include <gameengine.h>
 
-struct MathClass{
-    int value;
-    MathClass(int value){this->value = value;}
-    /*MathClass* operator+ (MathClass* b){
-        MathClass* box = new MathClass(value + b->value);
-        return box;
-    }*/
-    void out() {std::cout << this->value << std::endl;}
-};
-
-int main(int argc, char *argv[])
+int main(/*int argc, char *argv[]*/)
 {
-
-    MathClass* meh = new MathClass(2);
-    MathClass* ayy = new MathClass(2);
-    int s = 0;
-    meh = meh + s;
-    meh->out();
-
     std::cout << "Hello World!" << std::endl;
+
+    GameEngine *engine = new GameEngine;
+    engine->play();
+
     return EXIT_SUCCESS;
 }
 
+//destruktory
 //overloadnut operator
-
+//nahradit moje metody z STL, for_each
+//2D pole
+//initialize vector by ={a,b,c}
+//struct constructor = variable(value),
+//sortnut daco
+//stringy

@@ -9,14 +9,15 @@ class Hero : public Creature
 private:
     int readiness;
     bool surpriseHit;
-    Position* position;
+    Position *position;
 public:
-    Hero(int readiness, bool surpriseHit, Position *position, int health, int attack, std::string mapSign);
+    Hero(std::string mapSign, int health, int attack, int readiness, bool surpriseHit,
+         Position *position);
     ~Hero();
     int getAttack();
     int attack(InteractiveEntity target);
-    Position* getPosition();
-    void setPosition(Position* position);
+    Position *getPosition();
+    void setPosition(Position *position);
     int interaction(InteractiveEntity *with);
 };
 

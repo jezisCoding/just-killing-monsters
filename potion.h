@@ -9,10 +9,10 @@ class Potion : public InteractiveEntity
 private:
     int healthBonus;
 public:
-    Potion(int healthBonus, std::string mapSign);
+    Potion(std::string mapSign, int healthBonus);
     ~Potion();
     int getHealthBonus();
-    int interaction(Creature* with);
+    int interaction(Creature *with);
 };
 
 #endif // POTION_H

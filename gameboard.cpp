@@ -2,8 +2,8 @@
 
 GameBoard::GameBoard()
 {
-    Environment *empty = new Environment(Environment::Empty, ".");
-    Environment *tree = new Environment(Environment::Tree, "T");
+    Environment *empty = new Environment(".", Environment::Empty);
+    Environment *tree = new Environment("T", Environment::Tree);
     Position *pos;
 
     for (int i=0; i<10; i++){
@@ -36,10 +36,14 @@ GameBoard::GameBoard()
     }
 
     Position *heroPos = new Position(1,1);
-    hero = new Hero(10, true, heroPos, 100, 15, "H");
-    InteractiveEntity *potion = new Potion(50, "L");
+    hero = new Hero("H", 100, 20, 15, true, heroPos);
+    Potion *potion = new Potion("P", 50);
+    Monster*monster1 = new Monster("M", 100, 20, 5);
+    //what if Monster *monster1
+
     setFieldEntityAt(heroPos, hero);
     setFieldEntityAt(new Position(5,5), potion);
+    setFieldEntityAt(new Position(4,4), monster1);
 }
 
 Hero *GameBoard::getHero(){
@@ -63,8 +67,8 @@ void GameBoard::moveHero(Position *toPos){
     board.at(toPos->x).at(toPos->y)->setFieldEntity(hero);
     hero->setPosition(toPos);
 }
-
-void GameBoard::printBoard(){
+                              //for (string &s : stringVec) cout << s << " ";
+void GameBoard::printBoard(){ //vector<>::size_type; !=.size()
     for (int i=0; i<10; i++){
         for (int j=0; j<10; j++){
             std::cout << std::left << std::setw(2) <<
@@ -74,14 +78,28 @@ void GameBoard::printBoard(){
     }
 }
 
-void GameBoard::deleteEntity(InteractiveEntity *entity){ //delete entity at?
-
-}
-
 void GameBoard::deleteEntityAt(Position *atPos){
     delete board.at(atPos->x).at(atPos->y);
 }
 
 void GameBoard::interactHeroWith(InteractiveEntity *with){
-
+    /*
+    int sCim;
+    int vysledok = koho->interakcia(sCim);
+    if (vysledok == 0) {
+        std::cout << "returned 0" << std::endl;
+    } else if (vysledok == 1) {
+        plocha.at(koho->getPozicia()->x).at(koho->getPozicia()->y) = nullptr;
+        delete koho;
+    } else if (vysledok == 2) {
+        plocha.at(sCim->getPozicia()->x).at(sCim->getPozicia()->y) = nullptr;
+        delete sCim;
+    } else if (vysledok == 3) {
+        plocha.at(sCim->getPozicia()->x).at(sCim->getPozicia()->y) = nullptr;
+        delete sCim;
+        plocha.at(koho->getPozicia()->x).at(koho->getPozicia()->y) = nullptr;
+        delete koho;
+    } else {
+        std::cout << "??? returned -1" << std::endl;
+    }*/
 }

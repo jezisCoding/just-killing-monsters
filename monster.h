@@ -8,7 +8,7 @@ class Monster : public Creature
 private:
     int fearsomeness;
 public:
-    Monster(int fearsomeness, int health, int attack, std::string mapSign);
+    Monster(std::string mapSign, int health, int attack, int fearsomeness);
     int getFearsomeness();
     void dealDamage(int amount );
 };

@@ -1,6 +1,6 @@
 #include "creature.h"
 
-Creature::Creature(int health, int attack, std::__cxx11::string mapSign) : InteractiveEntity(mapSign)
+Creature::Creature(std::__cxx11::string mapSign, int health, int attack) : InteractiveEntity(mapSign)
 {
     this->health = health;
     this->attack = attack;

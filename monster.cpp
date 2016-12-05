@@ -1,7 +1,7 @@
 #include "monster.h"
 
-Monster::Monster(int fearsomeness, int health, int attack, std::__cxx11::string mapSign)
-    : Creature(health, attack, mapSign)
+Monster::Monster(std::__cxx11::string mapSign, int health, int attack, int fearsomeness)
+    : Creature(mapSign, health, attack)
 {
     this->fearsomeness = fearsomeness;
 }

@@ -9,7 +9,7 @@ protected:
     int health;
     int attack;
 public:
-    Creature(int health, int attack, std::string mapSign);
+    Creature(std::string mapSign, int health, int attack);
     int getAttack() const;
     int getHealth() const;
     void setHealth(int toValue);

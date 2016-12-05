@@ -9,7 +9,7 @@ struct Environment : public Entity
 private:
     fieldType type;
 public:
-    Environment(fieldType type, std::string mapSign);
+    Environment(std::string mapSign, fieldType type);
     fieldType getType();
 };
 

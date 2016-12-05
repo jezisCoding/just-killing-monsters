@@ -7,7 +7,8 @@ class InteractiveEntity : public Entity
 {
 public:
     InteractiveEntity(std::__cxx11::string mapSign);
-    int interaction(InteractiveEntity *with);
+    virtual int interaction(InteractiveEntity *with);
+    //virtual int interaction(Creature *with);
 };
 
 #endif // INTERACTIVEENTITY_H

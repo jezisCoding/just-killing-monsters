@@ -1,6 +1,6 @@
 #include "environment.h"
 
-Environment::Environment(fieldType type, std::__cxx11::string mapSign) : Entity(mapSign)
+Environment::Environment(std::__cxx11::string mapSign, fieldType type) : Entity(mapSign)
 {
     this->type = type;
 }

@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     potion.cpp \
     monster.cpp \
     gamefield.cpp \
-    gameboard.cpp
+    gameboard.cpp \
+    gameengine.cpp
 
 HEADERS += \
     entity.h \
@@ -24,4 +25,5 @@ HEADERS += \
     potion.h \
     monster.h \
     gamefield.h \
-    gameboard.h
+    gameboard.h \
+    gameengine.h
