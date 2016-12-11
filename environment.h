@@ -5,7 +5,7 @@
 
 struct Environment : public Entity
 {
-    enum fieldType {Empty, Rock, Tree}; //new type declared
+    enum fieldType {Empty, Rock, Tree, Corpse}; //new type declared
 private:
     fieldType type;
 public:

@@ -1,49 +1,68 @@
 #include "gameboard.h"
 
+Monster* GameBoard::left = nullptr;
+//I CAN JUST COMMENT ALL THIS SHIT ITS NOT SUPPOSED TO WORK ANYWAY
+
 GameBoard::GameBoard()
 {
     Environment *empty = new Environment(".", Environment::Empty);
     Environment *tree = new Environment("T", Environment::Tree);
     Position *pos;
 
-    for (int i=0; i<10; i++){
+    for (int i=0; i<sizeX; i++){
         std::vector<GameField *> row;
-        for (int j=0; j<10; j++){
+        for (int j=0; j<sizeY; j++){
             pos = new Position(i,j);
             row.push_back(new GameField(nullptr, empty, pos));
         }
         board.push_back(row);
     }
 
-    for (int i=0; i<10; i++){
+    for (int i=0; i<sizeX; i++){
         int j=0;
         pos = new Position(i,j);
         board.at(i).at(j)= new GameField(nullptr, tree, pos);
 
-        j=9;
+        j=sizeY-1;
         pos = new Position(i,j);
         board.at(i).at(j)= new GameField(nullptr, tree, pos);
     }
 
-    for (int j=1; j<9; j++){
+    for (int j=1; j<sizeY-1; j++){
         int i=0;
         pos = new Position(i,j);
         board.at(i).at(j)= new GameField(nullptr, tree, pos);
 
-        i=9;
+        i=sizeX-1;
         pos = new Position(i,j);
         board.at(i).at(j)= new GameField(nullptr, tree, pos);
     }
 
     Position *heroPos = new Position(1,1);
-    hero = new Hero("H", 100, 20, 15, true, heroPos);
+    hero = new Hero("The hero", "H", 100, 20, 15, true, heroPos);
+    Monster *monster1 = new Monster("A not too scary monster", "M", 100, 15, 1.1);
+    Monster *monster2 = new Monster("A scarier monster", "N", 100, 15, 1.5);
+    monsters.push_back(monster1);
+    monsters.push_back(monster2);
     Potion *potion = new Potion("P", 50);
-    Monster*monster1 = new Monster("M", 100, 20, 5);
-    //what if Monster *monster1
+
+
 
     setFieldEntityAt(heroPos, hero);
     setFieldEntityAt(new Position(5,5), potion);
     setFieldEntityAt(new Position(4,4), monster1);
+    setFieldEntityAt(new Position(3,6), monster2);
+}
+
+GameBoard::~GameBoard(){/*
+    for (int i=0; i<sizeX; i++){
+        for (int j=0; j<sizeY; j++){
+            pos = new Position(i,j);
+            row.push_back(new GameField(nullptr, empty, pos));
+        }
+        board.push_back(row);
+    }*/
+    //delete the env etc
 }
 
 Hero *GameBoard::getHero(){
@@ -58,7 +77,7 @@ Environment::fieldType GameBoard::getEnvTypeAt(Position *atPos){
     return board.at(atPos->x).at(atPos->y)->getFieldEnvironment()->getType();
 }
 
-void GameBoard::setFieldEntityAt(Position *atPos, InteractiveEntity *toEntity){
+void GameBoard::setFieldEntityAt(Position *atPos, Entity *toEntity){
     board.at(atPos->x).at(atPos->y)->setFieldEntity(toEntity);
 }
 
@@ -66,9 +85,11 @@ void GameBoard::moveHero(Position *toPos){
     board.at(hero->getPosition()->x).at(hero->getPosition()->y)->setFieldEntity(nullptr);
     board.at(toPos->x).at(toPos->y)->setFieldEntity(hero);
     hero->setPosition(toPos);
+    hero->resetSurpriseHit();
 }
                               //for (string &s : stringVec) cout << s << " ";
 void GameBoard::printBoard(){ //vector<>::size_type; !=.size()
+    std::cout << std::endl;
     for (int i=0; i<10; i++){
         for (int j=0; j<10; j++){
             std::cout << std::left << std::setw(2) <<
@@ -76,30 +97,39 @@ void GameBoard::printBoard(){ //vector<>::size_type; !=.size()
         }
         std::cout << std::endl;
     }
+    std::cout << std::endl;
 }
 
 void GameBoard::deleteEntityAt(Position *atPos){
-    delete board.at(atPos->x).at(atPos->y);
+    Entity *entityAtPos = board.at(atPos->x).at(atPos->y)->getFieldEntity();
+    setFieldEntityAt(atPos, nullptr);
+
+    Creature *creatureAtPos = dynamic_cast<Creature *>(entityAtPos);
+
+    if (creatureAtPos != nullptr)
+        getFieldAt(atPos)->setFieldEnvironment(new Environment("X", Environment::Corpse));
+
+    left = dynamic_cast<Monster *>(entityAtPos);
+    if (left != nullptr){
+        std::vector<Monster *>::iterator toDelete =
+            std::find_if(monsters.begin(), monsters.end(), monsterComparison);
+        monsters.erase(toDelete);
+    }
+
+    delete entityAtPos;
+
+
+    //deleteMonsterAt, pridat case
 }
 
-void GameBoard::interactHeroWith(InteractiveEntity *with){
-    /*
-    int sCim;
-    int vysledok = koho->interakcia(sCim);
-    if (vysledok == 0) {
-        std::cout << "returned 0" << std::endl;
-    } else if (vysledok == 1) {
-        plocha.at(koho->getPozicia()->x).at(koho->getPozicia()->y) = nullptr;
-        delete koho;
-    } else if (vysledok == 2) {
-        plocha.at(sCim->getPozicia()->x).at(sCim->getPozicia()->y) = nullptr;
-        delete sCim;
-    } else if (vysledok == 3) {
-        plocha.at(sCim->getPozicia()->x).at(sCim->getPozicia()->y) = nullptr;
-        delete sCim;
-        plocha.at(koho->getPozicia()->x).at(koho->getPozicia()->y) = nullptr;
-        delete koho;
-    } else {
-        std::cout << "??? returned -1" << std::endl;
-    }*/
+bool GameBoard::monstersDead() const{
+    //if (Monster::getMonsterCount() == 0) return true;
+    if (monsters.empty()) return true;
+    return false;
 }
+// GameBoard:: dofakadat
+bool GameBoard::monsterComparison(Monster* right){
+    if (left->getName()==right->getName() && GameBoard::left->getHealth()==right->getHealth()) return true;
+    return false;
+}
+

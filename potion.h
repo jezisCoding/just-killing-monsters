@@ -1,18 +1,17 @@
 #ifndef POTION_H
 #define POTION_H
 
-#include "interactiveentity.h"
-#include "creature.h"
+#include "entity.h"
 
-class Potion : public InteractiveEntity
+class Potion : public Entity
 {
 private:
     int healthBonus;
 public:
     Potion(std::string mapSign, int healthBonus);
     ~Potion();
+    int reaction(Creature &to);
     int getHealthBonus();
-    int interaction(Creature *with);
 };
 
 #endif // POTION_H

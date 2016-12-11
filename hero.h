@@ -11,14 +11,14 @@ private:
     bool surpriseHit;
     Position *position;
 public:
-    Hero(std::string mapSign, int health, int attack, int readiness, bool surpriseHit,
+    Hero(std::string mapSign, std::string name, int health, int attack, int readiness, bool surpriseHit,
          Position *position);
     ~Hero();
-    int getAttack();
-    int attack(InteractiveEntity target);
+    int getAttack() ;
     Position *getPosition();
     void setPosition(Position *position);
-    int interaction(InteractiveEntity *with);
+    void resetSurpriseHit();
+    //int interaction(Creature *with);
 };
 
 #endif // HERO_H

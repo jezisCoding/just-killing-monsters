@@ -1,6 +1,6 @@
 #include "gamefield.h"
 
-GameField::GameField(InteractiveEntity *fieldEntity, Environment *fieldEnvironment, Position *fieldPosition)
+GameField::GameField(Entity *fieldEntity, Environment *fieldEnvironment, Position *fieldPosition)
 {
     this->fieldEntity = fieldEntity;
     this->fieldEnvironment = fieldEnvironment;
@@ -21,7 +21,7 @@ Environment *GameField::getFieldEnvironment(){
     return fieldEnvironment;
 }
 
-InteractiveEntity *GameField::getFieldEntity(){
+Entity *GameField::getFieldEntity(){
     return fieldEntity;
 }
 
@@ -30,7 +30,10 @@ std::string GameField::getPrintSign(){
     return fieldEnvironment->getMapSign();
 }
 
-void GameField::setFieldEntity(InteractiveEntity* toValue){
+void GameField::setFieldEntity(Entity *toValue){
     fieldEntity = toValue;
 }
 
+void GameField::setFieldEnvironment(Environment *toValue){
+    this->fieldEnvironment = toValue;
+}

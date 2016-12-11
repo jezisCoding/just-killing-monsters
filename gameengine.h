@@ -10,10 +10,13 @@ private:
     Hero* hero;
 public:
     GameEngine();
+    ~GameEngine();
     void play();
-    void heroAction(char direction);
+    bool heroAction(char direction);
     void welcome();
     Position *createTargetPosition(char input);
+    bool endGame(char input) const;
+    char getKeyboardInput() const;
 };
 
 #endif // GAMEENGINE_H

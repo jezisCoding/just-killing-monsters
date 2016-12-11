@@ -6,11 +6,15 @@
 class Monster : public Creature
 {
 private:
-    int fearsomeness;
+    float fearsomeness;
+    static int monsterCount;
 public:
-    Monster(std::string mapSign, int health, int attack, int fearsomeness);
+    Monster(std::string mapSign, std::string name, int health, int attack, float fearsomeness);
+    ~Monster();
     int getFearsomeness();
-    void dealDamage(int amount );
+    int getAttack();
+    static int getMonsterCount();
+    //bool isSame(const Monster &right);
 };
 
 #endif // MONSTER_H

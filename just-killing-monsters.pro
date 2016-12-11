@@ -5,7 +5,6 @@ CONFIG -= qt
 
 SOURCES += main.cpp \
     entity.cpp \
-    interactiveentity.cpp \
     environment.cpp \
     creature.cpp \
     hero.cpp \
@@ -13,11 +12,11 @@ SOURCES += main.cpp \
     monster.cpp \
     gamefield.cpp \
     gameboard.cpp \
-    gameengine.cpp
+    gameengine.cpp \
+    my2dvector.cpp
 
 HEADERS += \
     entity.h \
-    interactiveentity.h \
     environment.h \
     creature.h \
     hero.h \
@@ -26,4 +25,5 @@ HEADERS += \
     monster.h \
     gamefield.h \
     gameboard.h \
-    gameengine.h
+    gameengine.h \
+    my2dvector.h

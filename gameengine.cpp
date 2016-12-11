@@ -6,45 +6,66 @@ GameEngine::GameEngine()
     hero = gameBoard->getHero();
 }
 
-void GameEngine::play(){
-    welcome();
-    std::cout << "Ovladanie: WASD-pohyb" << std::endl;
-    char input;
-    std::cin >> input;
-    input = toupper(input);
-
-    while (input != 'X') {
-        heroAction(input);
-        gameBoard->printBoard();
-        std::cin >> input;
-        input = toupper(input);
-    }
-
-    std::cout << "Koniec hry" << std::endl;
+GameEngine::~GameEngine(){
+    delete gameBoard;
 }
 
-void GameEngine::heroAction(char direction){
-    Position *targetPosition = createTargetPosition(direction);
-    InteractiveEntity *targetFieldEntity = gameBoard->getFieldAt(targetPosition)->getFieldEntity();
+void GameEngine::play(){
+    char input = 'Q';
+    welcome();
 
-    if (targetFieldEntity != nullptr) {
-            /*
-             * 1. vypije lektvar - lektvar vymazat, healnut, vypisat nieco
-             * 2. pohne sa tam - zmenit poziciu, obsah pola
-             */
-        gameBoard->interactHeroWith(targetFieldEntity);
-        hero->interaction(targetFieldEntity);
-
-    } else {
-        if (gameBoard->getEnvTypeAt(targetPosition) == Environment::Empty){
-            std::cout << "setujem hera" <<std::endl;
-            gameBoard->moveHero(targetPosition);
+    while (!endGame(input)) {
+        input = getKeyboardInput();
+        if (input == 'Q') welcome();
+        else {
+            heroAction(input);
+            gameBoard->printBoard();
         }
     }
 }
 
+bool GameEngine::heroAction(char direction){
+    Position *targetPosition = createTargetPosition(direction);
+    Entity *targetFieldEntity = gameBoard->getFieldAt(targetPosition)->getFieldEntity();
+
+    if (targetFieldEntity != nullptr) {
+        int outcome = hero->interaction(targetFieldEntity);
+
+        switch (outcome) {
+        case 0:  //both survived
+            break;
+        case 1:  //hero died
+            gameBoard->deleteEntityAt(hero->getPosition());
+            hero = nullptr;
+            return false;
+            break;
+        case 2:  //opponent died
+            gameBoard->deleteEntityAt(targetPosition);
+            break;
+        case 3:  //both died
+            gameBoard->deleteEntityAt(hero->getPosition());
+            gameBoard->deleteEntityAt(targetPosition);
+            hero = nullptr;
+            return false;
+            break;
+        default:
+            break;
+        }
+        return true;
+
+    } else {
+        if (gameBoard->getEnvTypeAt(targetPosition) == Environment::Empty){
+            gameBoard->moveHero(targetPosition);
+        } else std::cout << "You can't move into a tree" <<std::endl;
+    }
+    return true;
+}
+
 void GameEngine::welcome(){
-    std::cout << "welcome method" << std::endl;
+    std::cout << "Welcome to the game of Just Killing Monsters \n"
+              << "Kill the monsters by running into them: WSAD to move, Q for this Intro, X to exit\n"
+              << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
+              << "Legend: [H]-Hero, [P]-Health Potion, [M,N,...]-Monsters, [T]-Tree\n";
     gameBoard->printBoard();
 }
 
@@ -64,18 +85,44 @@ Position *GameEngine::createTargetPosition(char direction){
         targetPos = new Position(hero->getPosition()->x, hero->getPosition()->y+1);
         break;
     default:
-        std::cout << "Invalid." << std::endl;
+        std::cout << "Invalid input." << std::endl;
+        std::cout << "Stop hitting yourself!" << std::endl;
         break;
     }
     return targetPos;
 }
 
+bool GameEngine::endGame(char input) const{
 
+    if (input == 'X') return true;
+    else if (hero == nullptr && gameBoard->monstersDead()){
+        std::cout << "After an epic battle with the last of the monsters... You died.\n"
+                     "But you did kill them all and the goal of the game wasnt to survive so "
+                     "technically you win"
+                  << std::endl << std::endl
+                  << "Game over" << std::endl;
+        return true;
+    }
+    else if (hero == nullptr) {
+        std::cout << "Did you actually manage to loose this game? uninstall pls"
+                  << std::endl << std::endl
+                  << "Game over" << std::endl;
+        return true;
+    }
+    else if (gameBoard->monstersDead()){
+        std::cout << "You've killed all the monsters and saved the village from certain doom! GG "
+                  << std::endl << std::endl
+                  << "Game over" << std::endl;
+        return true;
+    }
+    return false;
+}
 
-
-
-
-
-
-
-
+/* This method returns input from keyboard converted to Upcase
+ */
+char GameEngine::getKeyboardInput() const{
+    std::cout << "Hero's action: ";
+    char input;
+    std::cin >> input;
+    return toupper(input);
+}

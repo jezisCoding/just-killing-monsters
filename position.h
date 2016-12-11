@@ -6,10 +6,7 @@ struct Position
 {
     unsigned int x;
     unsigned int y;
-    Position(unsigned int x, unsigned int y){
-        this->x = x;
-        this->y = y;
-    }
+    Position(unsigned int xVal, unsigned int yVal) : x(xVal), y(yVal) {}
 };
 
 #endif // POSITION_H
