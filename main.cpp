@@ -1,7 +1,16 @@
-#include <iostream>
+//#include <cstdlib>
 
-int main(int argc, char *argv[])
+#include <iostream>
+#include <gameengine.h>
+
+int main()
 {
-    std::cout << "Hello World!" << std::endl;
-    return 0;
+
+    GameEngine *engine = new GameEngine;
+    engine->play();
+    delete engine;
+    return EXIT_SUCCESS;
 }
+
+
+//endgame testnut

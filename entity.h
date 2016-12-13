@@ -5,16 +5,19 @@
 #include <iostream>
 #include <typeinfo>
 
+class Creature;
+
 class Entity
 {
 protected:
     std::string mapSign;
 public:
     Entity(std::string mapSign);
-    ~Entity();
+    virtual ~Entity();
     std::string getMapSign() const;
-    /*virtual void printTypeId();
-    virtual std::string getTypeId();    vraca mi typ Entita aj ked volam z potomka, pozri do ZOOcka?*/
+    virtual int reaction(Creature &to); //=0?
+    virtual std::string getPointerTypeIdString(); //skusit odvirtualizovat
+    virtual std::string getValueTypeIdString();
 };
 
 #endif // ENTITY_H
