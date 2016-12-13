@@ -110,7 +110,7 @@ bool GameEngine::endGame(char input) const{
         return true;
     }
     else if (gameBoard->monstersDead()){
-        std::cout << "You've killed all the monsters and saved the village from certain doom! GG "
+        std::cout << "You've killed all the monsters and saved the village from certain doom! GG"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
         return true;

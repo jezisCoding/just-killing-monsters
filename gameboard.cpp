@@ -1,7 +1,7 @@
 #include "gameboard.h"
 
-Monster* GameBoard::left = nullptr;
-//I CAN JUST COMMENT ALL THIS SHIT ITS NOT SUPPOSED TO WORK ANYWAY
+//for implementation of monstersDead with vector
+//Monster* GameBoard::left = nullptr;
 
 GameBoard::GameBoard()
 {
@@ -42,8 +42,8 @@ GameBoard::GameBoard()
     hero = new Hero("The hero", "H", 100, 20, 15, true, heroPos);
     Monster *monster1 = new Monster("A not too scary monster", "M", 100, 15, 1.1);
     Monster *monster2 = new Monster("A scarier monster", "N", 100, 15, 1.5);
-    monsters.push_back(monster1);
-    monsters.push_back(monster2);
+    /*monsters.push_back(monster1);
+    monsters.push_back(monster2);*/ //for implementation of monstersDead with vector
     Potion *potion = new Potion("P", 50);
 
 
@@ -109,27 +109,26 @@ void GameBoard::deleteEntityAt(Position *atPos){
     if (creatureAtPos != nullptr)
         getFieldAt(atPos)->setFieldEnvironment(new Environment("X", Environment::Corpse));
 
-    left = dynamic_cast<Monster *>(entityAtPos);
+        //for implementation of monstersDead with vector
+    /*left = dynamic_cast<Monster *>(entityAtPos);
     if (left != nullptr){
-        std::vector<Monster *>::iterator toDelete =
+        std::vector<Monster *>::iterator toDeleteIterator =
             std::find_if(monsters.begin(), monsters.end(), monsterComparison);
-        monsters.erase(toDelete);
-    }
+        monsters.erase(toDeleteIterator);
+    }*/
 
     delete entityAtPos;
-
-
-    //deleteMonsterAt, pridat case
 }
 
 bool GameBoard::monstersDead() const{
-    //if (Monster::getMonsterCount() == 0) return true;
-    if (monsters.empty()) return true;
+    if (Monster::getMonsterCount() == 0) return true;
+    //if (monsters.empty()) return true;        //for implementation of monstersDead with vector
     return false;
 }
-// GameBoard:: dofakadat
-bool GameBoard::monsterComparison(Monster* right){
+
+    //for implementation of monstersDead with vector
+/*bool GameBoard::monsterComparison(Monster* right){
     if (left->getName()==right->getName() && GameBoard::left->getHealth()==right->getHealth()) return true;
     return false;
-}
+}*/
 

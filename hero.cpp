@@ -9,6 +9,7 @@ Hero::Hero(std::__cxx11::string mapSign, std::string name, int health, int attac
 }
 
 Hero::~Hero(){
+    delete position;
     std::cout << name + " is rip, git gud" << std::endl;
 }
 
