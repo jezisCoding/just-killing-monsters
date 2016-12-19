@@ -15,10 +15,8 @@
 class GameBoard
 {
 private:
-    std::vector<std::vector<GameField *>> board;
+    My2DVector<GameField *> board;
     Hero *hero;
-    const int sizeX = 10;
-    const int sizeY = 10;
         //for implementation of monstersDead with vector
     /*std::vector<Monster *> monsters;
     static Monster *left;*/
@@ -35,6 +33,8 @@ public:
     void deleteEntityAt(Position *atPos);
     bool monstersDead() const;
     static bool monsterComparison(Monster *right);
+    void initializeEnvironment();
+    void initializeEntities();
 };
 
 #endif // GAMEBOARD_H
