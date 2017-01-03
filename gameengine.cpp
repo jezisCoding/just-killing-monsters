@@ -2,7 +2,8 @@
 
 GameEngine::GameEngine()
 {
-    gameBoard = new GameBoard();
+    EntityFactory* ef = new EntityFactory;
+    gameBoard = new GameBoard(ef);
     hero = gameBoard->getHero();
 }
 
@@ -11,21 +12,43 @@ GameEngine::~GameEngine(){
 }
 
 void GameEngine::play(){
-    char input = 'Q';
+    char input = '\0';
     welcome();
 
-    while (!endGame(input)) {
+    do {
+        input = getKeyboardInput();
+
+        switch (input) {
+        case 'Q':
+            welcome();
+            break;
+        case 'E':
+            saveGame();
+            break;
+        case 'R':
+            loadGame();
+            break;
+        case 'X':
+            //just let it fall
+            break;
+        default:
+            heroAction(input);
+            gameBoard->printBoard();
+        }
+    } while (!endGame(input));
+
+    /*while (!endGame(input)) {
         input = getKeyboardInput();
         if (input == 'Q') welcome();
         else {
             heroAction(input);
             gameBoard->printBoard();
         }
-    }
+    }*/
 }
 
 bool GameEngine::heroAction(char direction){
-    Position *targetPosition = createTargetPosition(direction);
+    Position *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
     Entity *targetFieldEntity = gameBoard->getFieldAt(targetPosition)->getFieldEntity();
 
     if (targetFieldEntity != nullptr) {
@@ -61,35 +84,13 @@ bool GameEngine::heroAction(char direction){
     return true;
 }
 
-void GameEngine::welcome(){
-    std::cout << "Welcome to the game of Just Killing Monsters \n"
-              << "Kill the monsters by running into them: WSAD to move, Q for this Intro, X to exit\n"
+void GameEngine::welcome() const{
+    std::cout << "Welcome to the game of Just Killing Monsters\n"
+              << "Kill the monsters by running into them: WSAD to move,\n"
+              << "Q for this Intro, X to exit, E to save game\n"
               << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
               << "Legend: [H]-Hero, [P]-Health Potion, [M,N,...]-Monsters, [T]-Tree\n";
     gameBoard->printBoard();
-}
-
-Position *GameEngine::createTargetPosition(char direction){
-    Position *targetPos = hero->getPosition();
-    switch (direction) {
-    case 'W':
-        targetPos = new Position(hero->getPosition()->x-1, hero->getPosition()->y);
-        break;
-    case 'S':
-        targetPos = new Position(hero->getPosition()->x+1, hero->getPosition()->y);
-        break;
-    case 'A':
-        targetPos = new Position(hero->getPosition()->x, hero->getPosition()->y-1);
-        break;
-    case 'D':
-        targetPos = new Position(hero->getPosition()->x, hero->getPosition()->y+1);
-        break;
-    default:
-        std::cout << "Invalid input." << std::endl;
-        std::cout << "Stop hitting yourself!" << std::endl;
-        break;
-    }
-    return targetPos;
 }
 
 bool GameEngine::endGame(char input) const{
@@ -125,4 +126,12 @@ char GameEngine::getKeyboardInput() const{
     char input;
     std::cin >> input;
     return toupper(input);
+}
+
+bool GameEngine::saveGame() const{
+    gameBoard->saveBoard();
+}
+
+void GameEngine::loadGame(){
+    gameBoard->loadBoard();
 }

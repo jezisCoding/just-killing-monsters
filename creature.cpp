@@ -28,6 +28,7 @@ void Creature::setHealth(int toValue){
 }
 
 int Creature::reaction(Creature &to){
+    if (to == *this) std::cout << "Stop hitting yourself!" << std::endl;
     return defendYourselfFrom(to);
 }
 

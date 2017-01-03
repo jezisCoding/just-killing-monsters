@@ -17,15 +17,19 @@ public:
 
     T& at(unsigned int x, unsigned int y) {return myVector.at(x * sizeY + y);}
 
+    T& at(unsigned int x) {return myVector.at(x);}
+
+    const T& at(unsigned int x) const {return myVector.at(x);}
+
     void push_back(const T& value){myVector.push_back(value);}
 
     unsigned int getSizeX() const{return sizeX;}
 
     unsigned int getSizeY() const{return sizeY;}
 
-    const_iterator begin(){return myVector.begin();}
+    const_iterator begin() const{return myVector.begin();}
 
-    const_iterator end(){return myVector.end();}
+    const_iterator end() const{return myVector.end();}
 
     struct MyDeleter : std::unary_function<T, void>{
         void operator()(T fieldPtr){delete fieldPtr;}

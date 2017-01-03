@@ -13,7 +13,9 @@ SOURCES += main.cpp \
     gamefield.cpp \
     gameboard.cpp \
     gameengine.cpp \
-    my2dvector.cpp
+    my2dvector.cpp \
+    fearsomemonster.cpp \
+    entityfactory.cpp
 
 HEADERS += \
     entity.h \
@@ -26,4 +28,6 @@ HEADERS += \
     gamefield.h \
     gameboard.h \
     gameengine.h \
-    my2dvector.h
+    my2dvector.h \
+    fearsomemonster.h \
+    entityfactory.h

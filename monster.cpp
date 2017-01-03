@@ -1,24 +1,16 @@
 #include "monster.h"
 
-int Monster::monsterCount = 0;  //this seems like im declaring it again
+int Monster::monsterCount = 0;
 
-Monster::Monster(std::__cxx11::string mapSign, std::__cxx11::string name, int health, int attack, float fearsomeness)
+Monster::Monster(std::__cxx11::string mapSign, std::__cxx11::string name, int health, int attack)
     : Creature(name, mapSign, health, attack)
 {
-    this->fearsomeness = fearsomeness;
     monsterCount++;
 }
 
 Monster::~Monster(){
     std::cout << name + ": \"Bleeurhgdjksfgdak......h.\\\"  *pepsi*" << std::endl;
     monsterCount--;
-}
-
-int Monster::getFearsomeness(){
-    return fearsomeness;
-}
-int Monster::getAttack(){
-    return fearsomeness*attack;
 }
 
 /*bool Monster::isSame(const Monster& right){

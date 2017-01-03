@@ -3,8 +3,9 @@
 //for implementation of monstersDead with vector
 //Monster* GameBoard::left = nullptr;
 
-GameBoard::GameBoard()
+GameBoard::GameBoard(EntityFactory *ef)
 {
+    this->ef = ef;
     initializeEnvironment();
     initializeEntities();
 }
@@ -38,10 +39,10 @@ void GameBoard::moveHero(Position *toPos){
                               //for (string &s : stringVec) cout << s << " ";
 void GameBoard::printBoard(){ //vector<>::size_type; !=.size()
     std::cout << std::endl;
-    for (unsigned int i=0; i<10; i++){
+    for (auto i=0; i<10; i++){
         for (unsigned int j=0; j<10; j++){
-            std::cout << std::left << std::setw(2) <<
-                board.at(i, j)->getPrintSign();
+            std::cout << std::left << std::setw(2)
+                      << board.at(i, j)->getPrintSign();
         }
         std::cout << std::endl;
     }
@@ -55,7 +56,7 @@ void GameBoard::deleteEntityAt(Position *atPos){
     Creature *creatureAtPos = dynamic_cast<Creature *>(entityAtPos);
 
     if (creatureAtPos != nullptr)
-        getFieldAt(atPos)->setFieldEnvironment(new Environment("X", Environment::Corpse));
+        getFieldAt(atPos)->setFieldEnvironment(ef->getNewEnvironment(Environment::Corpse));
 
         //for implementation of monstersDead with vector
     /*left = dynamic_cast<Monster *>(entityAtPos);
@@ -81,8 +82,9 @@ bool GameBoard::monstersDead() const{
 }*/
 
 void GameBoard::initializeEnvironment(){
-    Environment *empty = new Environment(".", Environment::Empty);
-    Environment *tree = new Environment("T", Environment::Tree);
+    EntityFactory ef;
+    Environment *empty = ef.getNewEnvironment(Environment::Empty);
+    Environment *tree = ef.getNewEnvironment(Environment::Tree);
     Position *pos;
 
     for (unsigned int i=0; i<board.getSizeX(); i++){
@@ -115,16 +117,72 @@ void GameBoard::initializeEnvironment(){
 
 void GameBoard::initializeEntities(){
     Position *heroPos = new Position(1,1);
-    hero = new Hero("The hero", "H", 100, 20, 15, true, heroPos);
-    Monster *monster1 = new Monster("A not too scary monster", "M", 100, 15, 1.1);
-    Monster *monster2 = new Monster("A scarier monster", "N", 100, 15, 1.5);
+    hero = ef->getNewHero(heroPos);
+    Monster *monster1 = ef->getNewMonster(0);
+    Monster *monster2 = ef->getNewMonster(1);
+
     /*monsters.push_back(monster1);
     monsters.push_back(monster2);*/ //for implementation of monstersDead with vector
-    Potion *potion = new Potion("P", 50);
+
+    Potion *potion = ef->getNewPotion();
 
     setFieldEntityAt(heroPos, hero);
     setFieldEntityAt(new Position(5,5), potion);
     setFieldEntityAt(new Position(4,4), monster1);
     setFieldEntityAt(new Position(3,6), monster2);
 }
+
+bool GameBoard::saveBoard() const{
+    std::ofstream out("map.txt");
+    if(out.is_open()){
+
+        //std::for_each(board.begin(), board.end(), [out](GameField const& item){ out << item.getPrintSign(); });
+        auto it = board.begin();
+        int i = 0;
+        while(it!=board.end()){
+            out << (*it)->getPrintSign();    //double dereference
+            ++it;
+            if (i%10 == 9) out << std::endl;
+            i++;
+        }
+        out.close();
+
+    } else {
+        std::cout << "file not opened" << std::endl;
+    }
+}
+
+void GameBoard::loadBoard(){
+    std::ifstream in("map.txt");
+    if(in.is_open()){
+        std::cout << std::endl;
+
+        char input = '\0';
+        std::string line;
+
+        while (std::getline(in, line)) {
+            std::cout << std::endl << line;
+        }
+        std::cout << std::endl;
+    } else {
+        std::cout << "File not opened" << std::endl << std::endl;
+    }
+    in.close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

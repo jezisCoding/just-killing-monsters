@@ -25,7 +25,7 @@ Entity *GameField::getFieldEntity(){
     return fieldEntity;
 }
 
-std::string GameField::getPrintSign(){
+std::string GameField::getPrintSign() const{
     if (fieldEntity != nullptr) return fieldEntity->getMapSign();
     return fieldEnvironment->getMapSign();
 }
