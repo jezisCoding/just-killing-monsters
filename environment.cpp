@@ -1,11 +1,21 @@
 #include "environment.h"
 
-Environment::Environment(std::__cxx11::string mapSign, fieldType type) : Entity(mapSign)
+Environment::Environment(Position *position, const std::__cxx11::string& mapSign, const fieldType& type)
+    : Entity(position, mapSign)
 {
     this->type = type;
 }
 
-Environment::fieldType Environment::getType()
+Environment::~Environment()
 {
+    delete position;
+}
+
+int Environment::reaction(Creature &to){
+    std::cout << "undefined interaction of " + getTypeIdStringValue() + " with " + to.getTypeIdStringValue() << std::endl;
+    return 0;   //noone died
+}
+
+Environment::fieldType Environment::getType() const{
     return type;
 }

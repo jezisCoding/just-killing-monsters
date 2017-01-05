@@ -1,13 +1,15 @@
 #include "creature.h"
 
-Creature::Creature(std::__cxx11::string mapSign, std::string name, int health, int attack) : Entity(mapSign)
+Creature::Creature(Position *position, std::__cxx11::string mapSign, std::string name, int health, int attack)
+    : Entity(position, mapSign)
 {
     this->name = name;
     this->health = health;
     this->attack = attack;
 }
 
-Creature::~Creature(){
+Creature::~Creature()
+{
     //std::cout << "A creature just died." << std::endl;
 }
 
@@ -19,11 +21,15 @@ int Creature::getHealth() const{
     return health;
 }
 
+int Creature::getMAX_HEALTH(){
+    return MAX_HEALTH;
+}
+
 std::string Creature::getName() const{
     return name;
 }
 
-void Creature::setHealth(int toValue){
+void Creature::setHealth(const int &toValue){
     this->health = toValue;
 }
 

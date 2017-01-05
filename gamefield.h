@@ -15,12 +15,14 @@ private:
 public:
     GameField(Entity *fieldEntity, Environment *fieldEnvironment, Position *fieldPosition);
     ~GameField();
-    Position *getFieldPosition();
-    Environment *getFieldEnvironment();
-    Entity *getFieldEntity();
+
     std::string getPrintSign() const;
+
+    Entity *getFieldEntity() const;
+    Environment *getFieldEnvironment() const;
+    Position *getFieldPosition() const;
+
     void setFieldEntity(Entity *toValue);
-    void deleteFieldEntity();
     void setFieldEnvironment(Environment *toValue);
 };
 

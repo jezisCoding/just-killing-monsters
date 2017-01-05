@@ -7,43 +7,43 @@ GameEngine::GameEngine()
     hero = gameBoard->getHero();
 }
 
-GameEngine::~GameEngine(){
+GameEngine::~GameEngine()
+{
     delete gameBoard;
 }
 
 void GameEngine::play(){
-        char input = '\0';
-        welcome();
+    char input = '\0';
+    welcome();
+    do {
+        try{
+            do {
+                input = getKeyboardInput();
 
-        do {
-            try{
-                do {
-                    input = getKeyboardInput();
+                switch (input) {
+                case 'Q':
+                    welcome();
+                    break;
+                case 'E':
+                    saveGame();
+                    break;
+                case 'R':
+                    loadGame();
+                    break;
+                case 'X':
+                    //just let it fall
+                    break;
+                default:
+                    heroAction(input);
+                    gameBoard->printBoard();
+                }
 
-                    switch (input) {
-                    case 'Q':
-                        welcome();
-                        break;
-                    case 'E':
-                        saveGame();
-                        break;
-                    case 'R':
-                        loadGame();
-                        break;
-                    case 'X':
-                        //just let it fall
-                        break;
-                    default:
-                        heroAction(input);
-                        gameBoard->printBoard();
-                    }
-
-                } while (!endGame(input));
-            } catch (std::exception& ex){
-                std::cerr << "Exception in GameEngine::play() : "
-                          << ex.what() << std::endl;
-            }
-        } while (!endGame(input));
+            } while (!endGame(input));
+        } catch (std::exception& ex){
+            std::cerr << "Exception in GameEngine::play() : "
+                      << ex.what() << std::endl;
+        }
+    } while (!endGame(input));
 
 
     /*while (!endGame(input)) {
@@ -54,6 +54,19 @@ void GameEngine::play(){
             gameBoard->printBoard();
         }
     }*/
+}
+
+void GameEngine::welcome() const{
+    std::cout << "Welcome to the game of Just Killing Monsters\n"
+              << "Kill the monsters by running into them.\n\n"
+
+              << "Controls:"
+              << "WSAD to move, Q for this Intro, X to exit, E to save game, R to load game,\n"
+              << "ENTER to confirm\n\n1"
+
+              << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
+              << "Legend: [H]-Hero, [P]-Health Potion, [M,N,...]-Monsters, [T]-Tree\n";
+    gameBoard->printBoard();
 }
 
 bool GameEngine::heroAction(char direction){
@@ -93,13 +106,31 @@ bool GameEngine::heroAction(char direction){
     return true;
 }
 
-void GameEngine::welcome() const{
-    std::cout << "Welcome to the game of Just Killing Monsters\n"
-              << "Kill the monsters by running into them: WSAD to move,\n"
-              << "Q for this Intro, X to exit, E to save game, R to load game\n"
-              << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
-              << "Legend: [H]-Hero, [P]-Health Potion, [M,N,...]-Monsters, [T]-Tree\n";
-    gameBoard->printBoard();
+/**
+ * This method returns input from keyboard converted to Upcase
+ */
+char GameEngine::getKeyboardInput() const throw (invalid_input){
+    std::cout << "Hero's action: ";
+    char input;
+    std::cin >> input;
+    if (!isalpha((int)input)) throw (invalid_input("Use only letters for controlling"));
+    return toupper(input);
+}
+
+bool GameEngine::saveGame() const throw(file_error){
+    try{
+        return gameBoard->saveBoard();
+    } catch (file_error& ex){
+        throw ex;
+    }
+}
+
+void GameEngine::loadGame() throw(file_error){
+    try{
+        gameBoard->loadBoard();
+    } catch (file_error& ex){
+        throw ex;
+    }
 }
 
 bool GameEngine::endGame(char input) const{
@@ -126,31 +157,4 @@ bool GameEngine::endGame(char input) const{
         return true;
     }
     return false;
-}
-
-/**
- * This method returns input from keyboard converted to Upcase
- */
-char GameEngine::getKeyboardInput() const throw (invalid_input){
-    std::cout << "Hero's action: ";
-    char input;
-    std::cin >> input;
-    if (!isalpha((int)input)) throw (invalid_input("Use only letters for controlling"));
-    return toupper(input);
-}
-
-bool GameEngine::saveGame() const throw(file_error){
-    try{
-        return gameBoard->saveBoard();
-    } catch (file_error& ex){
-        throw ex;
-    }
-}
-
-void GameEngine::loadGame() throw(file_error){
-    try{
-        gameBoard->loadBoard();
-    } catch (file_error& ex){
-        throw ex;
-    }
 }

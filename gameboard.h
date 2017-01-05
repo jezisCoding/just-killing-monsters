@@ -29,20 +29,21 @@ private:
 public:
     GameBoard(EntityFactory* ef);
     ~GameBoard();
-    Hero *getHero();
-    GameField *getFieldAt(Position *atPos);
-    Environment::fieldType getEnvTypeAt(Position *atPos);
-    void setFieldEntityAt(Position *atPos, Entity *toEntity);
-    void moveHero(Position *toPos);
 
-    bool saveBoard() const throw(file_error);
-    void loadBoard() throw(file_error);
-    void printBoard();
-    void deleteEntityAt(Position *atPos);
-    bool monstersDead() const;
-    static bool monsterComparison(Monster *right);
     void initializeEnvironment();
     void initializeEntities();
+    void deleteEntityAt(Position *atPos);
+    bool monstersDead() const;
+    void printBoard() const;
+    bool saveBoard() throw(file_error);
+    void loadBoard() const throw(file_error);
+
+    Hero *getHero() const;
+    void moveHero(Position *toPos);
+    GameField *getFieldAt(Position *atPos) const;
+    Environment::fieldType getEnvTypeAt(Position *atPos);
+    void setFieldEntityTo(Entity *toEntity);
+    void setFieldEntityAt(Position* at, Entity *toEntity);
 };
 
 #endif // GAMEBOARD_H

@@ -14,8 +14,8 @@ SOURCES += main.cpp \
     gameboard.cpp \
     gameengine.cpp \
     my2dvector.cpp \
-    fearsomemonster.cpp \
-    entityfactory.cpp
+    entityfactory.cpp \
+    monsterfearsome.cpp
 
 HEADERS += \
     entity.h \
@@ -29,6 +29,6 @@ HEADERS += \
     gameboard.h \
     gameengine.h \
     my2dvector.h \
-    fearsomemonster.h \
     entityfactory.h \
-    myexceptions.h
+    myexceptions.h \
+    monsterfearsome.h

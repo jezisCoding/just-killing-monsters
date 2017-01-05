@@ -8,9 +8,11 @@ class Potion : public Entity
 private:
     int healthBonus;
 public:
-    Potion(std::string mapSign, int healthBonus);
+    Potion(Position* position, std::string mapSign, int healthBonus);
     ~Potion();
+
     int reaction(Creature &to);
+
     int getHealthBonus();
 };
 
