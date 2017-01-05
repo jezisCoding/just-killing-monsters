@@ -18,7 +18,7 @@ public:
     Position *getFieldPosition();
     Environment *getFieldEnvironment();
     Entity *getFieldEntity();
-    std::string getPrintSign();
+    std::string getPrintSign() const;
     void setFieldEntity(Entity *toValue);
     void deleteFieldEntity();
     void setFieldEnvironment(Environment *toValue);

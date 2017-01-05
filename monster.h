@@ -6,13 +6,10 @@
 class Monster : public Creature
 {
 private:
-    float fearsomeness;
     static int monsterCount;
 public:
-    Monster(std::string mapSign, std::string name, int health, int attack, float fearsomeness);
-    ~Monster();
-    int getFearsomeness();
-    int getAttack();
+    Monster(std::string mapSign, std::string name, int health, int attack);
+    virtual ~Monster();
     static int getMonsterCount();
     //bool isSame(const Monster &right);
 };

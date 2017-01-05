@@ -4,6 +4,9 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 #include "gamefield.h"
 #include "entity.h"
@@ -11,17 +14,20 @@
 #include "monster.h"
 #include "environment.h"
 #include "my2dvector.h"
+#include "entityfactory.h"
+#include "myexceptions.h"
 
 class GameBoard
 {
 private:
     My2DVector<GameField *> board;
     Hero *hero;
+    EntityFactory *ef;
         //for implementation of monstersDead with vector
     /*std::vector<Monster *> monsters;
     static Monster *left;*/
 public:
-    GameBoard();
+    GameBoard(EntityFactory* ef);
     ~GameBoard();
     Hero *getHero();
     GameField *getFieldAt(Position *atPos);
@@ -29,6 +35,8 @@ public:
     void setFieldEntityAt(Position *atPos, Entity *toEntity);
     void moveHero(Position *toPos);
 
+    bool saveBoard() const throw(file_error);
+    void loadBoard() throw(file_error);
     void printBoard();
     void deleteEntityAt(Position *atPos);
     bool monstersDead() const;
