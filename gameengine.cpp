@@ -12,30 +12,39 @@ GameEngine::~GameEngine(){
 }
 
 void GameEngine::play(){
-    char input = '\0';
-    welcome();
+        char input = '\0';
+        welcome();
 
-    do {
-        input = getKeyboardInput();
+        do {
+            try{
+                do {
+                    input = getKeyboardInput();
 
-        switch (input) {
-        case 'Q':
-            welcome();
-            break;
-        case 'E':
-            saveGame();
-            break;
-        case 'R':
-            loadGame();
-            break;
-        case 'X':
-            //just let it fall
-            break;
-        default:
-            heroAction(input);
-            gameBoard->printBoard();
-        }
-    } while (!endGame(input));
+                    switch (input) {
+                    case 'Q':
+                        welcome();
+                        break;
+                    case 'E':
+                        saveGame();
+                        break;
+                    case 'R':
+                        loadGame();
+                        break;
+                    case 'X':
+                        //just let it fall
+                        break;
+                    default:
+                        heroAction(input);
+                        gameBoard->printBoard();
+                    }
+
+                } while (!endGame(input));
+            } catch (std::exception& ex){
+                std::cerr << "Exception in GameEngine::play() : "
+                          << ex.what() << std::endl;
+            }
+        } while (!endGame(input));
+
 
     /*while (!endGame(input)) {
         input = getKeyboardInput();
@@ -87,7 +96,7 @@ bool GameEngine::heroAction(char direction){
 void GameEngine::welcome() const{
     std::cout << "Welcome to the game of Just Killing Monsters\n"
               << "Kill the monsters by running into them: WSAD to move,\n"
-              << "Q for this Intro, X to exit, E to save game\n"
+              << "Q for this Intro, X to exit, E to save game, R to load game\n"
               << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
               << "Legend: [H]-Hero, [P]-Health Potion, [M,N,...]-Monsters, [T]-Tree\n";
     gameBoard->printBoard();
@@ -119,19 +128,29 @@ bool GameEngine::endGame(char input) const{
     return false;
 }
 
-/* This method returns input from keyboard converted to Upcase
+/**
+ * This method returns input from keyboard converted to Upcase
  */
-char GameEngine::getKeyboardInput() const{
+char GameEngine::getKeyboardInput() const throw (invalid_input){
     std::cout << "Hero's action: ";
     char input;
     std::cin >> input;
+    if (!isalpha((int)input)) throw (invalid_input("Use only letters for controlling"));
     return toupper(input);
 }
 
-bool GameEngine::saveGame() const{
-    gameBoard->saveBoard();
+bool GameEngine::saveGame() const throw(file_error){
+    try{
+        return gameBoard->saveBoard();
+    } catch (file_error& ex){
+        throw ex;
+    }
 }
 
-void GameEngine::loadGame(){
-    gameBoard->loadBoard();
+void GameEngine::loadGame() throw(file_error){
+    try{
+        gameBoard->loadBoard();
+    } catch (file_error& ex){
+        throw ex;
+    }
 }

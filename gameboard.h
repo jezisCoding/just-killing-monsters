@@ -15,6 +15,7 @@
 #include "environment.h"
 #include "my2dvector.h"
 #include "entityfactory.h"
+#include "myexceptions.h"
 
 class GameBoard
 {
@@ -34,8 +35,8 @@ public:
     void setFieldEntityAt(Position *atPos, Entity *toEntity);
     void moveHero(Position *toPos);
 
-    bool saveBoard() const;
-    void loadBoard();
+    bool saveBoard() const throw(file_error);
+    void loadBoard() throw(file_error);
     void printBoard();
     void deleteEntityAt(Position *atPos);
     bool monstersDead() const;

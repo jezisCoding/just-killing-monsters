@@ -30,4 +30,5 @@ HEADERS += \
     gameengine.h \
     my2dvector.h \
     fearsomemonster.h \
-    entityfactory.h
+    entityfactory.h \
+    myexceptions.h

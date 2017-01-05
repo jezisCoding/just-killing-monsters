@@ -132,7 +132,7 @@ void GameBoard::initializeEntities(){
     setFieldEntityAt(new Position(3,6), monster2);
 }
 
-bool GameBoard::saveBoard() const{
+bool GameBoard::saveBoard() const throw(file_error){
     std::ofstream out("map.txt");
     if(out.is_open()){
 
@@ -146,40 +146,28 @@ bool GameBoard::saveBoard() const{
             i++;
         }
         out.close();
-
+        return true;
     } else {
-        std::cout << "file not opened" << std::endl;
+        throw file_error("File is not open");
+        return false;
     }
 }
 
-void GameBoard::loadBoard(){
+void GameBoard::loadBoard() throw(file_error){
     std::ifstream in("map.txt");
     if(in.is_open()){
         std::cout << std::endl;
-
-        char input = '\0';
-        std::string line;
+        std::string line = "";
 
         while (std::getline(in, line)) {
             std::cout << std::endl << line;
         }
         std::cout << std::endl;
     } else {
-        std::cout << "File not opened" << std::endl << std::endl;
+        throw file_error("File is not open");
     }
     in.close();
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
