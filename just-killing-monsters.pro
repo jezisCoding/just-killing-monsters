@@ -28,7 +28,7 @@ HEADERS += \
     gamefield.h \
     gameboard.h \
     gameengine.h \
-    my2dvector.h \
     entityfactory.h \
     myexceptions.h \
-    monsterfearsome.h
+    monsterfearsome.h \
+    my2dboardvector.h

@@ -1,4 +1,4 @@
-#include "my2dvector.h"
+#include "my2dboardvector.h"
 /*
 template <class T> const T& My2DVector<T>::at(unsigned int x, unsigned int y) const {
     return myVector.at(x * sizeY + y);
