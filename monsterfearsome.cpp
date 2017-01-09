@@ -21,30 +21,16 @@ MonsterFearsome::~MonsterFearsome()
 
 }
 
-int MonsterFearsome::defendYourselfFrom(Creature &who){
-    int dmgReceived = who.getAttack();
-    int dmgDealt = this->getAttack();
+uint8_t MonsterFearsome::defendYourselfFrom(Creature *who) {
+    who->dealDmg(this, who->getAttack());
+    dealDmg(who, getAttack());
 
-    std::cout << who.getName() << " just attacked " + this->getName() + " (" << this->getHealth() << "->";
-    this->setHealth(this->getHealth() - dmgReceived);
-    std::cout << this->getHealth() << ")" << std::endl;
-
-    std::cout << this->getName() << " defends themself against " + who.getName() + " (" << who.getHealth() << "->";
-    who.setHealth(who.getHealth() - dmgDealt);
-    std::cout << who.getHealth() << ")" << std::endl << std::endl;
-
-        //split in 2
-    if (this->getHealth() <= this->getMAX_HEALTH()/2) {
-        split(who.get)
+    uint8_t outcome = 0;    //bitwise
+    if (who->getHealth() < 1) outcome |= 1;
+    if (this->getHealth() < 1) outcome |= 2;
+    if (monsterSplit()) outcome |= 4;
         //zobere poziciu hera, checkne ci je volno naokolo, hodi mu klona,
-    }
-
-        //if hero attacks himself
-    if (who == *this) if (this->getHealth() < 1 || who.getHealth() < 1) return 1;
-    if (who.getHealth() < 1 && this->health < 1) return 3;
-    if (this->getHealth() < 1) return 2;
-    if (who.getHealth() < 1) return 1;
-    return 0;
+    return outcome;
 }
 
 int MonsterFearsome::getAttack() const{
@@ -53,4 +39,8 @@ int MonsterFearsome::getAttack() const{
 
 int MonsterFearsome::getFearsomeness() const{
     return fearsomeness;
+}
+
+bool MonsterFearsome::monsterSplit() const{
+    return this->getHealth() <= this->getMAX_HEALTH()/2;
 }

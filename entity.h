@@ -18,7 +18,7 @@ public:
     Entity(Position *position, const std::string& mapSign);
     virtual ~Entity();
 
-    virtual int reaction(Creature &to) = 0;
+    virtual int reaction(Creature *to) = 0;
 
     std::string getMapSign() const;
     void setPosition(Position *position);

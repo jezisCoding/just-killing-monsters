@@ -1,7 +1,7 @@
 #include "entity.h"
 #include "creature.h"
 
-Entity::Entity(Position* position, const std::__cxx11::string &mapSign)
+Entity::Entity(Position* position, const std::__cxx11::string& mapSign)
 {
     this->position = position;
     this->mapSign = mapSign;

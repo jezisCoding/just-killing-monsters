@@ -11,7 +11,7 @@ public:
     Potion(Position* position, std::string mapSign, int healthBonus);
     ~Potion();
 
-    int reaction(Creature &to);
+    int reaction(Creature *to);
 
     int getHealthBonus();
 };

@@ -13,21 +13,20 @@
 #include "potion.h"
 #include "monster.h"
 #include "environment.h"
-#include "my2dvector.h"
+#include "my2dboardvector.h"
 #include "entityfactory.h"
 #include "myexceptions.h"
 
 class GameBoard
 {
 private:
-    My2DVector<GameField *> board;
-    Hero *hero;
+    const unsigned int SIZE_X = 10, SIZE_Y = 10;
+
+    My2DBoardVector<GameField *> board;
     EntityFactory *ef;
-        //for implementation of monstersDead with vector
-    /*std::vector<Monster *> monsters;
-    static Monster *left;*/
+    Hero *hero;
 public:
-    GameBoard(EntityFactory* ef);
+    GameBoard();
     ~GameBoard();
 
     void initializeEnvironment();
@@ -41,9 +40,12 @@ public:
     Hero *getHero() const;
     void moveHero(Position *toPos);
     GameField *getFieldAt(Position *atPos) const;
+    Entity *getEntityAt(Position *atPos);
+    bool emptyFieldAt(Position *atPos);
     Environment::fieldType getEnvTypeAt(Position *atPos);
-    void setFieldEntityTo(Entity *toEntity);
-    void setFieldEntityAt(Position* at, Entity *toEntity);
+    void setFieldEntityToPosition(Entity *toEntity, Position *toPos);
+    void setFieldEntityToItsPosition(Entity *entity);
+    bool entityEmptyPosition(Position* pos);
 };
 
 #endif // GAMEBOARD_H

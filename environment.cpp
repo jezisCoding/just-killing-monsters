@@ -11,8 +11,8 @@ Environment::~Environment()
     delete position;
 }
 
-int Environment::reaction(Creature &to){
-    std::cout << "undefined interaction of " + getTypeIdStringValue() + " with " + to.getTypeIdStringValue() << std::endl;
+int Environment::reaction(Creature *to){
+    std::cout << "undefined interaction of " + getTypeIdStringValue() + " with " + to->getTypeIdStringValue() << std::endl;
     return 0;   //noone died
 }
 

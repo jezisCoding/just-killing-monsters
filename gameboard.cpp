@@ -1,11 +1,10 @@
 #include "gameboard.h"
 
-//for implementation of monstersDead with vector
-//Monster* GameBoard::left = nullptr;
-
-GameBoard::GameBoard(EntityFactory *ef)
+GameBoard::GameBoard()
 {
-    this->ef = ef;
+    ef = new EntityFactory();
+
+    board.setSizes(SIZE_X, SIZE_Y);
     initializeEnvironment();
     initializeEntities();
 }
@@ -16,40 +15,39 @@ GameBoard::~GameBoard()
 }
 
 void GameBoard::initializeEnvironment(){
-    EntityFactory ef;
     Environment *empty;
     Environment *tree;
     Position *pos;
 
-    for (unsigned int i=0; i<board.getSizeX(); i++){
-        for (unsigned int j=0; j<board.getSizeY(); j++){
-            pos = new Position(i,j);
-            empty = ef.getNewEnvironment(pos, Environment::Empty);
+    for (unsigned int i=0; i<SIZE_X; i++){
+        for (unsigned int j=0; j<SIZE_Y; j++){
+            pos = Position::getNewPosition(i, j);
+            empty = ef->getNewEnvironment(pos, Environment::Empty);
             board.push_back(new GameField(nullptr, empty, pos));    //its all the same empty instance
-        }
+        }                                                           //
     }
 
-    for (unsigned int i=0; i<board.getSizeX(); i++){
+    for (unsigned int i=0; i<SIZE_X; i++){
         unsigned int j=0;
-        pos = new Position(i,j);
-        tree = ef.getNewEnvironment(pos, Environment::Tree);
+        pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
         board.at(i, j) = new GameField(nullptr, tree, pos);
 
-        j=board.getSizeY()-1;
-        pos = new Position(i,j);
-        tree = ef.getNewEnvironment(pos, Environment::Tree);
+        j = SIZE_Y-1;
+        pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
         board.at(i, j) = new GameField(nullptr, tree, pos);
     }
 
-    for (unsigned int j=1; j<board.getSizeY()-1; j++){
+    for (unsigned int j=1; j<SIZE_Y-1; j++){
         unsigned int i=0;
-        pos = new Position(i,j);
-        tree = ef.getNewEnvironment(pos, Environment::Tree);
+        pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
         board.at(i, j) = new GameField(nullptr, tree, pos);
 
-        i=board.getSizeX()-1;
-        pos = new Position(i,j);
-        tree = ef.getNewEnvironment(pos, Environment::Tree);
+        i = SIZE_X-1;
+        pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
         board.at(i, j) = new GameField(nullptr, tree, pos);
     }
 }
@@ -58,34 +56,34 @@ void GameBoard::initializeEnvironment(){
 /*
 void GameBoard::initializeEnvironment(){
     EntityFactory ef;
-    Environment *empty = ef.getNewEnvironment(Environment::Empty);
-    Environment *tree = ef.getNewEnvironment(Environment::Tree);
+    Environment *empty = ef->getNewEnvironment(Environment::Empty);
+    Environment *tree = ef->getNewEnvironment(Environment::Tree);
     Position *pos;
 
     for (unsigned int i=0; i<board.getSizeX(); i++){
         for (unsigned int j=0; j<board.getSizeY(); j++){
-            pos = new Position(i,j);
+            pos = Position::getNewPosition(i, j);
             board.push_back(new GameField(nullptr, empty, pos));    //its all the same empty instance
         }
     }
 
     for (unsigned int i=0; i<board.getSizeX(); i++){
         unsigned int j=0;
-        pos = new Position(i,j);
+        pos = Position::getNewPosition(i, j);
         board.at(i, j) = new GameField(nullptr, tree, pos);
 
         j=board.getSizeY()-1;
-        pos = new Position(i,j);
+        pos = Position::getNewPosition(i, j);
         board.at(i, j) = new GameField(nullptr, tree, pos);
     }
 
     for (unsigned int j=1; j<board.getSizeY()-1; j++){
         unsigned int i=0;
-        pos = new Position(i,j);
+        pos = Position::getNewPosition(i, j);
         board.at(i, j) = new GameField(nullptr, tree, pos);
 
         i=board.getSizeX()-1;
-        pos = new Position(i,j);
+        pos = Position::getNewPosition(i, j);
         board.at(i, j) = new GameField(nullptr, tree, pos);
     }
 }
@@ -99,18 +97,18 @@ void GameBoard::initializeEntities(){
     Potion *potion1 = ef->getNewPotion(new Position(5,5));
     Potion *potion2 = ef->getNewPotion(new Position(6,8));
 
-    setFieldEntityTo(hero);
-    setFieldEntityTo(monster1);
-    setFieldEntityTo(monster2);
-    setFieldEntityTo(monster3);
-    setFieldEntityTo(potion1);
-    setFieldEntityTo(potion2);
+    setFieldEntityToItsPosition(hero);
+    setFieldEntityToItsPosition(monster1);
+    setFieldEntityToItsPosition(monster2);
+    setFieldEntityToItsPosition(monster3);
+    setFieldEntityToItsPosition(potion1);
+    setFieldEntityToItsPosition(potion2);
 }
 
 void GameBoard::deleteEntityAt(Position *atPos){
 
     Entity *entityAtPos = getFieldAt(atPos)->getFieldEntity();
-    setFieldEntityAt(atPos, nullptr);
+    setFieldEntityToPosition(nullptr, atPos);
 
     Creature *creatureAtPos = dynamic_cast<Creature *>(entityAtPos);
     if (creatureAtPos != nullptr)
@@ -180,25 +178,46 @@ Hero *GameBoard::getHero() const{
 }
 
 void GameBoard::moveHero(Position *toPos){
-    setFieldEntityAt(hero->getPosition(), nullptr);
-    hero->setPosition(toPos);
-    setFieldEntityTo(hero);
-    hero->resetSurpriseHit();
+    Environment::fieldType targetEnv = getEnvTypeAt(toPos);
+    if (targetEnv == Environment::Empty){
+        setFieldEntityToPosition(nullptr, hero->getPosition());
+        hero->setPosition(toPos);
+        setFieldEntityToItsPosition(hero);
+        hero->resetSurpriseHit();
+    } else if (targetEnv == Environment::Tree) std::cout << "You can't move into a tree" <<std::endl;
+    else if (targetEnv == Environment::Corpse) std::cout << "You can't move into a corpse" <<std::endl;
 }
 
 GameField *GameBoard::getFieldAt(Position *atPos) const{
-    return board.at(atPos->x, atPos->y);
+    return board.at(atPos);
+}
+
+Entity *GameBoard::getEntityAt(Position *atPos)
+{
+    return board.at(atPos)->getFieldEntity();
+}
+
+bool GameBoard::emptyFieldAt(Position *atPos)
+{
+    return getEntityAt(atPos) == nullptr;
 }
 
 Environment::fieldType GameBoard::getEnvTypeAt(Position *atPos){
-    return board.at(atPos->x, atPos->y)->getFieldEnvironment()->getType();
+    return board.at(atPos)->getFieldEnvironment()->getType();
 }
 
-void GameBoard::setFieldEntityTo(Entity *toEntity){
-    board.at(toEntity->getPosition()->x, toEntity->getPosition()->y)->setFieldEntity(toEntity);
+void GameBoard::setFieldEntityToPosition(Entity *entity, Position* toPos){
+    board.at(toPos)->setFieldEntity(entity);
+    if (entity != nullptr) entity->setPosition(toPos);
 }
 
-void GameBoard::setFieldEntityAt(Position* at, Entity *toEntity){
-    board.at(at->x, at->y)->setFieldEntity(toEntity);
+void GameBoard::setFieldEntityToItsPosition(Entity *entity){
+    if (entity != nullptr) board.at(entity->getPosition())->setFieldEntity(entity);
+    else std::cout << "attempting to set nullptr position"
+                      "(GameBoard::setFieldEntityToItsPosition(Entity *entity))" << std::endl;
+}
+
+bool GameBoard::entityEmptyPosition(Position *pos){
+    return board.at(pos)->getFieldEntity() == nullptr;
 }
 

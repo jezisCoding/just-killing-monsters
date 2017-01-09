@@ -4,6 +4,8 @@
 #include "entity.h"
 #include "potion.h"
 
+#include <cstdint>
+
 class Creature : public Entity
 {
 protected:
@@ -15,15 +17,17 @@ public:
     Creature(Position* position, std::string mapSign, std::__cxx11::string name, int health, int attack);
     virtual ~Creature();
 
-    virtual int getAttack();
-    virtual int reaction(Creature &to);
     int interaction(Entity *with);
-    int defendYourselfFrom(Creature &who);
+    int reaction(Creature *to);
+    virtual uint8_t defendYourselfFrom(Creature *who);
+    virtual void dealDmg(Creature *to, const int& dmgDealt);
+    void receiveDmg(Creature *from, const int& dmgReceived);
 
-    int getHealth() const;
-    void setHealth(const int& toValue);
     std::string getName() const;
+    virtual int getAttack() const;
+    int getHealth() const;
     static int getMAX_HEALTH();
+    void setHealth(const int& toValue);
 
     bool operator== (const Creature& right);
 };

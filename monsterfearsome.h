@@ -9,13 +9,14 @@ protected:
     float fearsomeness;
 public:
     MonsterFearsome(Position* position, std::string mapSign, std::string name, int health, int attack, float fearsomeness);
-    MonsterFearsome(const MonsterFearsome &from);
+    MonsterFearsome(const MonsterFearsome& from);
     ~MonsterFearsome();
 
-    int defendYourselfFrom(Creature &who);
+    uint8_t defendYourselfFrom(Creature *who) override;
 
     int getAttack() const;
     int getFearsomeness() const;
+    bool monsterSplit() const;
 };
 
 #endif // FEARSOMEMONSTER_H

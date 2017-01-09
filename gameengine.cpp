@@ -2,8 +2,7 @@
 
 GameEngine::GameEngine()
 {
-    EntityFactory* ef = new EntityFactory;
-    gameBoard = new GameBoard(ef);
+    gameBoard = new GameBoard();
     hero = gameBoard->getHero();
 }
 
@@ -13,6 +12,7 @@ GameEngine::~GameEngine()
 }
 
 void GameEngine::play(){
+    bool gameOver = false;
     char input = '\0';
     welcome();
     do {
@@ -34,26 +34,16 @@ void GameEngine::play(){
                     //just let it fall
                     break;
                 default:
-                    heroAction(input);
+                    heroTurn(input);
                     gameBoard->printBoard();
                 }
 
-            } while (!endGame(input));
+            } while (!(gameOver = endGame(input)));
         } catch (std::exception& ex){
             std::cerr << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
         }
-    } while (!endGame(input));
-
-
-    /*while (!endGame(input)) {
-        input = getKeyboardInput();
-        if (input == 'Q') welcome();
-        else {
-            heroAction(input);
-            gameBoard->printBoard();
-        }
-    }*/
+    } while (!gameOver);
 }
 
 void GameEngine::welcome() const{
@@ -69,41 +59,24 @@ void GameEngine::welcome() const{
     gameBoard->printBoard();
 }
 
-bool GameEngine::heroAction(char direction){
-    Position *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
+void GameEngine::heroTurn(char direction){
+    Position *targetPosition = new Position();
+    *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
     Entity *targetFieldEntity = gameBoard->getFieldAt(targetPosition)->getFieldEntity();
 
-    if (targetFieldEntity != nullptr) {
-        int outcome = hero->interaction(targetFieldEntity);
+    if (targetFieldEntity != nullptr) heroAction(targetFieldEntity);
+    else gameBoard->moveHero(targetPosition);
+}
 
-        switch (outcome) {
-        case 0:  //both survived
-            break;
-        case 1:  //hero died
-            gameBoard->deleteEntityAt(hero->getPosition());
-            hero = nullptr;
-            return false;
-            break;
-        case 2:  //opponent died
-            gameBoard->deleteEntityAt(targetPosition);
-            break;
-        case 3:  //both died
-            gameBoard->deleteEntityAt(hero->getPosition());
-            gameBoard->deleteEntityAt(targetPosition);
-            hero = nullptr;
-            return false;
-            break;
-        default:
-            break;
-        }
-        return true;
+void GameEngine::heroAction(Entity* targetFieldEntity){
+    uint8_t outcome = hero->interaction(targetFieldEntity);
 
-    } else {
-        if (gameBoard->getEnvTypeAt(targetPosition) == Environment::Empty){
-            gameBoard->moveHero(targetPosition);
-        } else std::cout << "You can't move into a tree" <<std::endl;
-    }
-    return true;
+        //hero(attacker) died
+    if((outcome & 1) == 1){gameBoard->deleteEntityAt(hero->getPosition()); hero = nullptr;}
+        //opponent(defender) died
+    if((outcome & 2) == 2)gameBoard->deleteEntityAt(targetFieldEntity->getPosition());
+        //monster split
+    if((outcome & 4) == 4)splitMonsterAround(targetFieldEntity, hero->getPosition());
 }
 
 /**
@@ -117,9 +90,9 @@ char GameEngine::getKeyboardInput() const throw (invalid_input){
     return toupper(input);
 }
 
-bool GameEngine::saveGame() const throw(file_error){
+void GameEngine::saveGame() const throw(file_error){
     try{
-        return gameBoard->saveBoard();
+        if(gameBoard->saveBoard()) std::cout << "Game saved." << std::endl;
     } catch (file_error& ex){
         throw ex;
     }
@@ -157,4 +130,22 @@ bool GameEngine::endGame(char input) const{
         return true;
     }
     return false;
+}
+
+void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
+    MonsterFearsome* mf = dynamic_cast<MonsterFearsome*>(monster);
+
+    if (mf == nullptr) std::cout << "monstersplit cast error" << std::endl;
+    else {
+        int direction = Position::Up;
+        Position* splitPos = new Position;
+
+        do {
+            *splitPos = Position::getNewPositionInDirection(centerPos, (Position::direction)direction);
+            ++direction; // ++doesnt matter here
+        } while (direction != (int)Position::Left || !gameBoard->emptyFieldAt(splitPos));
+
+        MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
+        gameBoard->setFieldEntityToPosition(mfsplit, splitPos);
+    }
 }

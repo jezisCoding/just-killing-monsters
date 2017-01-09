@@ -21,7 +21,6 @@ public:
     Entity *getFieldEntity() const;
     Environment *getFieldEnvironment() const;
     Position *getFieldPosition() const;
-
     void setFieldEntity(Entity *toValue);
     void setFieldEnvironment(Environment *toValue);
 };

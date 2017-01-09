@@ -13,7 +13,6 @@ SOURCES += main.cpp \
     gamefield.cpp \
     gameboard.cpp \
     gameengine.cpp \
-    my2dvector.cpp \
     entityfactory.cpp \
     monsterfearsome.cpp
 

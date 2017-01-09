@@ -8,8 +8,8 @@ EntityFactory::EntityFactory()
 Monster* EntityFactory::getNewMonster(Position *pos, const bool& fearsome) const{
     if (fearsome) return new MonsterFearsome(pos, "W", "A scary ass splitting monster",
                                              MonsterFearsome::getMAX_HEALTH(), 15, 1.5);
-            else return new Monster(pos, "M", "A not too scary monster",
-                                    Creature::getMAX_HEALTH(), 15);
+    else return new Monster(pos, "M", "A not too scary monster",
+                            Creature::getMAX_HEALTH(), 15);
 }
 
 Hero* EntityFactory::getNewHero(Position *pos) const{

@@ -13,7 +13,7 @@ public:
     Environment(Position* position, const std::__cxx11::string &mapSign, const fieldType &type);
     ~Environment();
 
-    virtual int reaction(Creature &to);
+    virtual int reaction(Creature *to);
 
     fieldType getType() const;
 };
