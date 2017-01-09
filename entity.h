@@ -16,6 +16,7 @@ protected:
     Position *position;
 public:
     Entity(Position *position, const std::string& mapSign);
+    Entity(const Entity& orig);
     virtual ~Entity();
 
     virtual int reaction(Creature *to) = 0;

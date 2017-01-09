@@ -8,6 +8,13 @@ Creature::Creature(Position *position, std::__cxx11::string mapSign, std::string
     this->attack = attack;
 }
 
+Creature::Creature(const Creature& orig) : Entity(orig)
+{
+    this->name = orig.name;
+    this->health = orig.health;
+    this->attack = orig.attack;
+}
+
 Creature::~Creature()
 {
     //std::cout << "A creature just died." << std::endl;

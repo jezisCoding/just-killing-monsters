@@ -7,6 +7,12 @@ Entity::Entity(Position* position, const std::__cxx11::string& mapSign)
     this->mapSign = mapSign;
 }
 
+Entity::Entity(const Entity& orig)
+{
+    this->position = orig.position;
+    this->mapSign = orig.mapSign;
+}
+
 Entity::~Entity()
 {
     delete position;

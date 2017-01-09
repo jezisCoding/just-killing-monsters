@@ -137,15 +137,18 @@ void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
 
     if (mf == nullptr) std::cout << "monstersplit cast error" << std::endl;
     else {
+        Position::direction dir = Position::Up;
         int direction = Position::Up;
         Position* splitPos = new Position;
 
-        do {
+        while ((direction != 4) || (!gameBoard->emptyFieldAt(splitPos))) {
+            std::cout << direction << dir << std::endl;
             *splitPos = Position::getNewPositionInDirection(centerPos, (Position::direction)direction);
-            ++direction; // ++doesnt matter here
-        } while (direction != (int)Position::Left || !gameBoard->emptyFieldAt(splitPos));
+            ++direction; // ++shouldnt matter here
+        }
 
         MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
+        std::cout << mfsplit->getAttack() << " " << mfsplit->getFearsomeness() << " " << mfsplit->getHealth() << " " << mfsplit->getHealth() << " " << mfsplit->getMapSign() << " " << mfsplit->getMAX_HEALTH() << " " << mfsplit->getMonsterCount() << " " << mfsplit->getName() << " " << mfsplit->getPosition() << std::endl;
         gameBoard->setFieldEntityToPosition(mfsplit, splitPos);
     }
 }

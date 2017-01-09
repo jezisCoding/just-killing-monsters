@@ -8,13 +8,13 @@ Monster::Monster(Position* position, std::__cxx11::string mapSign, std::__cxx11:
     monsterCount++;
 }
 
-Monster::Monster(const Monster &from) : Creature(position, name, mapSign, health, attack)
+Monster::Monster(const Monster &orig) : Creature(orig)
 {
-    this->position = position;
-    this->name = from.getName() + "(split)";
+    this->position = nullptr;
+    this->name = orig.getName() + "(split)";
     this->mapSign = 'V';
-    this->health = from.getHealth();
-    this->attack = from.getAttack();
+    this->health = orig.getHealth();
+    this->attack = orig.getAttack();
 }
 
 Monster::~Monster()
