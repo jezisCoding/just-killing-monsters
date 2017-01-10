@@ -1,7 +1,7 @@
 #ifndef EntityFactory_H
 #define EntityFactory_H
 
-#include "fearsomemonster.h"
+#include "monsterfearsome.h"
 #include "hero.h"
 #include "potion.h"
 #include "environment.h"
@@ -11,10 +11,10 @@ class EntityFactory
 {
 public:
     EntityFactory();
-    Monster* getNewMonster(bool fearsome);
-    Hero* getNewHero(Position* heroPos);
-    Potion* getNewPotion();
-    Environment* getNewEnvironment(Environment::fieldType type);
+    Monster* getNewMonster(Position *pos, const bool& fearsome) const;
+    Hero* getNewHero(Position* pos) const;
+    Potion* getNewPotion(Position *pos) const;
+    Environment* getNewEnvironment(Position *pos, const Environment::fieldType& type) const;
 };
 
 #endif // EntityFactory_H

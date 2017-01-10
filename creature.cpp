@@ -1,17 +1,65 @@
 #include "creature.h"
 
-Creature::Creature(std::__cxx11::string mapSign, std::string name, int health, int attack) : Entity(mapSign)
+Creature::Creature(Position *position, std::__cxx11::string mapSign, std::string name, int health, int attack)
+    : Entity(position, mapSign)
 {
     this->name = name;
     this->health = health;
     this->attack = attack;
 }
 
-Creature::~Creature(){
+Creature::Creature(const Creature& orig) : Entity(orig)
+{
+    this->name = orig.name;
+    this->health = orig.health;
+    this->attack = orig.attack;
+}
+
+Creature::~Creature()
+{
     //std::cout << "A creature just died." << std::endl;
 }
 
-int Creature::getAttack(){
+int Creature::interaction(Entity *with){
+    return with->reaction(this);
+}
+
+int Creature::reaction(Creature *to){
+    return defendYourselfFrom(to);
+}
+
+    /* attack and self defense when attacked
+     *
+     * bitwise return values: death of:
+     * 0-nobody * 1-the other creature(who/attacker/hero) * 2-this creature(this/defender/monster) * 3-both creatures
+     */
+uint8_t Creature::defendYourselfFrom(Creature *who){
+    who->dealDmg(this, who->getAttack());
+    dealDmg(who, getAttack());
+    std::cout << std::endl;
+
+    uint8_t outcome = 0;    //bitwise
+    if (who->getHealth() < 1) outcome |= 1;
+    if (this->getHealth() < 1) outcome |= 2;
+    return outcome;
+}
+
+void Creature::dealDmg(Creature *to, const int& dmgDealt){
+    std::cout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
+    to->setHealth(to->getHealth() - dmgDealt);
+    std::cout << to->getHealth() << ")" << std::endl;
+}
+
+bool Creature::operator== (const Creature& right){
+    if (this->getName()==right.getName() && this->getHealth()==right.getHealth()) return true;
+    return false;
+}
+
+std::string Creature::getName() const{
+    return name;
+}
+
+int Creature::getAttack() const{
     return attack;
 }
 
@@ -19,49 +67,10 @@ int Creature::getHealth() const{
     return health;
 }
 
-std::string Creature::getName() const{
-    return name;
+int Creature::getMAX_HEALTH(){
+    return MAX_HEALTH;
 }
 
-void Creature::setHealth(int toValue){
+void Creature::setHealth(const int &toValue){
     this->health = toValue;
-}
-
-int Creature::reaction(Creature &to){
-    if (to == *this) std::cout << "Stop hitting yourself!" << std::endl;
-    return defendYourselfFrom(to);
-}
-
-int Creature::interaction(Entity *with){
-    return with->reaction(*this);
-}
-
-    /* attack and self defense when attacked
-     *
-     * return values: death of:
-     * 0-nobody * 1-this creature * 2-the other creature * 3-both creatures
-     */
-int Creature::defendYourselfFrom(Creature &who){
-    int dmgReceived = who.getAttack();
-    int dmgDealt = this->getAttack();
-
-    std::cout << who.getName() << " just attacked " + this->getName() + " (" << this->getHealth() << "->";
-    this->setHealth(this->getHealth() - dmgReceived);
-    std::cout << this->getHealth() << ")" << std::endl;
-
-    std::cout << this->getName() << " defends themself against " + who.getName() + " (" << who.getHealth() << "->";
-    who.setHealth(who.getHealth() - dmgDealt);
-    std::cout << who.getHealth() << ")" << std::endl << std::endl;
-
-        //if hero attacks himself
-    if (who == *this) if (this->getHealth() < 1 || who.getHealth() < 1) return 1;
-    if (who.getHealth() < 1 && this->health < 1) return 3;
-    if (this->getHealth() < 1) return 2;
-    if (who.getHealth() < 1) return 1;
-    return 0;
-}
-
-bool Creature::operator== (const Creature& right){
-    if (this->getName()==right.getName() && this->getHealth()==right.getHealth()) return true;
-    return false;
 }

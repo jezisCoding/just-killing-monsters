@@ -2,6 +2,7 @@
 #define ENVIRONMENT_H
 
 #include "entity.h"
+#include "creature.h"
 
 struct Environment : public Entity
 {
@@ -9,8 +10,13 @@ struct Environment : public Entity
 private:
     fieldType type;
 public:
-    Environment(std::string mapSign, fieldType type);
-    fieldType getType();
+    Environment(Position* position, const std::__cxx11::string &mapSign, const fieldType &type);
+    ~Environment();
+
+    virtual int reaction(Creature *to);
+
+    fieldType getType() const;
+    bool passableEnvironment() const;
 };
 
 #endif // ENVIRONMENT_H

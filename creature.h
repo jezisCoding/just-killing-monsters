@@ -3,7 +3,8 @@
 
 #include "entity.h"
 #include "potion.h"
-//#include "gameboard.h"
+
+#include <cstdint>
 
 class Creature : public Entity
 {
@@ -11,17 +12,23 @@ protected:
     std::string name;
     int health;
     int attack;
+    static const int MAX_HEALTH = 100;
 public:
-    Creature(std::string mapSign, std::__cxx11::string name, int health, int attack);
+    Creature(Position* position, std::string mapSign, std::__cxx11::string name, int health, int attack);
+    Creature(const Creature& orig);
     virtual ~Creature();
-    virtual int getAttack();
-    int getHealth() const;
-    std::string getName() const;
-    void setHealth(int toValue);
 
     int interaction(Entity *with);
-    int reaction(Creature &to);
-    int defendYourselfFrom(Creature &who);
+    int reaction(Creature *to);
+    virtual uint8_t defendYourselfFrom(Creature *who);
+    virtual void dealDmg(Creature *to, const int& dmgDealt);
+
+    std::string getName() const;
+    virtual int getAttack() const;
+    int getHealth() const;
+    static int getMAX_HEALTH();
+    void setHealth(const int& toValue);
+
     bool operator== (const Creature& right);
 };
 

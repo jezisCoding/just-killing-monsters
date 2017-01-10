@@ -8,10 +8,13 @@ class Monster : public Creature
 private:
     static int monsterCount;
 public:
-    Monster(std::string mapSign, std::string name, int health, int attack);
+    Monster(Position* position, std::string mapSign, std::string name, int health, int attack);
+    Monster(const Monster& orig);
     virtual ~Monster();
+
     static int getMonsterCount();
-    //bool isSame(const Monster &right);
+
+    bool operator==(const Monster &right);
 };
 
 #endif // MONSTER_H

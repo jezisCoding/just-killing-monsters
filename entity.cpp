@@ -1,14 +1,27 @@
 #include "entity.h"
 #include "creature.h"
 
-Entity::Entity(std::string mapSign)
+Entity::Entity(Position* position, const std::__cxx11::string& mapSign)
 {
+    this->position = position;
     this->mapSign = mapSign;
+}
+
+Entity::Entity(const Entity& orig)
+{
+    this->position = orig.position;
+    this->mapSign = orig.mapSign;
 }
 
 Entity::~Entity()
 {
+    delete position;
     //std::cout << "An entity just died." << std::endl;
+}
+
+void Entity::setMapSign(std::__cxx11::string to)
+{
+    mapSign = to;
 }
 
 std::string Entity::getMapSign() const
@@ -16,15 +29,18 @@ std::string Entity::getMapSign() const
     return mapSign;
 }
 
-int Entity::reaction(Creature &to){
-    std::cout << "undefined interaction of " + getValueTypeIdString() + " with " + to.getValueTypeIdString() << std::endl;
-    return 0;   //noone died
+Position* Entity::getPosition(){
+    return position;
 }
 
-std::string Entity::getPointerTypeIdString(){
+void Entity::setPosition(Position *position){
+    this->position = position;
+}
+
+std::string Entity::getTypeIdStringPointer(){
     return typeid(this).name();
 }
 
-std::string Entity::getValueTypeIdString(){
+std::string Entity::getTypeIdStringValue(){
     return typeid(*this).name();
 }

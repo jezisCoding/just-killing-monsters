@@ -13,36 +13,44 @@
 #include "potion.h"
 #include "monster.h"
 #include "environment.h"
-#include "my2dvector.h"
+#include "my2dboardvector.h"
 #include "entityfactory.h"
 #include "myexceptions.h"
 
 class GameBoard
 {
 private:
-    My2DVector<GameField *> board;
-    Hero *hero;
-    EntityFactory *ef;
-        //for implementation of monstersDead with vector
-    /*std::vector<Monster *> monsters;
-    static Monster *left;*/
-public:
-    GameBoard(EntityFactory* ef);
-    ~GameBoard();
-    Hero *getHero();
-    GameField *getFieldAt(Position *atPos);
-    Environment::fieldType getEnvTypeAt(Position *atPos);
-    void setFieldEntityAt(Position *atPos, Entity *toEntity);
-    void moveHero(Position *toPos);
+    const unsigned int SIZE_X = 10, SIZE_Y = 10;
 
-    bool saveBoard() const throw(file_error);
-    void loadBoard() throw(file_error);
-    void printBoard();
-    void deleteEntityAt(Position *atPos);
-    bool monstersDead() const;
-    static bool monsterComparison(Monster *right);
+    My2DBoardVector<GameField *> board;
+    EntityFactory *ef;
+    Hero *hero;
+public:
+    GameBoard();
+    ~GameBoard();
+
     void initializeEnvironment();
     void initializeEntities();
+    void initializeEntitiesRnd();
+    bool monstersDead() const;
+    void printBoard() const;
+    bool saveBoard() throw(file_error);
+    void loadBoard() const throw(file_error);
+    void moveHero(Position *toPos);
+
+    Hero *getHero() const;
+    GameField *getFieldAt(Position *atPos) const;
+    Entity *getEntityAt(Position *atPos) const;
+    Environment::fieldType getEnvTypeAt (Position *atPos) const;
+
+    void setFieldEntityAtPosition(Entity *toEntity, Position *toPos);
+    void setFieldEntityToItsPosition(Entity *entity);
+    bool entityEmptyPosition(Position* pos) const;
+    bool passableEnvironmentAt(Position *pos) const;
+    bool freeFieldAt(Position *atPos) const;
+    void deleteEntityFromBoardAt(Position *atPos);
+    void deleteEntityFromBoard(Entity *entity);
+    Position *getNewRandomFreeBoardPosition() const;
 };
 
 #endif // GAMEBOARD_H

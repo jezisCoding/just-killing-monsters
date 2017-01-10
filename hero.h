@@ -2,23 +2,22 @@
 #define HERO_H
 
 #include "creature.h"
-#include "position.h"
 
 class Hero : public Creature
 {
 private:
     int readiness;
-    bool surpriseHit;
-    Position *position;
+    bool surpriseAttack;
 public:
-    Hero(std::string mapSign, std::string name, int health, int attack, int readiness, bool surpriseHit,
-         Position *position);
+    Hero(Position *position, std::string mapSign, std::string name, int health, int attack,
+         int readiness, bool surpriseAttack);
     ~Hero();
-    int getAttack() ;
-    Position *getPosition();
-    void setPosition(Position *position);
+
+    uint8_t defendYourselfFrom(Creature *who) override;
+    void dealDmg(Creature *to, const int& dmgDealt);
+
+    int getAttack() const;
     void resetSurpriseHit();
-    //int interaction(Creature *with);
 };
 
 #endif // HERO_H

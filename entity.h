@@ -5,19 +5,28 @@
 #include <iostream>
 #include <typeinfo>
 
+#include "position.h"
+
 class Creature;
 
 class Entity
 {
 protected:
     std::string mapSign;
+    Position *position;
 public:
-    Entity(std::string mapSign);
+    Entity(Position *position, const std::string& mapSign);
+    Entity(const Entity& orig);
     virtual ~Entity();
+
+    virtual int reaction(Creature *to) = 0;
+
+    void setMapSign(std::string to);
     std::string getMapSign() const;
-    virtual int reaction(Creature &to); //=0?
-    virtual std::string getPointerTypeIdString(); //skusit odvirtualizovat
-    virtual std::string getValueTypeIdString();
+    void setPosition(Position *position);
+    Position *getPosition();
+    std::string getTypeIdStringPointer();
+    std::string getTypeIdStringValue();
 };
 
 #endif // ENTITY_H
