@@ -26,6 +26,7 @@ MonsterFearsome::~MonsterFearsome()
 uint8_t MonsterFearsome::defendYourselfFrom(Creature *who) {
     who->dealDmg(this, who->getAttack());
     dealDmg(who, getAttack());
+    std::cout << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (who->getHealth() < 1) outcome |= 1;

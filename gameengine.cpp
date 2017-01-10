@@ -71,11 +71,7 @@ void GameEngine::heroTurn(char direction){
 void GameEngine::heroAction(Entity* targetFieldEntity){
     uint8_t outcome = hero->interaction(targetFieldEntity);
 
-        //hero(attacker) died
-    if((outcome & 1) == 1) {
-        gameBoard->deleteEntityFromBoard(hero);
-        hero = nullptr;
-    }
+
         //opponent(defender) died
     if((outcome & 2) == 2) {
         gameBoard->deleteEntityFromBoard(targetFieldEntity);
@@ -83,6 +79,12 @@ void GameEngine::heroAction(Entity* targetFieldEntity){
     }
         //monster split
     if((outcome & 4) == 4)splitMonsterAround(targetFieldEntity, hero->getPosition());
+
+        //hero(attacker) died
+    if((outcome & 1) == 1) {
+        gameBoard->deleteEntityFromBoard(hero);
+        hero = nullptr;
+    }
 }
 
 /**
@@ -92,6 +94,7 @@ char GameEngine::getKeyboardInput() const throw(invalid_input){
     std::cout << "Hero's action: ";
     char input;
     std::cin >> input;
+    std::cout << std::endl;
     if (!isalpha((int)input)) throw (invalid_input("Use only letters for controlling"));
     return toupper(input);
 }
@@ -148,7 +151,6 @@ void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
             Position* splitPos = new Position;
 
             do {
-                std::cout << direction << std::endl;
                 *splitPos = Position::getNewPositionInDirection(centerPos, (Position::direction)direction);
                 direction++;
             } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::Right);

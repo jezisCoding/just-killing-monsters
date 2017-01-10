@@ -47,7 +47,7 @@ uint8_t Creature::defendYourselfFrom(Creature *who){
 void Creature::dealDmg(Creature *to, const int& dmgDealt){
     std::cout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
-    std::cout << to->getHealth() << ")";
+    std::cout << to->getHealth() << ")" << std::endl;
 }
 
 bool Creature::operator== (const Creature& right){

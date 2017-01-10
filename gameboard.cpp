@@ -53,7 +53,24 @@ void GameBoard::initializeEnvironment(){
 }
 
 void GameBoard::initializeEntities(){
+    Position *startingPos = new Position(1,1);
+    hero = ef->getNewHero(startingPos);
+    Monster *monster1 = ef->getNewMonster(new Position(4,4), 0);
+    Monster *monster2 = ef->getNewMonster(new Position(3,6), 1);
+    Monster *monster3 = ef->getNewMonster(new Position(5,7), 0);
+    Potion *potion1 = ef->getNewPotion(new Position(5,5));
+    Potion *potion2 = ef->getNewPotion(new Position(6,8));
 
+    setFieldEntityToItsPosition(hero);
+    setFieldEntityToItsPosition(monster1);
+    setFieldEntityToItsPosition(monster2);
+    setFieldEntityToItsPosition(monster3);
+    setFieldEntityToItsPosition(potion1);
+    setFieldEntityToItsPosition(potion2);
+}
+
+void GameBoard::initializeEntitiesRnd()
+{
     std::cout << "Randomizing positions... \n\n";
 
     hero = ef->getNewHero(getNewRandomFreeBoardPosition());
@@ -70,36 +87,15 @@ void GameBoard::initializeEntities(){
     setFieldEntityToItsPosition(potion2);
 }
 
-void GameBoard::initializeEntitiesRnd()
-{
-    Position *startingPos = new Position;
-    startingPos = getNewRandomFreeBoardPosition();
-    hero = ef->getNewHero(startingPos);
-    Monster *monster1 = ef->getNewMonster(new Position(4,4), 0);
-    Monster *monster2 = ef->getNewMonster(new Position(3,6), 1);
-    Monster *monster3 = ef->getNewMonster(new Position(5,7), 0);
-    Potion *potion1 = ef->getNewPotion(new Position(5,5));
-    Potion *potion2 = ef->getNewPotion(new Position(6,8));
-
-    setFieldEntityToItsPosition(hero);
-    setFieldEntityToItsPosition(monster1);
-    setFieldEntityToItsPosition(monster2);
-    setFieldEntityToItsPosition(monster3);
-    setFieldEntityToItsPosition(potion1);
-    setFieldEntityToItsPosition(potion2);
-}
-
 bool GameBoard::monstersDead() const{
     if (Monster::getMonsterCount() == 0) return true;
     return false;
 }
 
-            //for (string &s : stringVec) cout << s << " ";
-            //vector<>::size_type; !=.size()
 void GameBoard::printBoard() const{
     std::cout << std::endl;
-    for (auto i=0; i<10; i++){
-        for (unsigned int j=0; j<10; j++){
+    for (unsigned int i=0; i<SIZE_X; i++){
+        for (unsigned int j=0; j<SIZE_Y; j++){
             std::cout << std::left << std::setw(2)
                       << board.at(i, j)->getPrintSign();
         }
