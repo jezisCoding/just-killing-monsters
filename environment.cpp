@@ -19,3 +19,8 @@ int Environment::reaction(Creature *to){
 Environment::fieldType Environment::getType() const{
     return type;
 }
+
+bool Environment::passableEnvironment() const
+{
+    return type == Empty;
+}

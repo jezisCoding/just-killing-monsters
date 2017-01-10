@@ -22,7 +22,6 @@ public:
     int reaction(Creature *to);
     virtual uint8_t defendYourselfFrom(Creature *who);
     virtual void dealDmg(Creature *to, const int& dmgDealt);
-    void receiveDmg(Creature *from, const int& dmgReceived);
 
     std::string getName() const;
     virtual int getAttack() const;

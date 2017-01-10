@@ -7,13 +7,15 @@ MonsterFearsome::MonsterFearsome(Position* position, std::string mapSign, std::s
     this->fearsomeness = fearsomeness;
 }
 
-MonsterFearsome::MonsterFearsome(const MonsterFearsome& from) : Monster(position, mapSign, name, health, attack)
+MonsterFearsome::MonsterFearsome(MonsterFearsome& orig) : Monster(orig)
 {
+    orig.setMapSign("V");
+
     this->mapSign = "V";
-    this->name = from.getName() + "(split)";
-    this->health = from.getHealth();
-    this->attack = from.getAttack()/2;
-    this->fearsomeness = from.getFearsomeness();
+    this->name = orig.getName() + "(split)";
+    this->health = orig.getHealth();
+    this->attack = orig.getAttack()/2;
+    this->fearsomeness = orig.getFearsomeness();
 }
 
 MonsterFearsome::~MonsterFearsome()
@@ -29,7 +31,7 @@ uint8_t MonsterFearsome::defendYourselfFrom(Creature *who) {
     if (who->getHealth() < 1) outcome |= 1;
     if (this->getHealth() < 1) outcome |= 2;
     if (monsterSplit()) outcome |= 4;
-        //zobere poziciu hera, checkne ci je volno naokolo, hodi mu klona,
+
     return outcome;
 }
 

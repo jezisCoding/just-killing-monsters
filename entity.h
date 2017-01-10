@@ -21,6 +21,7 @@ public:
 
     virtual int reaction(Creature *to) = 0;
 
+    void setMapSign(std::string to);
     std::string getMapSign() const;
     void setPosition(Position *position);
     Position *getPosition();

@@ -19,6 +19,11 @@ Entity::~Entity()
     //std::cout << "An entity just died." << std::endl;
 }
 
+void Entity::setMapSign(std::__cxx11::string to)
+{
+    mapSign = to;
+}
+
 std::string Entity::getMapSign() const
 {
     return mapSign;

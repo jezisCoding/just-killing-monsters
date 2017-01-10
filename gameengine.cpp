@@ -52,10 +52,10 @@ void GameEngine::welcome() const{
 
               << "Controls:"
               << "WSAD to move, Q for this Intro, X to exit, E to save game, R to load game,\n"
-              << "ENTER to confirm\n\n1"
+              << "ENTER to confirm\n\n"
 
               << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
-              << "Legend: [H]-Hero, [P]-Health Potion, [M,N,...]-Monsters, [T]-Tree\n";
+              << "Legend: [H]-Hero, [P]-Health Potion, [M,W,V]-Monsters, [T]-Tree\n";
     gameBoard->printBoard();
 }
 
@@ -72,9 +72,15 @@ void GameEngine::heroAction(Entity* targetFieldEntity){
     uint8_t outcome = hero->interaction(targetFieldEntity);
 
         //hero(attacker) died
-    if((outcome & 1) == 1){gameBoard->deleteEntityAt(hero->getPosition()); hero = nullptr;}
+    if((outcome & 1) == 1) {
+        gameBoard->deleteEntityFromBoard(hero);
+        hero = nullptr;
+    }
         //opponent(defender) died
-    if((outcome & 2) == 2)gameBoard->deleteEntityAt(targetFieldEntity->getPosition());
+    if((outcome & 2) == 2) {
+        gameBoard->deleteEntityFromBoard(targetFieldEntity);
+        targetFieldEntity = nullptr;
+    }
         //monster split
     if((outcome & 4) == 4)splitMonsterAround(targetFieldEntity, hero->getPosition());
 }
@@ -82,7 +88,7 @@ void GameEngine::heroAction(Entity* targetFieldEntity){
 /**
  * This method returns input from keyboard converted to Upcase
  */
-char GameEngine::getKeyboardInput() const throw (invalid_input){
+char GameEngine::getKeyboardInput() const throw(invalid_input){
     std::cout << "Hero's action: ";
     char input;
     std::cin >> input;
@@ -111,14 +117,14 @@ bool GameEngine::endGame(char input) const{
     if (input == 'X') return true;
     else if (hero == nullptr && gameBoard->monstersDead()){
         std::cout << "After an epic battle with the last of the monsters... You died.\n"
-                     "But you did kill them all and the goal of the game wasnt to survive so "
-                     "technically you win"
+                     "But you did kill them all and the goal of the game was not to survive so "
+                     "technically you still won."
                   << std::endl << std::endl
                   << "Game over" << std::endl;
         return true;
     }
     else if (hero == nullptr) {
-        std::cout << "Did you actually manage to loose this game? uninstall pls"
+        std::cout << "You ded"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
         return true;
@@ -133,22 +139,25 @@ bool GameEngine::endGame(char input) const{
 }
 
 void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
-    MonsterFearsome* mf = dynamic_cast<MonsterFearsome*>(monster);
+    if (monster != nullptr){
+        MonsterFearsome* mf = dynamic_cast<MonsterFearsome*>(monster);
 
-    if (mf == nullptr) std::cout << "monstersplit cast error" << std::endl;
-    else {
-        Position::direction dir = Position::Up;
-        int direction = Position::Up;
-        Position* splitPos = new Position;
+        if (mf == nullptr) std::cout << "monstersplit cast error" << std::endl;
+        else {
+            int direction = Position::Up;
+            Position* splitPos = new Position;
 
-        while ((direction != 4) || (!gameBoard->emptyFieldAt(splitPos))) {
-            std::cout << direction << dir << std::endl;
-            *splitPos = Position::getNewPositionInDirection(centerPos, (Position::direction)direction);
-            ++direction; // ++shouldnt matter here
+            do {
+                std::cout << direction << std::endl;
+                *splitPos = Position::getNewPositionInDirection(centerPos, (Position::direction)direction);
+                direction++;
+            } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::Right);
+
+            if (splitPos == centerPos) std::cout << "The monster has nowhere to split, good for you" << std::endl;
+            else {
+                MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
+                gameBoard->setFieldEntityAtPosition(mfsplit, splitPos);
+            }
         }
-
-        MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
-        std::cout << mfsplit->getAttack() << " " << mfsplit->getFearsomeness() << " " << mfsplit->getHealth() << " " << mfsplit->getHealth() << " " << mfsplit->getMapSign() << " " << mfsplit->getMAX_HEALTH() << " " << mfsplit->getMonsterCount() << " " << mfsplit->getName() << " " << mfsplit->getPosition() << std::endl;
-        gameBoard->setFieldEntityToPosition(mfsplit, splitPos);
     }
 }

@@ -31,21 +31,26 @@ public:
 
     void initializeEnvironment();
     void initializeEntities();
-    void deleteEntityAt(Position *atPos);
+    void initializeEntitiesRnd();
     bool monstersDead() const;
     void printBoard() const;
     bool saveBoard() throw(file_error);
     void loadBoard() const throw(file_error);
+    void moveHero(Position *toPos);
 
     Hero *getHero() const;
-    void moveHero(Position *toPos);
     GameField *getFieldAt(Position *atPos) const;
-    Entity *getEntityAt(Position *atPos);
-    bool emptyFieldAt(Position *atPos);
-    Environment::fieldType getEnvTypeAt(Position *atPos);
-    void setFieldEntityToPosition(Entity *toEntity, Position *toPos);
+    Entity *getEntityAt(Position *atPos) const;
+    Environment::fieldType getEnvTypeAt (Position *atPos) const;
+
+    void setFieldEntityAtPosition(Entity *toEntity, Position *toPos);
     void setFieldEntityToItsPosition(Entity *entity);
-    bool entityEmptyPosition(Position* pos);
+    bool entityEmptyPosition(Position* pos) const;
+    bool passableEnvironmentAt(Position *pos) const;
+    bool freeFieldAt(Position *atPos) const;
+    void deleteEntityFromBoardAt(Position *atPos);
+    void deleteEntityFromBoard(Entity *entity);
+    Position *getNewRandomFreeBoardPosition() const;
 };
 
 #endif // GAMEBOARD_H

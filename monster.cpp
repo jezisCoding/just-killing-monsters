@@ -10,6 +10,8 @@ Monster::Monster(Position* position, std::__cxx11::string mapSign, std::__cxx11:
 
 Monster::Monster(const Monster &orig) : Creature(orig)
 {
+    monsterCount++;
+
     this->position = nullptr;
     this->name = orig.getName() + "(split)";
     this->mapSign = 'V';

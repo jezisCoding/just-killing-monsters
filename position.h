@@ -1,6 +1,9 @@
 #ifndef POSITION_H
 #define POSITION_H
 
+#include <limits>
+#include <cstdlib>
+#include <ctime>
 
 struct Position
 {
@@ -8,11 +11,11 @@ struct Position
     unsigned int y;
     enum direction{Up, Down, Left, Right};
 
-    Position() : x(0), y(0){}
+    Position() : x(std::numeric_limits<int>::max()), y(std::numeric_limits<int>::max()){}
     Position(unsigned int xVal, unsigned int yVal) : x(xVal), y(yVal) {}
 
-    static Position *getNewPosition(unsigned int x, unsigned int y){
-        return new Position(x, y);
+    static Position getNewPosition(unsigned int x, unsigned int y){
+        return Position(x, y);
     }
 
     static Position getNewPositionInDirection(Position* currPos, char direct){
@@ -31,7 +34,8 @@ struct Position
             targetPos = Position(currPos->x, currPos->y+1);
             break;
         default:
-            std::cout << "Invalid direction." << std::endl;
+            targetPos = *currPos;
+            std::cout << "Invalid direction, returning currPos." << std::endl;
             break;
         }
         return targetPos;
@@ -53,12 +57,31 @@ struct Position
             targetPos = Position(currPos->x, currPos->y+1);
             break;
         default:
-            std::cout << "Invalid direction." << std::endl;
+            targetPos = *currPos;
+            std::cout << "Invalid direction, returning currPos." << std::endl;
             break;
         }
         return targetPos;
     }
 
+    static Position getNewRandomPosition(unsigned int minX, unsigned int maxX, unsigned int minY, unsigned int maxY){
+        srand(time(NULL));
+        unsigned int finalX = std::rand() % maxX + minX;
+        unsigned int finalY = std::rand() % maxY + minY;
+        return Position(finalX, finalY);
+
+        /*
+        std::random_device rd;
+        std::mt19937 rng(rd());
+        std::uniform_int_distribution<int> uniX(minX, maxX);
+        std::uniform_int_distribution<int> uniY(minY, maxY);
+
+        int finalX = uniX(rng);
+        int finalY = uniY(rng);
+
+        return Position(finalX, finalY);
+        */
+    }
 };
 
 #endif // POSITION_H

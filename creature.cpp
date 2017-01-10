@@ -36,6 +36,7 @@ int Creature::reaction(Creature *to){
 uint8_t Creature::defendYourselfFrom(Creature *who){
     who->dealDmg(this, who->getAttack());
     dealDmg(who, getAttack());
+    std::cout << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (who->getHealth() < 1) outcome |= 1;
@@ -46,13 +47,7 @@ uint8_t Creature::defendYourselfFrom(Creature *who){
 void Creature::dealDmg(Creature *to, const int& dmgDealt){
     std::cout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
-    std::cout << to->getHealth() << ")" << std::endl << std::endl;
-}
-
-void Creature::receiveDmg(Creature *from, const int& dmgReceived){
-    std::cout << from->getName() << " attacks " + this->getName() + "(" << this->getHealth() << "->";
-    this->setHealth(this->getHealth() - dmgReceived);
-    std::cout << this->getHealth() << ")" << std::endl;
+    std::cout << to->getHealth() << ")";
 }
 
 bool Creature::operator== (const Creature& right){

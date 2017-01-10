@@ -16,6 +16,7 @@ public:
     virtual int reaction(Creature *to);
 
     fieldType getType() const;
+    bool passableEnvironment() const;
 };
 
 #endif // ENVIRONMENT_H
