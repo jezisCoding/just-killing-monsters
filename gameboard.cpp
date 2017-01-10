@@ -6,7 +6,7 @@ GameBoard::GameBoard()
     board.setSizes(SIZE_X, SIZE_Y);
 
     initializeEnvironment();
-    initializeEntities();
+    initializeEntitiesRnd();
 }
 
 GameBoard::~GameBoard()
