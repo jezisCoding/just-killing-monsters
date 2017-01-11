@@ -23,32 +23,32 @@ void GameBoard::initializeEnvironment(){
         for (unsigned int j=0; j<SIZE_Y; j++){
             *pos = Position::getNewPosition(i, j);
             empty = ef->getNewEnvironment(pos, Environment::Empty);
-            board.push_back(new GameField(nullptr, empty, pos));    //its all the same empty instance
-        }                                                           //
+            board.push_back(new GameField(nullptr, empty));    //its all the same empty instance
+        }
     }
 
     for (unsigned int i=0; i<SIZE_X; i++){
         unsigned int j=0;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
 
         j = SIZE_Y-1;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
     }
 
     for (unsigned int j=1; j<SIZE_Y-1; j++){
         unsigned int i=0;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
 
         i = SIZE_X-1;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
     }
 }
 
@@ -179,17 +179,20 @@ void GameBoard::setFieldEntityToItsPosition(Entity *entity){
 }
 
 bool GameBoard::entityEmptyPosition(Position *pos) const{
-    return getEntityAt(pos) == nullptr;
+    bool a = getEntityAt(pos) == nullptr;
+    return a;
 }
 
 bool GameBoard::passableEnvironmentAt(Position *pos) const
 {
-    return board.at(pos)->getFieldEnvironment()->passableEnvironment();
+    bool a = board.at(pos)->getFieldEnvironment()->passableEnvironment();
+    return a;
 }
 
 bool GameBoard::freeFieldAt(Position *atPos) const
 {
-     return entityEmptyPosition(atPos) && passableEnvironmentAt(atPos);
+    bool a = entityEmptyPosition(atPos) && passableEnvironmentAt(atPos);
+    return a;
 }
 
 void GameBoard::deleteEntityFromBoard(Entity *entity)

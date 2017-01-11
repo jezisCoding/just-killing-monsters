@@ -153,9 +153,9 @@ void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
             do {
                 *splitPos = Position::getNewPositionInDirection(centerPos, (Position::direction)direction);
                 direction++;
-            } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::Right);
+            } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::None);
 
-            if (splitPos == centerPos) std::cout << "The monster has nowhere to split, good for you" << std::endl;
+            if (*splitPos == *centerPos) std::cout << "The monster has nowhere to split, good for you" << std::endl;
             else {
                 MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
                 gameBoard->setFieldEntityAtPosition(mfsplit, splitPos);
