@@ -5,13 +5,27 @@ GameBoard::GameBoard()
     ef = new EntityFactory();
     board.setSizes(SIZE_X, SIZE_Y);
 
-    initializeEnvironment();
-    initializeEntities();
+    initializeBoardRnd();  //swap initializeGame()/initializeGameRnd() for (non)random board initialization
 }
 
 GameBoard::~GameBoard()
 {
     board.clear();
+}
+
+void GameBoard::initializeBoard()
+{
+    initializeEnvironment();
+    initializeEntities();
+}
+
+void GameBoard::initializeBoardRnd()
+{
+    std::cout << "Randomizing positions based on time... \n"
+                 "This takes 20 seconds... \n"
+                 "\n";
+    initializeEnvironmentRnd();
+    initializeEntitiesRnd();
 }
 
 void GameBoard::initializeEnvironment(){
@@ -23,32 +37,89 @@ void GameBoard::initializeEnvironment(){
         for (unsigned int j=0; j<SIZE_Y; j++){
             *pos = Position::getNewPosition(i, j);
             empty = ef->getNewEnvironment(pos, Environment::Empty);
-            board.push_back(new GameField(nullptr, empty, pos));    //its all the same empty instance
-        }                                                           //
+            board.push_back(new GameField(nullptr, empty));
+        }
     }
 
     for (unsigned int i=0; i<SIZE_X; i++){
         unsigned int j=0;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
 
         j = SIZE_Y-1;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
     }
 
     for (unsigned int j=1; j<SIZE_Y-1; j++){
         unsigned int i=0;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
 
         i = SIZE_X-1;
         *pos = Position::getNewPosition(i, j);
         tree = ef->getNewEnvironment(pos, Environment::Tree);
-        board.at(i, j) = new GameField(nullptr, tree, pos);
+        board.at(i, j) = new GameField(nullptr, tree);
+    }
+
+    board.at(2, 2) = new GameField(nullptr, tree);
+    board.at(3, 2) = new GameField(nullptr, tree);
+    board.at(8, 4) = new GameField(nullptr, tree);
+    board.at(1, 5) = new GameField(nullptr, tree);
+    board.at(2, 5) = new GameField(nullptr, tree);
+    board.at(3, 5) = new GameField(nullptr, tree);
+    board.at(4, 6) = new GameField(nullptr, tree);
+    board.at(5, 6) = new GameField(nullptr, tree);
+    board.at(6, 5) = new GameField(nullptr, tree);
+    board.at(5, 3) = new GameField(nullptr, tree);
+    board.at(4, 3) = new GameField(nullptr, tree);
+}
+
+void GameBoard::initializeEnvironmentRnd()
+{
+    Environment *empty;
+    Environment *tree;
+    Position *pos = new Position;
+
+    for (unsigned int i=0; i<SIZE_X; i++){
+        for (unsigned int j=0; j<SIZE_Y; j++){
+            *pos = Position::getNewPosition(i, j);
+            empty = ef->getNewEnvironment(pos, Environment::Empty);
+            board.push_back(new GameField(nullptr, empty));    //its all the same empty instance
+        }
+    }
+
+    for (unsigned int i=0; i<SIZE_X; i++){
+        unsigned int j=0;
+        *pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
+        board.at(i, j) = new GameField(nullptr, tree);
+
+        j = SIZE_Y-1;
+        *pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
+        board.at(i, j) = new GameField(nullptr, tree);
+    }
+
+    for (unsigned int j=1; j<SIZE_Y-1; j++){
+        unsigned int i=0;
+        *pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
+        board.at(i, j) = new GameField(nullptr, tree);
+
+        i = SIZE_X-1;
+        *pos = Position::getNewPosition(i, j);
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
+        board.at(i, j) = new GameField(nullptr, tree);
+    }
+
+    for (unsigned int i=0; i<10; i++){
+        pos = getNewRandomFreeBoardPosition();
+        tree = ef->getNewEnvironment(pos, Environment::Tree);
+        board.at(pos->x, pos->y) = new GameField(nullptr, tree);
     }
 }
 
@@ -71,8 +142,6 @@ void GameBoard::initializeEntities(){
 
 void GameBoard::initializeEntitiesRnd()
 {
-    std::cout << "Randomizing positions... \n\n";
-
     hero = ef->getNewHero(getNewRandomFreeBoardPosition());
     setFieldEntityToItsPosition(hero);
     Monster *monster1 = ef->getNewMonster(getNewRandomFreeBoardPosition(), 0);
@@ -150,6 +219,32 @@ void GameBoard::moveHero(Position *toPos){
     }
 }
 
+Position *GameBoard::getNewRandomFreeBoardPosition() const
+{
+    Position *pos = new Position;
+    do {
+        *pos = Position::getNewRandomPosition(1, SIZE_X-1, 1, SIZE_Y-1);
+    } while (!freeFieldAt(pos));
+    return pos;
+}
+
+bool GameBoard::freeFieldAt(Position *atPos) const
+{
+    bool a = entityEmptyPosition(atPos) && passableEnvironmentAt(atPos);
+    return a;
+}
+
+bool GameBoard::entityEmptyPosition(Position *pos) const{
+    bool a = getEntityAt(pos) == nullptr;
+    return a;
+}
+
+bool GameBoard::passableEnvironmentAt(Position *pos) const
+{
+    bool a = board.at(pos)->getFieldEnvironment()->passableEnvironment();
+    return a;
+}
+
 Hero *GameBoard::getHero() const{
     return hero;
 }
@@ -178,20 +273,6 @@ void GameBoard::setFieldEntityToItsPosition(Entity *entity){
                       "(GameBoard::setFieldEntityToItsPosition(Entity *entity))" << std::endl;
 }
 
-bool GameBoard::entityEmptyPosition(Position *pos) const{
-    return getEntityAt(pos) == nullptr;
-}
-
-bool GameBoard::passableEnvironmentAt(Position *pos) const
-{
-    return board.at(pos)->getFieldEnvironment()->passableEnvironment();
-}
-
-bool GameBoard::freeFieldAt(Position *atPos) const
-{
-     return entityEmptyPosition(atPos) && passableEnvironmentAt(atPos);
-}
-
 void GameBoard::deleteEntityFromBoard(Entity *entity)
 {
     setFieldEntityAtPosition(nullptr, entity->getPosition());
@@ -215,13 +296,6 @@ void GameBoard::deleteEntityFromBoardAt(Position *atPos){
     delete entityAtPos;
 }
 
-Position *GameBoard::getNewRandomFreeBoardPosition() const
-{
-    Position *pos = new Position;
-    do {
-        *pos = Position::getNewRandomPosition(1, SIZE_X-1, 1, SIZE_Y-1);
-    } while (!freeFieldAt(pos));
-    return pos;
-}
+
 
 

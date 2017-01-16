@@ -9,9 +9,10 @@ struct Position
 {
     unsigned int x;
     unsigned int y;
-    enum direction{Up, Down, Left, Right};
+    enum direction{Up, Down, Left, Right, None};
 
     Position() : x(std::numeric_limits<int>::max()), y(std::numeric_limits<int>::max()){}
+
     Position(unsigned int xVal, unsigned int yVal) : x(xVal), y(yVal) {}
 
     static Position getNewPosition(unsigned int x, unsigned int y){
@@ -69,18 +70,10 @@ struct Position
         unsigned int finalX = std::rand() % maxX + minX;
         unsigned int finalY = std::rand() % maxY + minY;
         return Position(finalX, finalY);
+    }
 
-        /*
-        std::random_device rd;
-        std::mt19937 rng(rd());
-        std::uniform_int_distribution<int> uniX(minX, maxX);
-        std::uniform_int_distribution<int> uniY(minY, maxY);
-
-        int finalX = uniX(rng);
-        int finalY = uniY(rng);
-
-        return Position(finalX, finalY);
-        */
+    bool operator==(const Position& right){
+        return right.x == x && right.y == y;
     }
 };
 

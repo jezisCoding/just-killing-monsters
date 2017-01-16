@@ -29,12 +29,12 @@ std::string Entity::getMapSign() const
     return mapSign;
 }
 
-Position* Entity::getPosition(){
-    return position;
-}
-
 void Entity::setPosition(Position *position){
     this->position = position;
+}
+
+Position* Entity::getPosition(){
+    return position;
 }
 
 std::string Entity::getTypeIdStringPointer(){

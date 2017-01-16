@@ -12,8 +12,10 @@ public:
     MonsterFearsome(MonsterFearsome& from);
     ~MonsterFearsome();
 
+private:
     uint8_t defendYourselfFrom(Creature *who) override;
 
+public:
     int getAttack() const;
     int getFearsomeness() const;
     bool monsterSplit() const;

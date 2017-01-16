@@ -13,9 +13,11 @@ public:
          int readiness, bool surpriseAttack);
     ~Hero();
 
+private:
     uint8_t defendYourselfFrom(Creature *who) override;
     void dealDmg(Creature *to, const int& dmgDealt);
 
+public:
     int getAttack() const;
     void resetSurpriseHit();
 };

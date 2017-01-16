@@ -13,14 +13,19 @@ protected:
     int health;
     int attack;
     static const int MAX_HEALTH = 100;
+
 public:
     Creature(Position* position, std::string mapSign, std::__cxx11::string name, int health, int attack);
     Creature(const Creature& orig);
     virtual ~Creature();
 
     int interaction(Entity *with);
+
+protected:
     int reaction(Creature *to);
     virtual uint8_t defendYourselfFrom(Creature *who);
+
+public:
     virtual void dealDmg(Creature *to, const int& dmgDealt);
 
     std::string getName() const;
