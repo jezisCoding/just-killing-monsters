@@ -8,7 +8,7 @@ Hero::Hero(Position *position, std::__cxx11::string mapSign, std::string name, i
 }
 
 Hero::~Hero(){
-    std::cout << name + " is rip, git gud" << std::endl;
+    std::cout << name + " is dead, git gud" << std::endl;
 }
 
 uint8_t Hero::defendYourselfFrom(Creature *who){

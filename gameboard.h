@@ -29,7 +29,10 @@ public:
     GameBoard();
     ~GameBoard();
 
+    void initializeBoard();
+    void initializeBoardRnd();
     void initializeEnvironment();
+    void initializeEnvironmentRnd();
     void initializeEntities();
     void initializeEntitiesRnd();
     bool monstersDead() const;

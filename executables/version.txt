@@ -1,0 +1,3 @@
+v1.02(current)
+-added monstersplit, random initialization
+-minor fixes
