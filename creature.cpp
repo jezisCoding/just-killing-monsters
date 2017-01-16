@@ -28,11 +28,6 @@ int Creature::reaction(Creature *to){
     return defendYourselfFrom(to);
 }
 
-    /* attack and self defense when attacked
-     *
-     * bitwise return values: death of:
-     * 0-nobody * 1-the other creature(who/attacker/hero) * 2-this creature(this/defender/monster) * 3-both creatures
-     */
 uint8_t Creature::defendYourselfFrom(Creature *who){
     who->dealDmg(this, who->getAttack());
     dealDmg(who, getAttack());

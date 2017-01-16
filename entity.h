@@ -9,6 +9,10 @@
 
 class Creature;
 
+/*!
+ * \brief The Entity class
+ *      This abstract class describes an entity on the GameBoard
+ */
 class Entity
 {
 protected:
@@ -19,6 +23,7 @@ public:
     Entity(const Entity& orig);
     virtual ~Entity();
 
+    //! All the entities must be interactive(able to react)
     virtual int reaction(Creature *to) = 0;
 
     void setMapSign(std::string to);

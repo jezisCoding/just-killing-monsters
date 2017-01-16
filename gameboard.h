@@ -17,6 +17,15 @@
 #include "entityfactory.h"
 #include "myexceptions.h"
 
+/*!
+ * \brief The GameBoard class
+ *      GameBoard is the playground on which the whole game takes place.
+ *
+ * It takes care of all the functionality concerning maintenance of the board,
+ * it provides some services for GameEngine, such as deleting and moving Entities,
+ * saving and loading game state and so on.
+ */
+
 class GameBoard
 {
 private:
@@ -40,10 +49,23 @@ private:
 public:
     bool monstersDead() const;
     void printBoard() const;
+    /*!
+     * \brief saveBoard
+     *     The current implementation of saveBoard().
+     * \return whether the save was successful
+     */
     bool saveBoard() throw(file_error);
     void loadBoard() const throw(file_error);
     void moveHero(Position *toPos);
 
+    /*!
+     * \brief getNewRandomFreeBoardPosition
+     *      Returns a pointer to an instance of Position, which is randomized
+     *      and checked if the GameField at given position is "free".
+     *
+     * "Free" meaning that the environment is accessible and there is no entity there yet.
+     * \return the instance of Position
+     */
     Position *getNewRandomFreeBoardPosition() const;
     bool freeFieldAt(Position *atPos) const;
 

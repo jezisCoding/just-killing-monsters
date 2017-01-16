@@ -7,6 +7,14 @@
 
 #include "position.h"
 
+
+
+/*!
+ * \brief The My2DBoardVector class
+ *      This class is a std::vector wrapper customized for my needs for the GameBoard.
+ *
+ * It is also more processor time efficient than a classic vector of vectors.
+ */
 template <class T>
 class My2DBoardVector
 {
@@ -36,6 +44,10 @@ public:
 
     const_iterator end() const{return myVector.end();}
 
+    /*!
+     * \brief The MyDeleter struct
+     *      This method can be used in a for_each for deleting the whole vector.
+     */
     struct MyDeleter : std::unary_function<T, void>{
         void operator()(T fieldPtr){delete fieldPtr;}
     };
