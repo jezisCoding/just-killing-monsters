@@ -12,10 +12,6 @@ Potion::~Potion()
     std::cout << "You drank the potion and its gone" << std::endl;
 }
 
-    /**
-     * return 2 - potion is drank(its getting destroyed)
-     * you dont need this if 100 hp
-     */
 int Potion::reaction(Creature *to){
     int userHealth = to->getHealth();
     int userMaxHealth = to->getMAX_HEALTH();

@@ -6,6 +6,10 @@
 
 #include <cstdint>
 
+/*!
+ * \brief The Creature class
+ *      This class describes Creatures on the GameBoard and their interactions.
+ */
 class Creature : public Entity
 {
 protected:
@@ -23,9 +27,16 @@ public:
 
 protected:
     int reaction(Creature *to);
+
+    //! Self defense when attacked
+    /*!
+     * bitwise return values: death of:
+     * 0-nobody * 1-the other creature(who/attacker/hero) * 2-this creature(this/defender/monster) * 3-both creatures
+     */
     virtual uint8_t defendYourselfFrom(Creature *who);
 
 public:
+    //! Method used in defendYourselfFrom that takes care of dealing damage itself
     virtual void dealDmg(Creature *to, const int& dmgDealt);
 
     std::string getName() const;

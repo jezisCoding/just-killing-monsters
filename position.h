@@ -5,10 +5,21 @@
 #include <cstdlib>
 #include <ctime>
 
+/*!
+ * \brief The Position struct
+ *      This struct is a container for handling positioning on the GameBoard.
+ *
+ * It is extended with additional functionality over simple containers.
+ * It can return instances of itself based on direction or randomly.
+ */
 struct Position
 {
     unsigned int x;
     unsigned int y;
+    //!
+    //! \brief The direction enum
+    //!     A type used to generate new Positions with direction parameter.
+    //!
     enum direction{Up, Down, Left, Right, None};
 
     Position() : x(std::numeric_limits<int>::max()), y(std::numeric_limits<int>::max()){}
@@ -65,6 +76,15 @@ struct Position
         return targetPos;
     }
 
+    /*!
+     * \brief getNewRandomPosition
+     *      This method returns an instance of Position of which the coordinates are randomized by time.
+     * \param minX range parameter
+     * \param maxX range parameter
+     * \param minY range parameter
+     * \param maxY range parameter
+     * \return the instance
+     */
     static Position getNewRandomPosition(unsigned int minX, unsigned int maxX, unsigned int minY, unsigned int maxY){
         srand(time(NULL));
         unsigned int finalX = std::rand() % maxX + minX;

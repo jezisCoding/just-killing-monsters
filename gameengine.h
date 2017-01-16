@@ -6,6 +6,13 @@
 #include <fstream>
 #include <cstdint>
 
+/*!
+ * \brief The GameEngine class
+ *      This class is the core of the whole program.
+ *
+ * It contains the main loop, takes care of user input and communicates it further
+ * among other functionality.
+ */
 class GameEngine
 {
 private:
