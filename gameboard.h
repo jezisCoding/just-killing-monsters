@@ -29,18 +29,29 @@ public:
     GameBoard();
     ~GameBoard();
 
+private:
     void initializeBoard();
     void initializeBoardRnd();
     void initializeEnvironment();
     void initializeEnvironmentRnd();
     void initializeEntities();
     void initializeEntitiesRnd();
+
+public:
     bool monstersDead() const;
     void printBoard() const;
     bool saveBoard() throw(file_error);
     void loadBoard() const throw(file_error);
     void moveHero(Position *toPos);
 
+    Position *getNewRandomFreeBoardPosition() const;
+    bool freeFieldAt(Position *atPos) const;
+
+private:
+    bool entityEmptyPosition(Position* pos) const;
+    bool passableEnvironmentAt(Position *pos) const;
+
+public:
     Hero *getHero() const;
     GameField *getFieldAt(Position *atPos) const;
     Entity *getEntityAt(Position *atPos) const;
@@ -48,12 +59,8 @@ public:
 
     void setFieldEntityAtPosition(Entity *toEntity, Position *toPos);
     void setFieldEntityToItsPosition(Entity *entity);
-    bool entityEmptyPosition(Position* pos) const;
-    bool passableEnvironmentAt(Position *pos) const;
-    bool freeFieldAt(Position *atPos) const;
     void deleteEntityFromBoardAt(Position *atPos);
     void deleteEntityFromBoard(Entity *entity);
-    Position *getNewRandomFreeBoardPosition() const;
 };
 
 #endif // GAMEBOARD_H

@@ -50,11 +50,6 @@ void Creature::dealDmg(Creature *to, const int& dmgDealt){
     std::cout << to->getHealth() << ")" << std::endl;
 }
 
-bool Creature::operator== (const Creature& right){
-    if (this->getName()==right.getName() && this->getHealth()==right.getHealth()) return true;
-    return false;
-}
-
 std::string Creature::getName() const{
     return name;
 }
@@ -73,4 +68,9 @@ int Creature::getMAX_HEALTH(){
 
 void Creature::setHealth(const int &toValue){
     this->health = toValue;
+}
+
+bool Creature::operator== (const Creature& right){
+    if (this->getName()==right.getName() && this->getHealth()==right.getHealth()) return true;
+    return false;
 }

@@ -12,6 +12,7 @@ struct Position
     enum direction{Up, Down, Left, Right, None};
 
     Position() : x(std::numeric_limits<int>::max()), y(std::numeric_limits<int>::max()){}
+
     Position(unsigned int xVal, unsigned int yVal) : x(xVal), y(yVal) {}
 
     static Position getNewPosition(unsigned int x, unsigned int y){

@@ -219,6 +219,32 @@ void GameBoard::moveHero(Position *toPos){
     }
 }
 
+Position *GameBoard::getNewRandomFreeBoardPosition() const
+{
+    Position *pos = new Position;
+    do {
+        *pos = Position::getNewRandomPosition(1, SIZE_X-1, 1, SIZE_Y-1);
+    } while (!freeFieldAt(pos));
+    return pos;
+}
+
+bool GameBoard::freeFieldAt(Position *atPos) const
+{
+    bool a = entityEmptyPosition(atPos) && passableEnvironmentAt(atPos);
+    return a;
+}
+
+bool GameBoard::entityEmptyPosition(Position *pos) const{
+    bool a = getEntityAt(pos) == nullptr;
+    return a;
+}
+
+bool GameBoard::passableEnvironmentAt(Position *pos) const
+{
+    bool a = board.at(pos)->getFieldEnvironment()->passableEnvironment();
+    return a;
+}
+
 Hero *GameBoard::getHero() const{
     return hero;
 }
@@ -247,23 +273,6 @@ void GameBoard::setFieldEntityToItsPosition(Entity *entity){
                       "(GameBoard::setFieldEntityToItsPosition(Entity *entity))" << std::endl;
 }
 
-bool GameBoard::entityEmptyPosition(Position *pos) const{
-    bool a = getEntityAt(pos) == nullptr;
-    return a;
-}
-
-bool GameBoard::passableEnvironmentAt(Position *pos) const
-{
-    bool a = board.at(pos)->getFieldEnvironment()->passableEnvironment();
-    return a;
-}
-
-bool GameBoard::freeFieldAt(Position *atPos) const
-{
-    bool a = entityEmptyPosition(atPos) && passableEnvironmentAt(atPos);
-    return a;
-}
-
 void GameBoard::deleteEntityFromBoard(Entity *entity)
 {
     setFieldEntityAtPosition(nullptr, entity->getPosition());
@@ -287,13 +296,6 @@ void GameBoard::deleteEntityFromBoardAt(Position *atPos){
     delete entityAtPos;
 }
 
-Position *GameBoard::getNewRandomFreeBoardPosition() const
-{
-    Position *pos = new Position;
-    do {
-        *pos = Position::getNewRandomPosition(1, SIZE_X-1, 1, SIZE_Y-1);
-    } while (!freeFieldAt(pos));
-    return pos;
-}
+
 
 
