@@ -5,25 +5,26 @@
 #include "environment.h"
 #include "position.h"
 #include "hero.h"
+#include <memory>
 
 /*!
- * \brief The GameField class
- *      This class describes a single field in the GameBoard class.
+ * \brief This class describes a single field in the GameBoard class.
  *
  * It is basically a container which describes contents of the single field on the board.
  */
 class GameField
 {
 private:
-    Entity *fieldEntity;
-    Environment *fieldEnvironment;
+    typedef std::unique_ptr<Entity> MyEntityPointer;
+    typedef std::unique_ptr<Environment> MyEnvironmentPointer;
+    MyEntityPointer fieldEntity;
+    MyEnvironmentPointer fieldEnvironment;
 public:
-    GameField(Entity *fieldEntity, Environment *fieldEnvironment);
+    GameField(MyEntityPointer fieldEntity, MyEnvironmentPointer fieldEnvironment);
     ~GameField();
 
     /*!
-     * \brief getPrintSign
-     *      This method returns the character to be printed to output depending
+     * \brief This method returns the character to be printed to output depending
      *      on the state of the GameField.
      * \return string value of the character to be printed
      */

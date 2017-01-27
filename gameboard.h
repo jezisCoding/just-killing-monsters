@@ -18,8 +18,7 @@
 #include "myexceptions.h"
 
 /*!
- * \brief The GameBoard class
- *      GameBoard is the playground on which the whole game takes place.
+ * \brief GameBoard is the playground on which the whole game takes place.
  *
  * It takes care of all the functionality concerning maintenance of the board,
  * it provides some services for GameEngine, such as deleting and moving Entities,
@@ -29,6 +28,7 @@
 class GameBoard
 {
 private:
+    //! Size constants of the board
     const unsigned int SIZE_X = 10, SIZE_Y = 10;
 
     My2DBoardVector<GameField *> board;
@@ -43,15 +43,16 @@ private:
     void initializeBoardRnd();
     void initializeEnvironment();
     void initializeEnvironmentRnd();
+    void initializeEnvBase(Environment **empty, Environment **tree, Position **pos);
     void initializeEntities();
     void initializeEntitiesRnd();
 
 public:
     bool monstersDead() const;
     void printBoard() const;
+
     /*!
-     * \brief saveBoard
-     *     The current implementation of saveBoard().
+     * \brief The current implementation of saveBoard().
      * \return whether the save was successful
      */
     bool saveBoard() throw(file_error);
@@ -59,12 +60,11 @@ public:
     void moveHero(Position *toPos);
 
     /*!
-     * \brief getNewRandomFreeBoardPosition
-     *      Returns a pointer to an instance of Position, which is randomized
+     * \brief Returns a pointer to an instance of Position, which is randomized
      *      and checked if the GameField at given position is "free".
      *
      * "Free" meaning that the environment is accessible and there is no entity there yet.
-     * \return the instance of Position
+     * \return The instance of Position
      */
     Position *getNewRandomFreeBoardPosition() const;
     bool freeFieldAt(Position *atPos) const;
@@ -80,7 +80,7 @@ public:
     Environment::fieldType getEnvTypeAt (Position *atPos) const;
 
     void setFieldEntityAtPosition(Entity *toEntity, Position *toPos);
-    void setFieldEntityToItsPosition(Entity *entity);
+    inline void setFieldEntityToItsPosition(Entity *entity);
     void deleteEntityFromBoardAt(Position *atPos);
     void deleteEntityFromBoard(Entity *entity);
 };

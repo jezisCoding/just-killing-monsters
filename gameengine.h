@@ -7,8 +7,7 @@
 #include <cstdint>
 
 /*!
- * \brief The GameEngine class
- *      This class is the core of the whole program.
+ * \brief This class is the core of the whole program.
  *
  * It contains the main loop, takes care of user input and communicates it further
  * among other functionality.
@@ -22,6 +21,7 @@ private:
 public:
     GameEngine();
     ~GameEngine();
+    //! This is the main game loop
     void play();
 
 private:

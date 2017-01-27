@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Just Killing Monsters: GameField Class Reference</title>
+<title>Just killing monsters: GameField Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,9 +28,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Just Killing Monsters
+   <div id="projectname">Just killing monsters
    </div>
-   <div id="projectbrief">A home game project</div>
   </td>
  </tr>
  </tbody>
@@ -88,7 +87,7 @@ $(document).ready(function(){initNavTree('class_game_field.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="class_game_field.html" title="The GameField class This class describes a single field in the GameBoard class. ">GameField</a> class This class describes a single field in the <a class="el" href="class_game_board.html" title="The GameBoard class GameBoard is the playground on which the whole game takes place. ">GameBoard</a> class.  
+<p>This class describes a single field in the <a class="el" href="class_game_board.html" title="GameBoard is the playground on which the whole game takes place. ">GameBoard</a> class.  
  <a href="class_game_field.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="gamefield_8h_source.html">gamefield.h</a>&gt;</code></p>
@@ -99,7 +98,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>GameField</b> (<a class="el" href="class_entity.html">Entity</a> *fieldEntity, <a class="el" href="struct_environment.html">Environment</a> *fieldEnvironment)</td></tr>
 <tr class="separator:ae72e4051d94d8350a4dcb8ac45738341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98ae456ff8219e23d06fe9945cbbaab7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_game_field.html#a98ae456ff8219e23d06fe9945cbbaab7">getPrintSign</a> () const</td></tr>
-<tr class="memdesc:a98ae456ff8219e23d06fe9945cbbaab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">getPrintSign This method returns the character to be printed to output depending on the state of the <a class="el" href="class_game_field.html" title="The GameField class This class describes a single field in the GameBoard class. ">GameField</a>.  <a href="#a98ae456ff8219e23d06fe9945cbbaab7">More...</a><br /></td></tr>
+<tr class="memdesc:a98ae456ff8219e23d06fe9945cbbaab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns the character to be printed to output depending on the state of the <a class="el" href="class_game_field.html" title="This class describes a single field in the GameBoard class. ">GameField</a>.  <a href="#a98ae456ff8219e23d06fe9945cbbaab7">More...</a><br /></td></tr>
 <tr class="separator:a98ae456ff8219e23d06fe9945cbbaab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb43edd6d8125839b3e581f926aee6ab"><td class="memItemLeft" align="right" valign="top"><a id="aeb43edd6d8125839b3e581f926aee6ab"></a>
 <a class="el" href="class_entity.html">Entity</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getFieldEntity</b> () const</td></tr>
@@ -115,7 +114,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setFieldEnvironment</
 <tr class="separator:a3a9239f0ea0c4902c54f06af1ca954a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="class_game_field.html" title="The GameField class This class describes a single field in the GameBoard class. ">GameField</a> class This class describes a single field in the <a class="el" href="class_game_board.html" title="The GameBoard class GameBoard is the playground on which the whole game takes place. ">GameBoard</a> class. </p>
+<div class="textblock"><p>This class describes a single field in the <a class="el" href="class_game_board.html" title="GameBoard is the playground on which the whole game takes place. ">GameBoard</a> class. </p>
 <p>It is basically a container which describes contents of the single field on the board. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a98ae456ff8219e23d06fe9945cbbaab7"></a>
@@ -123,6 +122,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setFieldEnvironment</
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">std::string GameField::getPrintSign </td>
@@ -131,9 +133,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setFieldEnvironment</
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>getPrintSign This method returns the character to be printed to output depending on the state of the <a class="el" href="class_game_field.html" title="The GameField class This class describes a single field in the GameBoard class. ">GameField</a>. </p>
+<p>This method returns the character to be printed to output depending on the state of the <a class="el" href="class_game_field.html" title="This class describes a single field in the GameBoard class. ">GameField</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>string value of the character to be printed </dd></dl>
 
 </div>

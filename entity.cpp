@@ -1,6 +1,12 @@
 #include "entity.h"
 #include "creature.h"
 
+Entity::Entity()
+{
+    mapSign = "UNdefined";
+    position = new Position();
+}
+
 Entity::Entity(Position* position, const std::__cxx11::string& mapSign)
 {
     this->position = position;
@@ -16,6 +22,7 @@ Entity::Entity(const Entity& orig)
 Entity::~Entity()
 {
     delete position;
+    std::cout << "entity destructor" << std::endl;
     //std::cout << "An entity just died." << std::endl;
 }
 

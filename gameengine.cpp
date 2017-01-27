@@ -61,7 +61,7 @@ void GameEngine::welcome() const{
 
 void GameEngine::heroTurn(char direction){
     Position *targetPosition = new Position();
-    *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
+    *targetPosition = Position::getPositionInDirection(hero->getPosition(), direction);
     Entity *targetFieldEntity = gameBoard->getFieldAt(targetPosition)->getFieldEntity();
 
     if (targetFieldEntity != nullptr) heroAction(targetFieldEntity);
@@ -151,7 +151,7 @@ void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
             Position* splitPos = new Position;
 
             do {
-                *splitPos = Position::getNewPositionInDirection(centerPos, (Position::direction)direction);
+                *splitPos = Position::getPositionInDirection(centerPos, (Position::direction)direction);
                 direction++;
             } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::None);
 

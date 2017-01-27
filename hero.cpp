@@ -11,7 +11,7 @@ Hero::~Hero(){
     std::cout << name + " is dead, git gud" << std::endl;
 }
 
-uint8_t Hero::defendYourselfFrom(Creature *who){
+uint8_t Hero::fight(Creature *who){
     who->dealDmg(this, who->getAttack());
     dealDmg(who, getAttack());
     std::cout << std::endl;

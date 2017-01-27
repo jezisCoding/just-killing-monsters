@@ -1,5 +1,10 @@
 #include "environment.h"
 
+Environment::Environment() : Entity()
+{
+    type = UNDEFINED;
+}
+
 Environment::Environment(Position *position, const std::__cxx11::string& mapSign, const fieldType& type)
     : Entity(position, mapSign)
 {

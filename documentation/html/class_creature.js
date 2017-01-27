@@ -4,7 +4,7 @@ var class_creature =
     [ "Creature", "class_creature.html#ad75203c0c970205bb25a1821856243c3", null ],
     [ "~Creature", "class_creature.html#aa991b23f4813fbdb6f875204ed49814d", null ],
     [ "dealDmg", "class_creature.html#a5cbf7edd55646d6b345241984599588f", null ],
-    [ "defendYourselfFrom", "class_creature.html#ac05310afb791477377daa8074e7df568", null ],
+    [ "fight", "class_creature.html#a8e48121534d4d3ed16e9b3b609a2fb11", null ],
     [ "getAttack", "class_creature.html#ad3b55a5125b816887b6a9f496f75e37b", null ],
     [ "getHealth", "class_creature.html#a9e6613a15720bd0bdf4eb8153d4d827c", null ],
     [ "getName", "class_creature.html#ad6b8c8cb5e1b73de8e57f88acb34380e", null ],

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Just Killing Monsters: Potion Class Reference</title>
+<title>Just killing monsters: Potion Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,9 +28,8 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Just Killing Monsters
+   <div id="projectname">Just killing monsters
    </div>
-   <div id="projectbrief">A home game project</div>
   </td>
  </tr>
  </tbody>
@@ -88,7 +87,7 @@ $(document).ready(function(){initNavTree('class_potion.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="class_potion.html" title="The Potion class This class describes a special type of Entity on the board. ">Potion</a> class This class describes a special type of <a class="el" href="class_entity.html" title="The Entity class This abstract class describes an entity on the GameBoard. ">Entity</a> on the board.  
+<p>This class describes a special type of <a class="el" href="class_entity.html" title="This abstract class describes an entity on the GameBoard. ">Entity</a> on the board.  
  <a href="class_potion.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="potion_8h_source.html">potion.h</a>&gt;</code></p>
@@ -98,7 +97,7 @@ Inheritance diagram for Potion:</div>
  <div class="center">
   <img src="class_potion.png" usemap="#Potion_map" alt=""/>
   <map id="Potion_map" name="Potion_map">
-<area href="class_entity.html" title="The Entity class This abstract class describes an entity on the GameBoard. " alt="Entity" shape="rect" coords="0,0,47,24"/>
+<area href="class_entity.html" title="This abstract class describes an entity on the GameBoard. " alt="Entity" shape="rect" coords="0,0,47,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -108,7 +107,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Potion</b> (<a class="el" href="struct_position.html">Position</a> *position, std::string mapSign, int healthBonus)</td></tr>
 <tr class="separator:ae4a599ad165d690aadc931d0c0514bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30a4ff7989e130336b78c6493707f43b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_potion.html#a30a4ff7989e130336b78c6493707f43b">reaction</a> (<a class="el" href="class_creature.html">Creature</a> *to)</td></tr>
-<tr class="memdesc:a30a4ff7989e130336b78c6493707f43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">reaction This overload of reaction heals the interacting creature and destroys the postion.  <a href="#a30a4ff7989e130336b78c6493707f43b">More...</a><br /></td></tr>
+<tr class="memdesc:a30a4ff7989e130336b78c6493707f43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This overload of reaction heals the interacting creature and destroys the postion.  <a href="#a30a4ff7989e130336b78c6493707f43b">More...</a><br /></td></tr>
 <tr class="separator:a30a4ff7989e130336b78c6493707f43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ff52e666de568b639b2f6b11d7d4285"><td class="memItemLeft" align="right" valign="top"><a id="a8ff52e666de568b639b2f6b11d7d4285"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getHealthBonus</b> ()</td></tr>
@@ -150,7 +149,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mapSign</b></t
 <tr class="separator:a9394466cf007fce0b959facd97e1f1d3 inherit pro_attribs_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="class_potion.html" title="The Potion class This class describes a special type of Entity on the board. ">Potion</a> class This class describes a special type of <a class="el" href="class_entity.html" title="The Entity class This abstract class describes an entity on the GameBoard. ">Entity</a> on the board. </p>
+<div class="textblock"><p>This class describes a special type of <a class="el" href="class_entity.html" title="This abstract class describes an entity on the GameBoard. ">Entity</a> on the board. </p>
 <p>A <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> can drink the potion(via interaction) and heal itself, destroying the potion. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a30a4ff7989e130336b78c6493707f43b"></a>
@@ -177,14 +176,14 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mapSign</b></t
 </table>
 </div><div class="memdoc">
 
-<p>reaction This overload of reaction heals the interacting creature and destroys the postion. </p>
+<p>This overload of reaction heals the interacting creature and destroys the postion. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">to</td><td><a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> reacted to </td></tr>
+    <tr><td class="paramname">to</td><td>The <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> reacted to </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Return values depending on the health of the interacting <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> 0 if the hero is full health(nothing happens) 2 if the potion is drank(its destroyed) </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Return values depending on the health of the interacting <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a>. 0 if the hero is full health(nothing happens) 2 if the potion is drank(its destroyed) </dd></dl>
 
 <p>Implements <a class="el" href="class_entity.html#a38a316d13f6d23c6b598697c54cedf19">Entity</a>.</p>
 
