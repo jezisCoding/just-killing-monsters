@@ -4,7 +4,8 @@
 #include "creature.h"
 
 /*!
- * \brief This class is a subtype of Creature.
+ * \brief The Monster class
+ *      This class is a subtype of Creature.
  *
  * You need to kill all the monsters in order to win the game.
  * It's damage dealing mechanism is a bit different from Creature.
@@ -13,8 +14,9 @@ class Monster : public Creature
 {
 private:
     //!
-    //! \brief A static member which counts the monsters on board, when it
-    //!     goes down to 0, the game is over.
+    //! \brief monsterCount
+    //!     A static member which counts the monsters on board, when it
+    //!     descends to 0, the game is over.
     //!
     static int monsterCount;
 public:

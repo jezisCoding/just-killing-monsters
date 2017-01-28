@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Just killing monsters: Creature Class Reference</title>
+<title>Just Killing Monsters: Creature Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,8 +28,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Just killing monsters
+   <div id="projectname">Just Killing Monsters
    </div>
+   <div id="projectbrief">A home game project</div>
   </td>
  </tr>
  </tbody>
@@ -91,7 +92,7 @@ $(document).ready(function(){initNavTree('class_creature.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> class This class describes Creatures on the <a class="el" href="class_game_board.html" title="GameBoard is the playground on which the whole game takes place. ">GameBoard</a> and their interactions.  
+<p>The <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> class This class describes Creatures on the <a class="el" href="class_game_board.html" title="The GameBoard class GameBoard is the playground on which the whole game takes place. ">GameBoard</a> and their interactions.  
  <a href="class_creature.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="creature_8h_source.html">creature.h</a>&gt;</code></p>
@@ -101,10 +102,10 @@ Inheritance diagram for Creature:</div>
  <div class="center">
   <img src="class_creature.png" usemap="#Creature_map" alt=""/>
   <map id="Creature_map" name="Creature_map">
-<area href="class_entity.html" title="This abstract class describes an entity on the GameBoard. " alt="Entity" shape="rect" coords="62,0,176,24"/>
-<area href="class_hero.html" title="The Hero is a subclass of Creature. " alt="Hero" shape="rect" coords="0,112,114,136"/>
-<area href="class_monster.html" title="This class is a subtype of Creature. " alt="Monster" shape="rect" coords="124,112,238,136"/>
-<area href="class_monster_fearsome.html" title="FearsomeMonster is a special type of Monster. " alt="MonsterFearsome" shape="rect" coords="124,168,238,192"/>
+<area href="class_entity.html" title="The Entity class This abstract class describes an entity on the GameBoard. " alt="Entity" shape="rect" coords="62,0,176,24"/>
+<area href="class_hero.html" title="The Hero class The Hero is a subclass of Creature. " alt="Hero" shape="rect" coords="0,112,114,136"/>
+<area href="class_monster.html" title="The Monster class This class is a subtype of Creature. " alt="Monster" shape="rect" coords="124,112,238,136"/>
+<area href="class_monster_fearsome.html" title="The MonsterFearsome class FearsomeMonster is a special type of Monster. " alt="MonsterFearsome" shape="rect" coords="124,168,238,192"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -121,7 +122,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>interaction</b> (<a cl
 <tr class="separator:a4ead438387aff00867e4a20e61953baa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cbf7edd55646d6b345241984599588f"><td class="memItemLeft" align="right" valign="top"><a id="a5cbf7edd55646d6b345241984599588f"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_creature.html#a5cbf7edd55646d6b345241984599588f">dealDmg</a> (<a class="el" href="class_creature.html">Creature</a> *to, const int &amp;dmgDealt)</td></tr>
-<tr class="memdesc:a5cbf7edd55646d6b345241984599588f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method used in <a class="el" href="class_creature.html#a8e48121534d4d3ed16e9b3b609a2fb11" title="This method manages the fight between Creatures. ">fight()</a> that takes care of dealing damage itself. <br /></td></tr>
+<tr class="memdesc:a5cbf7edd55646d6b345241984599588f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method used in defendYourselfFrom that takes care of dealing damage itself. <br /></td></tr>
 <tr class="separator:a5cbf7edd55646d6b345241984599588f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6b8c8cb5e1b73de8e57f88acb34380e"><td class="memItemLeft" align="right" valign="top"><a id="ad6b8c8cb5e1b73de8e57f88acb34380e"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
@@ -136,8 +137,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getHealth</b> () const
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setHealth</b> (const int &amp;toValue)</td></tr>
 <tr class="separator:a02b9c8d0fab83ed34c0ab6a8ac2e6096"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b5d04bd9dff41d09c41ada59a564395"><td class="memItemLeft" align="right" valign="top"><a id="a9b5d04bd9dff41d09c41ada59a564395"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_creature.html#a9b5d04bd9dff41d09c41ada59a564395">operator==</a> (const <a class="el" href="class_creature.html">Creature</a> &amp;right)</td></tr>
-<tr class="memdesc:a9b5d04bd9dff41d09c41ada59a564395"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operator for comparing Creatures based on name and current health. <br /></td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_creature.html">Creature</a> &amp;right)</td></tr>
 <tr class="separator:a9b5d04bd9dff41d09c41ada59a564395"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_entity"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_entity')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_entity.html">Entity</a></td></tr>
 <tr class="memitem:a9d3e9dd51d92ef7fa88b64bf21a73169 inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a9d3e9dd51d92ef7fa88b64bf21a73169"></a>
@@ -177,9 +177,9 @@ Protected Member Functions</h2></td></tr>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_creature.html#ad26a12b2e3572efcef5a399f0e238b77">reaction</a> (<a class="el" href="class_creature.html">Creature</a> *to)</td></tr>
 <tr class="memdesc:ad26a12b2e3572efcef5a399f0e238b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the entities must be interactive(able to react) <br /></td></tr>
 <tr class="separator:ad26a12b2e3572efcef5a399f0e238b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e48121534d4d3ed16e9b3b609a2fb11"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_creature.html#a8e48121534d4d3ed16e9b3b609a2fb11">fight</a> (<a class="el" href="class_creature.html">Creature</a> *who)</td></tr>
-<tr class="memdesc:a8e48121534d4d3ed16e9b3b609a2fb11"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method manages the fight between Creatures.  <a href="#a8e48121534d4d3ed16e9b3b609a2fb11">More...</a><br /></td></tr>
-<tr class="separator:a8e48121534d4d3ed16e9b3b609a2fb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac05310afb791477377daa8074e7df568"><td class="memItemLeft" align="right" valign="top">virtual uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_creature.html#ac05310afb791477377daa8074e7df568">defendYourselfFrom</a> (<a class="el" href="class_creature.html">Creature</a> *who)</td></tr>
+<tr class="memdesc:ac05310afb791477377daa8074e7df568"><td class="mdescLeft">&#160;</td><td class="mdescRight">Self defense when attacked.  <a href="#ac05310afb791477377daa8074e7df568">More...</a><br /></td></tr>
+<tr class="separator:ac05310afb791477377daa8074e7df568"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -207,10 +207,10 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_HEALT
 <tr class="separator:af62e883ddba6ef287afa49a617accde7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> class This class describes Creatures on the <a class="el" href="class_game_board.html" title="GameBoard is the playground on which the whole game takes place. ">GameBoard</a> and their interactions. </p>
+<div class="textblock"><p>The <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a> class This class describes Creatures on the <a class="el" href="class_game_board.html" title="The GameBoard class GameBoard is the playground on which the whole game takes place. ">GameBoard</a> and their interactions. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8e48121534d4d3ed16e9b3b609a2fb11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e48121534d4d3ed16e9b3b609a2fb11">&#9670;&nbsp;</a></span>fight()</h2>
+<a id="ac05310afb791477377daa8074e7df568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac05310afb791477377daa8074e7df568">&#9670;&nbsp;</a></span>defendYourselfFrom()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -219,7 +219,7 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_HEALT
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint8_t Creature::fight </td>
+          <td class="memname">uint8_t Creature::defendYourselfFrom </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_creature.html">Creature</a> *&#160;</td>
           <td class="paramname"><em>who</em></td><td>)</td>
@@ -233,8 +233,8 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_HEALT
 </table>
 </div><div class="memdoc">
 
-<p>This method manages the fight between Creatures. </p>
-<dl class="section return"><dt>Returns</dt><dd>bitwise return values: death of: 0-nobody * 1-the other creature(who/attacker/hero) * 2-this creature(this/defender/monster) * 3-both creatures </dd></dl>
+<p>Self defense when attacked. </p>
+<p>bitwise return values: death of: 0-nobody * 1-the other creature(who/attacker/hero) * 2-this creature(this/defender/monster) * 3-both creatures </p>
 
 </div>
 </div>

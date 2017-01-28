@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "Just killing monsters", "index.html", [
+  [ "Just Killing Monsters", "index.html", [
     [ "just-killing-monsters", "md__r_e_a_d_m_e.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],

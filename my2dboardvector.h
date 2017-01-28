@@ -10,7 +10,8 @@
 
 
 /*!
- * \brief This class is a std::vector wrapper customized for my needs for the GameBoard.
+ * \brief The My2DBoardVector class
+ *      This class is a std::vector wrapper customized for my needs for the GameBoard.
  *
  * It is also more processor time efficient than a classic vector of vectors.
  */
@@ -24,14 +25,14 @@ private:
 public:
     //My2DBoardVector(unsigned int x, unsigned int y) : sizeX(x), sizeY(y){}
 
-    inline const T& at(unsigned int x, unsigned int y) const {return myVector.at(x * sizeY + y);}
-    inline T& at(unsigned int x, unsigned int y) {return myVector.at(x * sizeY + y);}
+    const T& at(unsigned int x, unsigned int y) const {return myVector.at(x * sizeY + y);}
+    T& at(unsigned int x, unsigned int y) {return myVector.at(x * sizeY + y);}
 
-    inline const T& at(unsigned int x) const {return myVector.at(x);}
-    inline T& at(unsigned int x) {return myVector.at(x);}
+    const T& at(unsigned int x) const {return myVector.at(x);}
+    T& at(unsigned int x) {return myVector.at(x);}
 
-    inline const T& at(Position* pos) const {return at(pos->x, pos->y);}
-    inline T& at(Position *pos) {return at(pos->x, pos->y);}
+    const T& at(Position* pos) const {return at(pos->x, pos->y);}
+    T& at(Position *pos) {return at(pos->x, pos->y);}
 
     void push_back(const T& value){myVector.push_back(value);}
 
@@ -44,7 +45,8 @@ public:
     const_iterator end() const{return myVector.end();}
 
     /*!
-     * \brief This method can be used in a for_each for deleting the whole vector.
+     * \brief The MyDeleter struct
+     *      This method can be used in a for_each for deleting the whole vector.
      */
     struct MyDeleter : std::unary_function<T, void>{
         void operator()(T fieldPtr){delete fieldPtr;}

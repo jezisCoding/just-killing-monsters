@@ -7,8 +7,11 @@
 #include "environment.h"
 #include "position.h"
 
+
+
 /*!
- * \brief This class is used for returning standardized instances of Entities.
+ * \brief The EntityFactory class
+ *      This class is used for returning standardized instances of Entities.
  */
 class EntityFactory
 {

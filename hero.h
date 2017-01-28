@@ -4,7 +4,8 @@
 #include "creature.h"
 
 /*!
- * \brief The Hero is a subclass of Creature.
+ * \brief The Hero class
+ *      The Hero is a subclass of Creature.
  *
  * The hero is the playable character in the game.
  * He differs very little from other Creatures in the game.
@@ -22,11 +23,12 @@ public:
 
 private:
     /*!
-     * \brief This override exists so that it can call Hero's own dealDmg implementation.
-     * \param The attacking Creature
-     * \return Bitwise return values
+     * \brief defendYourselfFrom
+     *      This override exists so that it can call Hero's own dealDmg implementation.
+     * \param who
+     * \return bitwise return values
      */
-    uint8_t fight(Creature *who) override;
+    uint8_t defendYourselfFrom(Creature *who) override;
     void dealDmg(Creature *to, const int& dmgDealt);
 
 public:

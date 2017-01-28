@@ -1,6 +1,6 @@
 #include "gamefield.h"
 
-GameField::GameField(MyEntityPointer fieldEntity, MyEnvironmentPointer fieldEnvironment)
+GameField::GameField(Entity *fieldEntity, Environment *fieldEnvironment)
 {
     this->fieldEntity = fieldEntity;
     this->fieldEnvironment = fieldEnvironment;
@@ -12,8 +12,7 @@ GameField::~GameField()
     delete fieldEnvironment;
 }
 
-std::__cxx11::string GameField::getPrintSign() const
-{
+std::string GameField::getPrintSign() const{
     if (fieldEntity != nullptr) return fieldEntity->getMapSign();
     return fieldEnvironment->getMapSign();
 }

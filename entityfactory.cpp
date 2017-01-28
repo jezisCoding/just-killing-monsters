@@ -20,9 +20,7 @@ Potion* EntityFactory::getNewPotion(Position *pos) const{
     return new Potion(pos, "P", 50);
 }
 
-Environment* EntityFactory::getNewEnvironment(
-        Position *pos, const Environment::fieldType &type) const
-{
+Environment* EntityFactory::getNewEnvironment(Position *pos, const Environment::fieldType &type) const{
     switch (type) {
     case Environment::Empty:
         return new Environment(pos, ".", Environment::Empty);

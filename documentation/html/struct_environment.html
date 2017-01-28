@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Just killing monsters: Environment Struct Reference</title>
+<title>Just Killing Monsters: Environment Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -28,8 +28,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Just killing monsters
+   <div id="projectname">Just Killing Monsters
    </div>
+   <div id="projectbrief">A home game project</div>
   </td>
  </tr>
  </tbody>
@@ -88,7 +89,7 @@ $(document).ready(function(){initNavTree('struct_environment.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>This structure describes the type of environment in a <a class="el" href="class_game_field.html" title="This class describes a single field in the GameBoard class. ">GameField</a>.  
+<p>The <a class="el" href="struct_environment.html" title="The Environment struct This struct describes the type of environment in a GameField. ">Environment</a> struct This struct describes the type of environment in a <a class="el" href="class_game_field.html" title="The GameField class This class describes a single field in the GameBoard class. ">GameField</a>.  
  <a href="struct_environment.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="environment_8h_source.html">environment.h</a>&gt;</code></p>
@@ -98,21 +99,17 @@ Inheritance diagram for Environment:</div>
  <div class="center">
   <img src="struct_environment.png" usemap="#Environment_map" alt=""/>
   <map id="Environment_map" name="Environment_map">
-<area href="class_entity.html" title="This abstract class describes an entity on the GameBoard. " alt="Entity" shape="rect" coords="0,0,82,24"/>
+<area href="class_entity.html" title="The Entity class This abstract class describes an entity on the GameBoard. " alt="Entity" shape="rect" coords="0,0,82,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aa8a964ae498a6fbaac1936b831365a36"><td class="memItemLeft" align="right" valign="top"><a id="aa8a964ae498a6fbaac1936b831365a36"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_environment.html#aa8a964ae498a6fbaac1936b831365a36">fieldType</a> { <br />
-&#160;&#160;<b>UNDEFINED</b>, 
-<b>Empty</b>, 
+<tr class="memitem:aa8a964ae498a6fbaac1936b831365a36"><td class="memItemLeft" align="right" valign="top"><a id="aa8a964ae498a6fbaac1936b831365a36"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_environment.html#aa8a964ae498a6fbaac1936b831365a36">fieldType</a> { <b>Empty</b>, 
 <b>Rock</b>, 
 <b>Tree</b>, 
-<br />
-&#160;&#160;<b>Corpse</b>
-<br />
- }<tr class="memdesc:aa8a964ae498a6fbaac1936b831365a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">A type defining types of <a class="el" href="struct_environment.html" title="This structure describes the type of environment in a GameField. ">Environment</a>, used for checking if it's accessible. <br /></td></tr>
+<b>Corpse</b>
+ }<tr class="memdesc:aa8a964ae498a6fbaac1936b831365a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">The fieldType enum A type defining types of <a class="el" href="struct_environment.html" title="The Environment struct This struct describes the type of environment in a GameField. ">Environment</a>, used for checking if it's accessible. <br /></td></tr>
 </td></tr>
 <tr class="separator:aa8a964ae498a6fbaac1936b831365a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -122,10 +119,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Environment</b> (<a class="el" href="struct_position.html">Position</a> *position, const std::__cxx11::string &amp;mapSign, const <a class="el" href="struct_environment.html#aa8a964ae498a6fbaac1936b831365a36">fieldType</a> &amp;type)</td></tr>
 <tr class="separator:a00f4124030dc3de17e1f13c42173353d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a066d748c2d9bc4ceb5eab1f3b5b2be"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_environment.html#a5a066d748c2d9bc4ceb5eab1f3b5b2be">reaction</a> (<a class="el" href="class_creature.html">Creature</a> *to)</td></tr>
-<tr class="memdesc:a5a066d748c2d9bc4ceb5eab1f3b5b2be"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="struct_environment.html" title="This structure describes the type of environment in a GameField. ">Environment</a>'s reaction is not yet defined(or needed).  <a href="#a5a066d748c2d9bc4ceb5eab1f3b5b2be">More...</a><br /></td></tr>
+<tr class="memdesc:a5a066d748c2d9bc4ceb5eab1f3b5b2be"><td class="mdescLeft">&#160;</td><td class="mdescRight">reaction <a class="el" href="struct_environment.html" title="The Environment struct This struct describes the type of environment in a GameField. ">Environment</a>'s reaction is not yet defined(or needed)  <a href="#a5a066d748c2d9bc4ceb5eab1f3b5b2be">More...</a><br /></td></tr>
 <tr class="separator:a5a066d748c2d9bc4ceb5eab1f3b5b2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7985d7636e167b8499236896e63b6447"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_environment.html#aa8a964ae498a6fbaac1936b831365a36">fieldType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_environment.html#a7985d7636e167b8499236896e63b6447">getType</a> () const</td></tr>
-<tr class="memdesc:a7985d7636e167b8499236896e63b6447"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic getter function.  <a href="#a7985d7636e167b8499236896e63b6447">More...</a><br /></td></tr>
+<tr class="memdesc:a7985d7636e167b8499236896e63b6447"><td class="mdescLeft">&#160;</td><td class="mdescRight">getType Returns the type of environment.  <a href="#a7985d7636e167b8499236896e63b6447">More...</a><br /></td></tr>
 <tr class="separator:a7985d7636e167b8499236896e63b6447"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d54ac01ba95ad397024c4f2a9c54c82"><td class="memItemLeft" align="right" valign="top"><a id="a0d54ac01ba95ad397024c4f2a9c54c82"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>passableEnvironment</b> () const</td></tr>
@@ -167,7 +164,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mapSign</b></t
 <tr class="separator:a9394466cf007fce0b959facd97e1f1d3 inherit pro_attribs_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This structure describes the type of environment in a <a class="el" href="class_game_field.html" title="This class describes a single field in the GameBoard class. ">GameField</a>. </p>
+<div class="textblock"><p>The <a class="el" href="struct_environment.html" title="The Environment struct This struct describes the type of environment in a GameField. ">Environment</a> struct This struct describes the type of environment in a <a class="el" href="class_game_field.html" title="The GameField class This class describes a single field in the GameBoard class. ">GameField</a>. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7985d7636e167b8499236896e63b6447"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7985d7636e167b8499236896e63b6447">&#9670;&nbsp;</a></span>getType()</h2>
@@ -184,8 +181,8 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mapSign</b></t
       </table>
 </div><div class="memdoc">
 
-<p>Basic getter function. </p>
-<dl class="section return"><dt>Returns</dt><dd>fieldType of the object. </dd></dl>
+<p>getType Returns the type of environment. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -213,14 +210,14 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mapSign</b></t
 </table>
 </div><div class="memdoc">
 
-<p><a class="el" href="struct_environment.html" title="This structure describes the type of environment in a GameField. ">Environment</a>'s reaction is not yet defined(or needed). </p>
+<p>reaction <a class="el" href="struct_environment.html" title="The Environment struct This struct describes the type of environment in a GameField. ">Environment</a>'s reaction is not yet defined(or needed) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname"><a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a></td><td>reacted to. </td></tr>
+    <tr><td class="paramname">to</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Outcome of the reaction. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 <p>Implements <a class="el" href="class_entity.html#a38a316d13f6d23c6b598697c54cedf19">Entity</a>.</p>
 

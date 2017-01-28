@@ -5,7 +5,8 @@
 #include <exception>
 
 /*!
- * \brief A derived exception.
+ * \brief The invalid_input class
+ *      A derived exception.
  */
 class invalid_input : public std::invalid_argument
 {
@@ -14,7 +15,8 @@ public:
 };
 
 /*!
- * \brief A derived exception.
+ * \brief The file_error class
+ *      A derived exception.
  */
 class file_error : public std::runtime_error
 {

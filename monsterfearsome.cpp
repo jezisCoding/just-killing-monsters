@@ -23,7 +23,7 @@ MonsterFearsome::~MonsterFearsome()
 
 }
 
-uint8_t MonsterFearsome::fight(Creature *who) {
+uint8_t MonsterFearsome::defendYourselfFrom(Creature *who) {
     who->dealDmg(this, who->getAttack());
     dealDmg(who, getAttack());
     std::cout << std::endl;

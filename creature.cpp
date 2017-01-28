@@ -25,10 +25,10 @@ int Creature::interaction(Entity *with){
 }
 
 int Creature::reaction(Creature *to){
-    return fight(to);
+    return defendYourselfFrom(to);
 }
 
-uint8_t Creature::fight(Creature *who){
+uint8_t Creature::defendYourselfFrom(Creature *who){
     who->dealDmg(this, who->getAttack());
     dealDmg(who, getAttack());
     std::cout << std::endl;
