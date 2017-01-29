@@ -2,6 +2,7 @@ TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
+QMAKE_CXXFLAGS += -std=c++14
 
 SOURCES += main.cpp \
     entity.cpp \
@@ -14,7 +15,8 @@ SOURCES += main.cpp \
     gameboard.cpp \
     gameengine.cpp \
     entityfactory.cpp \
-    monsterfearsome.cpp
+    monsterfearsome.cpp \
+    pointableobject.cpp
 
 HEADERS += \
     entity.h \
@@ -30,4 +32,5 @@ HEADERS += \
     entityfactory.h \
     myexceptions.h \
     monsterfearsome.h \
-    my2dboardvector.h
+    my2dboardvector.h \
+    pointableobject.h

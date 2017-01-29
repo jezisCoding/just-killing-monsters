@@ -2,7 +2,7 @@
 
 int Monster::monsterCount = 0;
 
-Monster::Monster(Position* position, std::__cxx11::string mapSign, std::__cxx11::string name, int health, int attack)
+Monster::Monster(Position* position, char mapSign, std::__cxx11::string name, int health, int attack)
     : Creature(position, mapSign, name, health, attack)
 {
     monsterCount++;

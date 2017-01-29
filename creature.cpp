@@ -1,6 +1,6 @@
 #include "creature.h"
 
-Creature::Creature(Position *position, std::__cxx11::string mapSign, std::string name, int health, int attack)
+Creature::Creature(Position *position, char mapSign, std::string name, int health, int attack)
     : Entity(position, mapSign)
 {
     this->name = name;

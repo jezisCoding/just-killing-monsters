@@ -14,7 +14,7 @@ class Potion : public Entity
 private:
     int healthBonus;
 public:
-    Potion(Position* position, std::string mapSign, int healthBonus);
+    Potion(Position* position, char mapSign, int healthBonus);
     ~Potion();
 
     /*!

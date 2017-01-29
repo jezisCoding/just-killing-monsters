@@ -1,7 +1,7 @@
 #include "entity.h"
 #include "creature.h"
 
-Entity::Entity(Position* position, const std::__cxx11::string& mapSign)
+Entity::Entity(Position* position, const char &mapSign)
 {
     this->position = position;
     this->mapSign = mapSign;
@@ -19,12 +19,12 @@ Entity::~Entity()
     //std::cout << "An entity just died." << std::endl;
 }
 
-void Entity::setMapSign(std::__cxx11::string to)
+void Entity::setMapSign(const char &to)
 {
     mapSign = to;
 }
 
-std::string Entity::getMapSign() const
+char Entity::getMapSign() const
 {
     return mapSign;
 }

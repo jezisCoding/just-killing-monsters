@@ -1,6 +1,6 @@
 #include "hero.h"
 
-Hero::Hero(Position *position, std::__cxx11::string mapSign, std::string name, int health, int attack, int readiness,
+Hero::Hero(Position *position, char mapSign, std::string name, int health, int attack, int readiness,
            bool surpriseHit) : Creature(position, mapSign, name, health, attack)
 {
     this->readiness = readiness;

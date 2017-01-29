@@ -12,7 +12,6 @@
  */
 class Monster : public Creature
 {
-private:
     //!
     //! \brief monsterCount
     //!     A static member which counts the monsters on board, when it
@@ -20,7 +19,7 @@ private:
     //!
     static int monsterCount;
 public:
-    Monster(Position* position, std::string mapSign, std::string name, int health, int attack);
+    Monster(Position* position, char mapSign, std::string name, int health, int attack);
     Monster(const Monster& orig);
     virtual ~Monster();
 

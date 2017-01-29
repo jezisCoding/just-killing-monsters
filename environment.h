@@ -19,7 +19,7 @@ struct Environment : public Entity
 private:
     fieldType type;
 public:
-    Environment(Position* position, const std::__cxx11::string &mapSign, const fieldType &type);
+    Environment(Position* position, const char &mapSign, const fieldType &type);
     ~Environment();
 
     /*!

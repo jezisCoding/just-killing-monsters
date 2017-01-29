@@ -15,7 +15,7 @@ class MonsterFearsome : public Monster
 protected:
     float fearsomeness;
 public:
-    MonsterFearsome(Position* position, std::string mapSign, std::string name, int health, int attack, float fearsomeness);
+    MonsterFearsome(Position* position, char mapSign, std::string name, int health, int attack, float fearsomeness);
     MonsterFearsome(MonsterFearsome& from);
     ~MonsterFearsome();
 

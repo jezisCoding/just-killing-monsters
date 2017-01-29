@@ -18,6 +18,9 @@
 template <class T>
 class My2DBoardVector
 {
+public:
+    typedef std::unique_ptr<My2DBoardVector> myMy2DBoardVecPtr;
+
 private:
     std::vector<T> myVector;
     unsigned int sizeX = 10, sizeY = 10;
@@ -57,6 +60,10 @@ public:
     void deleteFieldFromVector(T *value){delete value;}
 
     void setSizes(const unsigned int& x, const unsigned int& y){sizeX = x; sizeY = y;}
+
+    bool empty(){return myVector.empty();}
+
+    void pop_back(){myVector.pop_back();}
 };
 
 #endif // MY2DVECTOR_H

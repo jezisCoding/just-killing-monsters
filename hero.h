@@ -13,11 +13,11 @@
  */
 class Hero : public Creature
 {
-private:
     int readiness;
     bool surpriseAttack;
+
 public:
-    Hero(Position *position, std::string mapSign, std::string name, int health, int attack,
+    Hero(Position *position, char mapSign, std::string name, int health, int attack,
          int readiness, bool surpriseAttack);
     ~Hero();
 

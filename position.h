@@ -26,8 +26,8 @@ struct Position
 
     Position(unsigned int xVal, unsigned int yVal) : x(xVal), y(yVal) {}
 
-    static Position getNewPosition(unsigned int x, unsigned int y){
-        return Position(x, y);
+    static Position* getNewPosition(unsigned int x, unsigned int y){
+        return new Position(x, y);
     }
 
     static Position getNewPositionInDirection(Position* currPos, char direct){

@@ -1,6 +1,6 @@
 #include "monsterfearsome.h"
 
-MonsterFearsome::MonsterFearsome(Position* position, std::string mapSign, std::string name,
+MonsterFearsome::MonsterFearsome(Position* position, char mapSign, std::string name,
                                  int health, int attack, float fearsomeness)
     : Monster(position, mapSign, name, health, attack)
 {
@@ -9,9 +9,9 @@ MonsterFearsome::MonsterFearsome(Position* position, std::string mapSign, std::s
 
 MonsterFearsome::MonsterFearsome(MonsterFearsome& orig) : Monster(orig)
 {
-    orig.setMapSign("V");
+    orig.setMapSign('V');
 
-    this->mapSign = "V";
+    this->mapSign = 'V';
     this->name = orig.getName() + "(split)";
     this->health = orig.getHealth();
     this->attack = orig.getAttack()/2;

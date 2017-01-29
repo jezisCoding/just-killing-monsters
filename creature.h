@@ -19,7 +19,7 @@ protected:
     static const int MAX_HEALTH = 100;
 
 public:
-    Creature(Position* position, std::string mapSign, std::__cxx11::string name, int health, int attack);
+    Creature(Position* position, char mapSign, std::string name, int health, int attack);
     Creature(const Creature& orig);
     virtual ~Creature();
 

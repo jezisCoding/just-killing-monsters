@@ -7,6 +7,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "gamefield.h"
 #include "entity.h"
@@ -28,10 +29,9 @@
 
 class GameBoard
 {
-private:
     const unsigned int SIZE_X = 10, SIZE_Y = 10;
 
-    My2DBoardVector<GameField *> board;
+    My2DBoardVector<GameField*> board;
     EntityFactory *ef;
     Hero *hero;
 public:
@@ -45,6 +45,7 @@ private:
     void initializeEnvironmentRnd();
     void initializeEntities();
     void initializeEntitiesRnd();
+    void initializeBoardBase();
 
 public:
     bool monstersDead() const;

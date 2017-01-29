@@ -14,11 +14,11 @@
  */
 class GameField
 {
-private:
     Entity *fieldEntity;
     Environment *fieldEnvironment;
+
 public:
-    GameField(Entity *fieldEntity, Environment *fieldEnvironment);
+    GameField(Environment* fieldEnvironment);
     ~GameField();
 
     /*!
@@ -27,10 +27,10 @@ public:
      *      on the state of the GameField.
      * \return string value of the character to be printed
      */
-    std::string getPrintSign() const;
+    char getPrintSign() const;
 
-    Entity *getFieldEntity() const;
-    Environment *getFieldEnvironment() const;
+    Entity* getFieldEntity();
+    Environment* getFieldEnvironment();
     void setFieldEntity(Entity *toValue);
     void setFieldEnvironment(Environment *toValue);
 };

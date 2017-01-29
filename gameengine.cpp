@@ -59,7 +59,7 @@ void GameEngine::welcome() const{
     gameBoard->printBoard();
 }
 
-void GameEngine::heroTurn(char direction){
+void GameEngine::heroTurn(const char& direction){
     Position *targetPosition = new Position();
     *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
     Entity *targetFieldEntity = gameBoard->getFieldAt(targetPosition)->getFieldEntity();
@@ -115,7 +115,7 @@ void GameEngine::loadGame() throw(file_error){
     }
 }
 
-bool GameEngine::endGame(char input) const{
+bool GameEngine::endGame(const char &input) const{
 
     if (input == 'X') return true;
     else if (hero == nullptr && gameBoard->monstersDead()){

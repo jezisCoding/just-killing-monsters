@@ -1,7 +1,7 @@
 #include "potion.h"
 #include "creature.h"
 
-Potion::Potion(Position* position, std::__cxx11::string mapSign, int healthBonus)
+Potion::Potion(Position* position, char mapSign, int healthBonus)
     : Entity(position, mapSign)
 {
     this->healthBonus = healthBonus;
