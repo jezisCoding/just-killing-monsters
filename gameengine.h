@@ -27,12 +27,12 @@ public:
 private:
     void welcome() const;
     void heroTurn(const char &direction);
-    void heroAction(Entity *targetFieldEntity);
+    void heroAction(FieldActor *targetFieldActor, Position *targetPosition);
     char getKeyboardInput() const throw(invalid_input);
     void saveGame() const throw(file_error);
     void loadGame() throw(file_error);
     bool endGame(const char &input) const;
-    void splitMonsterAround(Entity *monster, Position* centerPos);
+    void splitMonsterAround(FieldActor *monster, Position* centerPos);
 };
 
 #endif // GAMEENGINE_H

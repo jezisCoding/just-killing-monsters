@@ -1,15 +1,14 @@
 #ifndef ENVIRONMENT_H
 #define ENVIRONMENT_H
 
-#include "entity.h"
+#include "fieldentity.h"
 #include "creature.h"
 
 /*!
  * \brief The Environment struct
  *      This struct describes the type of environment in a GameField
  */
-
-struct Environment : public Entity
+struct Environment : public FieldEntity
 {
     //!
     //! \brief The fieldType enum
@@ -19,7 +18,7 @@ struct Environment : public Entity
 private:
     fieldType type;
 public:
-    Environment(Position* position, const char &mapSign, const fieldType &type);
+    Environment(const char &mapSign, const fieldType &type);
     ~Environment();
 
     /*!

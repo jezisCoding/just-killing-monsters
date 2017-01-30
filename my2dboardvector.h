@@ -18,10 +18,6 @@
 template <class T>
 class My2DBoardVector
 {
-public:
-    typedef std::unique_ptr<My2DBoardVector> myMy2DBoardVecPtr;
-
-private:
     std::vector<T> myVector;
     unsigned int sizeX = 10, sizeY = 10;
     typedef typename std::vector<T>::const_iterator const_iterator;

@@ -62,27 +62,27 @@ void GameEngine::welcome() const{
 void GameEngine::heroTurn(const char& direction){
     Position *targetPosition = new Position();
     *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
-    Entity *targetFieldEntity = gameBoard->getFieldAt(targetPosition)->getFieldEntity();
+    FieldActor *targetFieldActor = gameBoard->getFieldAt(targetPosition)->getFieldActor();
 
-    if (targetFieldEntity != nullptr) heroAction(targetFieldEntity);
+    if (targetFieldActor  != nullptr) heroAction(targetFieldActor , targetPosition);
     else gameBoard->moveHero(targetPosition);
 }
 
-void GameEngine::heroAction(Entity* targetFieldEntity){
-    uint8_t outcome = hero->interaction(targetFieldEntity);
+void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPosition){
+    uint8_t outcome = hero->interaction(targetFieldActor);
 
 
         //opponent(defender) died
     if((outcome & 2) == 2) {
-        gameBoard->deleteEntityFromBoard(targetFieldEntity);
-        targetFieldEntity = nullptr;
+        gameBoard->killActorAt(targetPosition);
+        targetFieldActor = nullptr;
     }
         //monster split
-    if((outcome & 4) == 4)splitMonsterAround(targetFieldEntity, hero->getPosition());
+    if((outcome & 4) == 4)splitMonsterAround(targetFieldActor, hero->getPosition());
 
         //hero(attacker) died
     if((outcome & 1) == 1) {
-        gameBoard->deleteEntityFromBoard(hero);
+        gameBoard->killActorAt(hero->getPosition());
         hero = nullptr;
     }
 }
@@ -117,7 +117,10 @@ void GameEngine::loadGame() throw(file_error){
 
 bool GameEngine::endGame(const char &input) const{
 
-    if (input == 'X') return true;
+    if (input == 'X'){
+        std::cout << "Game over" << std::endl;
+        return true;
+    }
     else if (hero == nullptr && gameBoard->monstersDead()){
         std::cout << "After an epic battle with the last of the monsters... You died.\n"
                      "But you did kill them all and the goal of the game was not to survive so "
@@ -141,7 +144,7 @@ bool GameEngine::endGame(const char &input) const{
     return false;
 }
 
-void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
+void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
     if (monster != nullptr){
         MonsterFearsome* mf = dynamic_cast<MonsterFearsome*>(monster);
 
@@ -158,7 +161,7 @@ void GameEngine::splitMonsterAround(Entity* monster, Position* centerPos){
             if (*splitPos == *centerPos) std::cout << "The monster has nowhere to split, good for you" << std::endl;
             else {
                 MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
-                gameBoard->setFieldEntityAtPosition(mfsplit, splitPos);
+                gameBoard->setFieldActorAt(mfsplit, splitPos);
             }
         }
     }

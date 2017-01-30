@@ -1,9 +1,8 @@
 #ifndef GAMEFIELD_H
 #define GAMEFIELD_H
 
-#include "entity.h"
+#include "fieldactor.h"
 #include "environment.h"
-#include "position.h"
 #include "hero.h"
 
 /*!
@@ -14,7 +13,7 @@
  */
 class GameField
 {
-    Entity *fieldEntity;
+    FieldActor *fieldActor;
     Environment *fieldEnvironment;
 
 public:
@@ -29,9 +28,9 @@ public:
      */
     char getPrintSign() const;
 
-    Entity* getFieldEntity();
+    FieldActor* getFieldActor();
     Environment* getFieldEnvironment();
-    void setFieldEntity(Entity *toValue);
+    void setFieldActor(FieldActor* toValue);
     void setFieldEnvironment(Environment *toValue);
 };
 

@@ -30,7 +30,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Just Killing Monsters
    </div>
-   <div id="projectbrief">A home game project</div>
+   <div id="projectbrief">Kill them all!!!</div>
   </td>
  </tr>
  </tbody>
@@ -98,32 +98,39 @@ Inheritance diagram for Hero:</div>
  <div class="center">
   <img src="class_hero.png" usemap="#Hero_map" alt=""/>
   <map id="Hero_map" name="Hero_map">
-<area href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. " alt="Creature" shape="rect" coords="0,56,62,80"/>
-<area href="class_entity.html" title="The Entity class This abstract class describes an entity on the GameBoard. " alt="Entity" shape="rect" coords="0,0,62,24"/>
+<area href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. " alt="Creature" shape="rect" coords="0,112,71,136"/>
+<area href="class_field_actor.html" title="This class declares an interactive BoardEntity, an Actor, it has one simple abstract method reaction(..." alt="FieldActor" shape="rect" coords="0,56,71,80"/>
+<area href="class_field_entity.html" title="The Entity class This abstract class describes an entity on the GameBoard(in the GameField) ..." alt="FieldEntity" shape="rect" coords="0,0,71,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1663c82a9a239f8fa2efbf5f42cefae4"><td class="memItemLeft" align="right" valign="top"><a id="a1663c82a9a239f8fa2efbf5f42cefae4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Hero</b> (<a class="el" href="struct_position.html">Position</a> *position, std::string mapSign, std::string name, int health, int attack, int readiness, bool surpriseAttack)</td></tr>
-<tr class="separator:a1663c82a9a239f8fa2efbf5f42cefae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad17a41b1c7da13272c13b6f64cd29c1a"><td class="memItemLeft" align="right" valign="top"><a id="ad17a41b1c7da13272c13b6f64cd29c1a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Hero</b> (<a class="el" href="struct_position.html">Position</a> *pos, char mapSign, std::string name, int health, int attack, int readiness, bool surpriseAttack)</td></tr>
+<tr class="separator:ad17a41b1c7da13272c13b6f64cd29c1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10de44ffec431ba87f4588139fbb06d0"><td class="memItemLeft" align="right" valign="top"><a id="a10de44ffec431ba87f4588139fbb06d0"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getAttack</b> () const</td></tr>
 <tr class="separator:a10de44ffec431ba87f4588139fbb06d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5206b4b5f15d3ec21e2296940ed1768"><td class="memItemLeft" align="right" valign="top"><a id="af5206b4b5f15d3ec21e2296940ed1768"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>resetSurpriseHit</b> ()</td></tr>
 <tr class="separator:af5206b4b5f15d3ec21e2296940ed1768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b4c97c923921b151117153f8fd6ab7"><td class="memItemLeft" align="right" valign="top"><a id="a41b4c97c923921b151117153f8fd6ab7"></a>
+<a class="el" href="struct_position.html">Position</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> ()</td></tr>
+<tr class="separator:a41b4c97c923921b151117153f8fd6ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d76fb750a4581136bee0b4619a96316"><td class="memItemLeft" align="right" valign="top"><a id="a2d76fb750a4581136bee0b4619a96316"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setPosition</b> (<a class="el" href="struct_position.html">Position</a> *to)</td></tr>
+<tr class="separator:a2d76fb750a4581136bee0b4619a96316"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_creature"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_creature')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_creature.html">Creature</a></td></tr>
-<tr class="memitem:a1c2cd49d65972414eae2696a0c7f1c28 inherit pub_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="a1c2cd49d65972414eae2696a0c7f1c28"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Creature</b> (<a class="el" href="struct_position.html">Position</a> *position, std::string mapSign, std::__cxx11::string name, int health, int attack)</td></tr>
-<tr class="separator:a1c2cd49d65972414eae2696a0c7f1c28 inherit pub_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf9f3c7b4de7b6782a70872cd9302d7 inherit pub_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="aaaf9f3c7b4de7b6782a70872cd9302d7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Creature</b> (char mapSign, std::string name, int health, int attack)</td></tr>
+<tr class="separator:aaaf9f3c7b4de7b6782a70872cd9302d7 inherit pub_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad75203c0c970205bb25a1821856243c3 inherit pub_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="ad75203c0c970205bb25a1821856243c3"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Creature</b> (const <a class="el" href="class_creature.html">Creature</a> &amp;orig)</td></tr>
 <tr class="separator:ad75203c0c970205bb25a1821856243c3 inherit pub_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ead438387aff00867e4a20e61953baa inherit pub_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="a4ead438387aff00867e4a20e61953baa"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>interaction</b> (<a class="el" href="class_entity.html">Entity</a> *with)</td></tr>
-<tr class="separator:a4ead438387aff00867e4a20e61953baa inherit pub_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee927c39a6cfdc019e4f9e889e2c854a inherit pub_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="aee927c39a6cfdc019e4f9e889e2c854a"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>interaction</b> (<a class="el" href="class_field_actor.html">FieldActor</a> *with)</td></tr>
+<tr class="separator:aee927c39a6cfdc019e4f9e889e2c854a inherit pub_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6b8c8cb5e1b73de8e57f88acb34380e inherit pub_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="ad6b8c8cb5e1b73de8e57f88acb34380e"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> () const</td></tr>
 <tr class="separator:ad6b8c8cb5e1b73de8e57f88acb34380e inherit pub_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,31 +143,26 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setHealth</b> (const 
 <tr class="memitem:a9b5d04bd9dff41d09c41ada59a564395 inherit pub_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="a9b5d04bd9dff41d09c41ada59a564395"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="class_creature.html">Creature</a> &amp;right)</td></tr>
 <tr class="separator:a9b5d04bd9dff41d09c41ada59a564395 inherit pub_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_class_entity"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_entity')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_entity.html">Entity</a></td></tr>
-<tr class="memitem:a9d3e9dd51d92ef7fa88b64bf21a73169 inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a9d3e9dd51d92ef7fa88b64bf21a73169"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Entity</b> (<a class="el" href="struct_position.html">Position</a> *position, const std::string &amp;mapSign)</td></tr>
-<tr class="separator:a9d3e9dd51d92ef7fa88b64bf21a73169 inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9de139ff12775dd95fb80bec08247de7 inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a9de139ff12775dd95fb80bec08247de7"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Entity</b> (const <a class="el" href="class_entity.html">Entity</a> &amp;orig)</td></tr>
-<tr class="separator:a9de139ff12775dd95fb80bec08247de7 inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a878759605449a16a4c2b0246bfc8a872 inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a878759605449a16a4c2b0246bfc8a872"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setMapSign</b> (std::string to)</td></tr>
-<tr class="separator:a878759605449a16a4c2b0246bfc8a872 inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12ce815496b89616abca11a4c6a7d98f inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a12ce815496b89616abca11a4c6a7d98f"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getMapSign</b> () const</td></tr>
-<tr class="separator:a12ce815496b89616abca11a4c6a7d98f inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3f5f816f51276ef88261bac9e74f659 inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="aa3f5f816f51276ef88261bac9e74f659"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setPosition</b> (<a class="el" href="struct_position.html">Position</a> *position)</td></tr>
-<tr class="separator:aa3f5f816f51276ef88261bac9e74f659 inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f81a0b7c16c09956768de50da09b670 inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a0f81a0b7c16c09956768de50da09b670"></a>
-<a class="el" href="struct_position.html">Position</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getPosition</b> ()</td></tr>
-<tr class="separator:a0f81a0b7c16c09956768de50da09b670 inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafbf74335239714b65d53950cf5e463d inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="aafbf74335239714b65d53950cf5e463d"></a>
+<tr class="inherit_header pub_methods_class_field_actor"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_field_actor')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_field_actor.html">FieldActor</a></td></tr>
+<tr class="memitem:ae02f947a34e831575885c98c398eee0e inherit pub_methods_class_field_actor"><td class="memItemLeft" align="right" valign="top"><a id="ae02f947a34e831575885c98c398eee0e"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FieldActor</b> (const char &amp;mapSign)</td></tr>
+<tr class="separator:ae02f947a34e831575885c98c398eee0e inherit pub_methods_class_field_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1d819508d0addfd0511285ac83e1b3 inherit pub_methods_class_field_actor"><td class="memItemLeft" align="right" valign="top"><a id="aef1d819508d0addfd0511285ac83e1b3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FieldActor</b> (const <a class="el" href="class_field_actor.html">FieldActor</a> &amp;orig)</td></tr>
+<tr class="separator:aef1d819508d0addfd0511285ac83e1b3 inherit pub_methods_class_field_actor"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_class_field_entity"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_field_entity')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_field_entity.html">FieldEntity</a></td></tr>
+<tr class="memitem:aefac9ad32ca21df702a43b82e95faba3 inherit pub_methods_class_field_entity"><td class="memItemLeft" align="right" valign="top"><a id="aefac9ad32ca21df702a43b82e95faba3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setMapSign</b> (const char &amp;to)</td></tr>
+<tr class="separator:aefac9ad32ca21df702a43b82e95faba3 inherit pub_methods_class_field_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993adef3f95b436620489d756119fc0f inherit pub_methods_class_field_entity"><td class="memItemLeft" align="right" valign="top"><a id="a993adef3f95b436620489d756119fc0f"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>getMapSign</b> () const</td></tr>
+<tr class="separator:a993adef3f95b436620489d756119fc0f inherit pub_methods_class_field_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13f1b3ddd211b75910e8656b0fe4d6f9 inherit pub_methods_class_field_entity"><td class="memItemLeft" align="right" valign="top"><a id="a13f1b3ddd211b75910e8656b0fe4d6f9"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getTypeIdStringPointer</b> ()</td></tr>
-<tr class="separator:aafbf74335239714b65d53950cf5e463d inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01cdead280576bbb6f8c87f214fcf8d6 inherit pub_methods_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a01cdead280576bbb6f8c87f214fcf8d6"></a>
+<tr class="separator:a13f1b3ddd211b75910e8656b0fe4d6f9 inherit pub_methods_class_field_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a003f710ad1d7dea79eee0f7e34d5c897 inherit pub_methods_class_field_entity"><td class="memItemLeft" align="right" valign="top"><a id="a003f710ad1d7dea79eee0f7e34d5c897"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getTypeIdStringValue</b> ()</td></tr>
-<tr class="separator:a01cdead280576bbb6f8c87f214fcf8d6 inherit pub_methods_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a003f710ad1d7dea79eee0f7e34d5c897 inherit pub_methods_class_field_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -169,10 +171,17 @@ Additional Inherited Members</h2></td></tr>
 static int&#160;</td><td class="memItemRight" valign="bottom"><b>getMAX_HEALTH</b> ()</td></tr>
 <tr class="separator:a160df995367e939410875ffec1c4e974 inherit pub_static_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_creature"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_creature')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_creature.html">Creature</a></td></tr>
-<tr class="memitem:ad26a12b2e3572efcef5a399f0e238b77 inherit pro_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="ad26a12b2e3572efcef5a399f0e238b77"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_creature.html#ad26a12b2e3572efcef5a399f0e238b77">reaction</a> (<a class="el" href="class_creature.html">Creature</a> *to)</td></tr>
-<tr class="memdesc:ad26a12b2e3572efcef5a399f0e238b77 inherit pro_methods_class_creature"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the entities must be interactive(able to react) <br /></td></tr>
-<tr class="separator:ad26a12b2e3572efcef5a399f0e238b77 inherit pro_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2896584895ee51d2605e365e25b7db4d inherit pro_methods_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="a2896584895ee51d2605e365e25b7db4d"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_creature.html#a2896584895ee51d2605e365e25b7db4d">reaction</a> (<a class="el" href="class_field_actor.html">FieldActor</a> *to)</td></tr>
+<tr class="memdesc:a2896584895ee51d2605e365e25b7db4d inherit pro_methods_class_creature"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the actors must be interactive(able to react) <br /></td></tr>
+<tr class="separator:a2896584895ee51d2605e365e25b7db4d inherit pro_methods_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_field_entity"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_field_entity')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_field_entity.html">FieldEntity</a></td></tr>
+<tr class="memitem:a81b561da0810935dd0aef774f79bbdcd inherit pro_methods_class_field_entity"><td class="memItemLeft" align="right" valign="top"><a id="a81b561da0810935dd0aef774f79bbdcd"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FieldEntity</b> (const char &amp;mapSign)</td></tr>
+<tr class="separator:a81b561da0810935dd0aef774f79bbdcd inherit pro_methods_class_field_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cb59e59309ff5d500f7c9c31e3c32fe inherit pro_methods_class_field_entity"><td class="memItemLeft" align="right" valign="top"><a id="a4cb59e59309ff5d500f7c9c31e3c32fe"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FieldEntity</b> (const <a class="el" href="class_field_entity.html">FieldEntity</a> &amp;orig)</td></tr>
+<tr class="separator:a4cb59e59309ff5d500f7c9c31e3c32fe inherit pro_methods_class_field_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_class_creature"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_creature')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_creature.html">Creature</a></td></tr>
 <tr class="memitem:ab213a18d660683c9f91e16bf32e2e928 inherit pro_attribs_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="ab213a18d660683c9f91e16bf32e2e928"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
@@ -183,13 +192,10 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>health</b></td></tr>
 <tr class="memitem:ad3807e71a93353f7fb26e123e749d45d inherit pro_attribs_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="ad3807e71a93353f7fb26e123e749d45d"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>attack</b></td></tr>
 <tr class="separator:ad3807e71a93353f7fb26e123e749d45d inherit pro_attribs_class_creature"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_class_entity"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_entity')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_entity.html">Entity</a></td></tr>
-<tr class="memitem:abcdec7727bb5e5318d32510fdeb4b754 inherit pro_attribs_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="abcdec7727bb5e5318d32510fdeb4b754"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>mapSign</b></td></tr>
-<tr class="separator:abcdec7727bb5e5318d32510fdeb4b754 inherit pro_attribs_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9394466cf007fce0b959facd97e1f1d3 inherit pro_attribs_class_entity"><td class="memItemLeft" align="right" valign="top"><a id="a9394466cf007fce0b959facd97e1f1d3"></a>
-<a class="el" href="struct_position.html">Position</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>position</b></td></tr>
-<tr class="separator:a9394466cf007fce0b959facd97e1f1d3 inherit pro_attribs_class_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_field_entity"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_field_entity')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_field_entity.html">FieldEntity</a></td></tr>
+<tr class="memitem:a36605b0b5f546f877e6287847df8a84f inherit pro_attribs_class_field_entity"><td class="memItemLeft" align="right" valign="top"><a id="a36605b0b5f546f877e6287847df8a84f"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>mapSign</b></td></tr>
+<tr class="separator:a36605b0b5f546f877e6287847df8a84f inherit pro_attribs_class_field_entity"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_attribs_class_creature"><td colspan="2" onclick="javascript:toggleInherit('pro_static_attribs_class_creature')"><img src="closed.png" alt="-"/>&#160;Static Protected Attributes inherited from <a class="el" href="class_creature.html">Creature</a></td></tr>
 <tr class="memitem:af62e883ddba6ef287afa49a617accde7 inherit pro_static_attribs_class_creature"><td class="memItemLeft" align="right" valign="top"><a id="af62e883ddba6ef287afa49a617accde7"></a>
 static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_HEALTH</b> = 100</td></tr>
@@ -199,8 +205,8 @@ static const int&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_HEALT
 <div class="textblock"><p>The <a class="el" href="class_hero.html" title="The Hero class The Hero is a subclass of Creature. ">Hero</a> class The <a class="el" href="class_hero.html" title="The Hero class The Hero is a subclass of Creature. ">Hero</a> is a subclass of <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a>. </p>
 <p>The hero is the playable character in the game. He differs very little from other Creatures in the game. His damage dealing mechanism is different from <a class="el" href="class_creature.html" title="The Creature class This class describes Creatures on the GameBoard and their interactions. ">Creature</a>. </p>
 </div><hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="hero_8h_source.html">hero.h</a></li>
-<li>hero.cpp</li>
+<li>just-killing-monsters/<a class="el" href="hero_8h_source.html">hero.h</a></li>
+<li>just-killing-monsters/hero.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

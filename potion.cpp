@@ -1,35 +1,46 @@
 #include "potion.h"
 #include "creature.h"
 
-Potion::Potion(Position* position, char mapSign, int healthBonus)
-    : Entity(position, mapSign)
+Potion::Potion(char mapSign, int healthBonus)
+    : FieldActor(mapSign)
 {
     this->healthBonus = healthBonus;
 }
 
 Potion::~Potion()
 {
+
+}
+
+int Potion::reaction(FieldActor *to){
+    return heal(to);
+}
+
+void Potion::die()
+{
     std::cout << "You drank the potion and its gone" << std::endl;
 }
 
-int Potion::reaction(Creature *to){
-    int userHealth = to->getHealth();
-    int userMaxHealth = to->getMAX_HEALTH();
+int Potion::heal(FieldActor* who){
+    Creature* user = dynamic_cast<Creature*>(who);
+
+    int userHealth = user->getHealth();
+    int userMaxHealth = user->getMAX_HEALTH();
 
     if (userHealth > userMaxHealth-1) {
         std::cout << "You don't need this yet, you are on full health" << std::endl;
         return 0;
     }
 
-    std::cout << to->getName() << " drinks a potion ("
+    std::cout << user->getName() << " drinks a potion ("
               << userHealth << "->";
 
     if (userHealth + healthBonus > userMaxHealth){
         int overHeal = (userHealth + healthBonus) % userMaxHealth;
-        to->setHealth(userHealth + healthBonus - overHeal);
-    } else to->setHealth(userHealth + healthBonus);
+        user->setHealth(userHealth + healthBonus - overHeal);
+    } else user->setHealth(userHealth + healthBonus);
 
-    std::cout << to->getHealth() << ")" << std::endl;
+    std::cout << user->getHealth() << ")" << std::endl;
     return 2;
 }
 

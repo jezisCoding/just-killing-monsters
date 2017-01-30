@@ -2,32 +2,33 @@
 
 GameField::GameField(Environment *fieldEnvironment)
 {
-
-    this->fieldEntity = nullptr;
+    this->fieldActor = nullptr;
     this->fieldEnvironment = fieldEnvironment;
 }
 
 GameField::~GameField()
 {
-    delete fieldEntity;
+    FieldActor* fe = fieldActor;
+    if (fe != nullptr)
+        delete fe;
     delete fieldEnvironment;
 }
 
 char GameField::getPrintSign() const{
-    if (fieldEntity != nullptr) return fieldEntity->getMapSign();
+    if (fieldActor != nullptr) return fieldActor->getMapSign();
     return fieldEnvironment->getMapSign();
 }
 
-Entity* GameField::getFieldEntity(){
-    return fieldEntity;
+FieldActor *GameField::getFieldActor(){
+    return fieldActor;
 }
 
 Environment *GameField::getFieldEnvironment(){
     return fieldEnvironment;
 }
 
-void GameField::setFieldEntity(Entity* toValue){
-    fieldEntity = toValue;
+void GameField::setFieldActor(FieldActor *toValue){
+    fieldActor = toValue;
 }
 
 void GameField::setFieldEnvironment(Environment* toValue){

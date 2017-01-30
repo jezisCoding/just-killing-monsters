@@ -2,6 +2,7 @@
 #define HERO_H
 
 #include "creature.h"
+#include "position.h"
 
 /*!
  * \brief The Hero class
@@ -15,9 +16,10 @@ class Hero : public Creature
 {
     int readiness;
     bool surpriseAttack;
+    Position* pos;
 
 public:
-    Hero(Position *position, char mapSign, std::string name, int health, int attack,
+    Hero(Position *pos, char mapSign, std::string name, int health, int attack,
          int readiness, bool surpriseAttack);
     ~Hero();
 
@@ -28,12 +30,15 @@ private:
      * \param who
      * \return bitwise return values
      */
-    uint8_t defendYourselfFrom(Creature *who) override;
+    uint8_t defendYourselfFrom(FieldActor *who) override;
     void dealDmg(Creature *to, const int& dmgDealt);
+    void die() override;
 
 public:
     int getAttack() const;
     void resetSurpriseHit();
+    Position* getPosition();
+    void setPosition(Position* to);
 };
 
 #endif // HERO_H

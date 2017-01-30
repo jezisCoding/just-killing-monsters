@@ -1,14 +1,14 @@
 #include "environment.h"
 
-Environment::Environment(Position *position, const char &mapSign, const fieldType& type)
-    : Entity(position, mapSign)
+Environment::Environment(const char &mapSign, const fieldType& type)
+    : FieldEntity(mapSign)
 {
     this->type = type;
 }
 
 Environment::~Environment()
 {
-    delete position;
+
 }
 
 int Environment::reaction(Creature *to){

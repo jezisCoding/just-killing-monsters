@@ -1,8 +1,8 @@
 #include "monsterfearsome.h"
 
-MonsterFearsome::MonsterFearsome(Position* position, char mapSign, std::string name,
+MonsterFearsome::MonsterFearsome(char mapSign, std::string name,
                                  int health, int attack, float fearsomeness)
-    : Monster(position, mapSign, name, health, attack)
+    : Monster(mapSign, name, health, attack)
 {
     this->fearsomeness = fearsomeness;
 }
@@ -23,13 +23,15 @@ MonsterFearsome::~MonsterFearsome()
 
 }
 
-uint8_t MonsterFearsome::defendYourselfFrom(Creature *who) {
-    who->dealDmg(this, who->getAttack());
-    dealDmg(who, getAttack());
+uint8_t MonsterFearsome::defendYourselfFrom(FieldActor *who) {
+    Creature* attacker = dynamic_cast<Creature*>(who);
+
+    attacker->dealDmg(this, attacker->getAttack());
+    dealDmg(attacker, getAttack());
     std::cout << std::endl;
 
     uint8_t outcome = 0;    //bitwise
-    if (who->getHealth() < 1) outcome |= 1;
+    if (attacker->getHealth() < 1) outcome |= 1;
     if (this->getHealth() < 1) outcome |= 2;
     if (monsterSplit()) outcome |= 4;
 

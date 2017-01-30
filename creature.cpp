@@ -1,14 +1,14 @@
 #include "creature.h"
 
-Creature::Creature(Position *position, char mapSign, std::string name, int health, int attack)
-    : Entity(position, mapSign)
+Creature::Creature(char mapSign, std::string name, int health, int attack)
+    : FieldActor(mapSign)
 {
     this->name = name;
     this->health = health;
     this->attack = attack;
 }
 
-Creature::Creature(const Creature& orig) : Entity(orig)
+Creature::Creature(const Creature& orig) : FieldActor(orig)
 {
     this->name = orig.name;
     this->health = orig.health;
@@ -17,24 +17,26 @@ Creature::Creature(const Creature& orig) : Entity(orig)
 
 Creature::~Creature()
 {
-    //std::cout << "A creature just died." << std::endl;
+
 }
 
-int Creature::interaction(Entity *with){
+int Creature::interaction(FieldActor *with){
     return with->reaction(this);
 }
 
-int Creature::reaction(Creature *to){
+int Creature::reaction(FieldActor *to){
     return defendYourselfFrom(to);
 }
 
-uint8_t Creature::defendYourselfFrom(Creature *who){
-    who->dealDmg(this, who->getAttack());
-    dealDmg(who, getAttack());
+uint8_t Creature::defendYourselfFrom(FieldActor *who){
+    Creature* attacker = static_cast<Creature*>(who);
+
+    attacker->dealDmg(this, attacker->getAttack());
+    dealDmg(attacker, getAttack());
     std::cout << std::endl;
 
     uint8_t outcome = 0;    //bitwise
-    if (who->getHealth() < 1) outcome |= 1;
+    if (attacker->getHealth() < 1) outcome |= 1;
     if (this->getHealth() < 1) outcome |= 2;
     return outcome;
 }
@@ -43,6 +45,11 @@ void Creature::dealDmg(Creature *to, const int& dmgDealt){
     std::cout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
     std::cout << to->getHealth() << ")" << std::endl;
+}
+
+void Creature::die()
+{
+    std::cout << "A creature just died." << std::endl;
 }
 
 std::string Creature::getName() const{

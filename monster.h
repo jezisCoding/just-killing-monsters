@@ -19,11 +19,13 @@ class Monster : public Creature
     //!
     static int monsterCount;
 public:
-    Monster(Position* position, char mapSign, std::string name, int health, int attack);
+    Monster(char mapSign, std::string name, int health, int attack);
     Monster(const Monster& orig);
     virtual ~Monster();
 
     static int getMonsterCount();
+
+    virtual void die() override;
 
     bool operator==(const Monster &right);
 };
