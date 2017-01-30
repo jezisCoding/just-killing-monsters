@@ -69,7 +69,7 @@ Thumbs.db
 # Binaries
 # --------
 *.dll
-*.exe
+#*.exe
 
 #eagle defined ignores
 #input log
