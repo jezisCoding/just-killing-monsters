@@ -30,7 +30,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Just Killing Monsters
    </div>
-   <div id="projectbrief">A home game project</div>
+   <div id="projectbrief">Kill them all!!!</div>
   </td>
  </tr>
  </tbody>
@@ -87,21 +87,22 @@ $(document).ready(function(){initNavTree('class_potion.html','');});
 
 <p>This is the complete list of members for <a class="el" href="class_potion.html">Potion</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Entity</b>(Position *position, const std::string &amp;mapSign) (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Entity</b>(const Entity &amp;orig) (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getHealthBonus</b>() (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>getMapSign</b>() const (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getPosition</b>() (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>getTypeIdStringPointer</b>() (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getTypeIdStringValue</b>() (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>mapSign</b> (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>position</b> (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Potion</b>(Position *position, std::string mapSign, int healthBonus) (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_potion.html#a30a4ff7989e130336b78c6493707f43b">reaction</a>(Creature *to)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>setMapSign</b>(std::string to) (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>setPosition</b>(Position *position) (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Entity</b>() (defined in <a class="el" href="class_entity.html">Entity</a>)</td><td class="entry"><a class="el" href="class_entity.html">Entity</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~Potion</b>() (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>die</b>() override (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>FieldActor</b>(const char &amp;mapSign) (defined in <a class="el" href="class_field_actor.html">FieldActor</a>)</td><td class="entry"><a class="el" href="class_field_actor.html">FieldActor</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>FieldActor</b>(const FieldActor &amp;orig) (defined in <a class="el" href="class_field_actor.html">FieldActor</a>)</td><td class="entry"><a class="el" href="class_field_actor.html">FieldActor</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>FieldEntity</b>(const char &amp;mapSign) (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>FieldEntity</b>(const FieldEntity &amp;orig) (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getHealthBonus</b>() (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getMapSign</b>() const (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>getTypeIdStringPointer</b>() (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>getTypeIdStringValue</b>() (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>heal</b>(FieldActor *who) (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>mapSign</b> (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>Potion</b>(char mapSign, int healthBonus) (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_potion.html#abda6b3e23baed010f346766f163ec6cd">reaction</a>(FieldActor *to) override</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>setMapSign</b>(const char &amp;to) (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>~FieldEntity</b>() (defined in <a class="el" href="class_field_entity.html">FieldEntity</a>)</td><td class="entry"><a class="el" href="class_field_entity.html">FieldEntity</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Potion</b>() (defined in <a class="el" href="class_potion.html">Potion</a>)</td><td class="entry"><a class="el" href="class_potion.html">Potion</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

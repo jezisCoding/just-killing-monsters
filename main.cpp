@@ -3,8 +3,7 @@
 
 int main()
 {
-    GameEngine *engine = new GameEngine;
-    engine->play();
-    delete engine;
+    GameEngine engine;
+    engine.play();
     return EXIT_SUCCESS;
 }

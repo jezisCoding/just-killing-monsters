@@ -5,9 +5,6 @@
 #include "hero.h"
 #include "potion.h"
 #include "environment.h"
-#include "position.h"
-
-
 
 /*!
  * \brief The EntityFactory class
@@ -17,10 +14,10 @@ class EntityFactory
 {
 public:
     EntityFactory();
-    Monster* getNewMonster(Position *pos, const bool& fearsome) const;
-    Hero* getNewHero(Position* pos) const;
-    Potion* getNewPotion(Position *pos) const;
-    Environment* getNewEnvironment(Position *pos, const Environment::fieldType& type) const;
+    Monster* getNewMonster(const bool& fearsome) const;
+    Hero* getNewHero(Position* heroPos) const;
+    Potion* getNewPotion() const;
+    Environment* getNewEnvironment(const Environment::fieldType& type) const;
 };
 
 #endif // EntityFactory_H

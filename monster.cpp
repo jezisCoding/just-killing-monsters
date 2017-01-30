@@ -2,8 +2,8 @@
 
 int Monster::monsterCount = 0;
 
-Monster::Monster(Position* position, std::__cxx11::string mapSign, std::__cxx11::string name, int health, int attack)
-    : Creature(position, mapSign, name, health, attack)
+Monster::Monster(char mapSign, std::__cxx11::string name, int health, int attack)
+    : Creature(mapSign, name, health, attack)
 {
     monsterCount++;
 }
@@ -12,7 +12,6 @@ Monster::Monster(const Monster &orig) : Creature(orig)
 {
     monsterCount++;
 
-    this->position = nullptr;
     this->name = orig.getName() + "(split)";
     this->mapSign = 'V';
     this->health = orig.getHealth();
@@ -21,12 +20,16 @@ Monster::Monster(const Monster &orig) : Creature(orig)
 
 Monster::~Monster()
 {
-    std::cout << name + ": \"Bleeurhgdjksfgdak......h.\\\"  *pepsi*" << std::endl;
     monsterCount--;
 }
 
 int Monster::getMonsterCount(){
     return monsterCount;
+}
+
+void Monster::die()
+{
+    std::cout << name + ": \"Bleeurhgdjksfgdak......h.\"  *pepsi*" << std::endl;
 }
 
 bool Monster::operator==(const Monster& right){

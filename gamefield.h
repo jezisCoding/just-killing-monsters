@@ -1,9 +1,8 @@
 #ifndef GAMEFIELD_H
 #define GAMEFIELD_H
 
-#include "entity.h"
+#include "fieldactor.h"
 #include "environment.h"
-#include "position.h"
 #include "hero.h"
 
 /*!
@@ -14,11 +13,11 @@
  */
 class GameField
 {
-private:
-    Entity *fieldEntity;
+    FieldActor *fieldActor;
     Environment *fieldEnvironment;
+
 public:
-    GameField(Entity *fieldEntity, Environment *fieldEnvironment);
+    GameField(Environment* fieldEnvironment);
     ~GameField();
 
     /*!
@@ -27,11 +26,11 @@ public:
      *      on the state of the GameField.
      * \return string value of the character to be printed
      */
-    std::string getPrintSign() const;
+    char getPrintSign() const;
 
-    Entity *getFieldEntity() const;
-    Environment *getFieldEnvironment() const;
-    void setFieldEntity(Entity *toValue);
+    FieldActor* getFieldActor();
+    Environment* getFieldEnvironment();
+    void setFieldActor(FieldActor* toValue);
     void setFieldEnvironment(Environment *toValue);
 };
 
