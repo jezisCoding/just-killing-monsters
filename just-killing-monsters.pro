@@ -33,6 +33,5 @@ HEADERS += \
     myexceptions.h \
     monsterfearsome.h \
     my2dboardvector.h \
-    pointableobject.h \
     fieldentity.h \
     fieldactor.h
