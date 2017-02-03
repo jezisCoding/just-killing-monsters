@@ -7,9 +7,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <memory>
 
 #include "gamefield.h"
-#include "entity.h"
+#include "fieldentity.h"
 #include "potion.h"
 #include "monster.h"
 #include "environment.h"
@@ -28,10 +29,9 @@
 
 class GameBoard
 {
-private:
     const unsigned int SIZE_X = 10, SIZE_Y = 10;
 
-    My2DBoardVector<GameField *> board;
+    My2DBoardVector<GameField*> board;
     EntityFactory *ef;
     Hero *hero;
 public:
@@ -45,6 +45,7 @@ private:
     void initializeEnvironmentRnd();
     void initializeEntities();
     void initializeEntitiesRnd();
+    void initializeBoardBase();
 
 public:
     bool monstersDead() const;
@@ -63,26 +64,25 @@ public:
      *      Returns a pointer to an instance of Position, which is randomized
      *      and checked if the GameField at given position is "free".
      *
-     * "Free" meaning that the environment is accessible and there is no entity there yet.
+     * "Free" meaning that the environment is accessible and there is no Actor there yet.
      * \return the instance of Position
      */
     Position *getNewRandomFreeBoardPosition() const;
     bool freeFieldAt(Position *atPos) const;
 
 private:
-    bool entityEmptyPosition(Position* pos) const;
+    bool actorEmptyPosition(Position* pos) const;
     bool passableEnvironmentAt(Position *pos) const;
 
 public:
     Hero *getHero() const;
     GameField *getFieldAt(Position *atPos) const;
-    Entity *getEntityAt(Position *atPos) const;
+    FieldActor *getActorAt(Position *atPos) const;
     Environment::fieldType getEnvTypeAt (Position *atPos) const;
 
-    void setFieldEntityAtPosition(Entity *toEntity, Position *toPos);
-    void setFieldEntityToItsPosition(Entity *entity);
-    void deleteEntityFromBoardAt(Position *atPos);
-    void deleteEntityFromBoard(Entity *entity);
+    void setFieldActorAt(FieldActor *toActor, Position *toPos);
+    void deleteActorAt(Position *atPos);
+    void killActorAt(Position* at);
 };
 
 #endif // GAMEBOARD_H

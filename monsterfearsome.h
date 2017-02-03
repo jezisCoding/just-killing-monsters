@@ -15,7 +15,7 @@ class MonsterFearsome : public Monster
 protected:
     float fearsomeness;
 public:
-    MonsterFearsome(Position* position, std::string mapSign, std::string name, int health, int attack, float fearsomeness);
+    MonsterFearsome(char mapSign, std::string name, int health, int attack, float fearsomeness);
     MonsterFearsome(MonsterFearsome& from);
     ~MonsterFearsome();
 
@@ -26,7 +26,7 @@ private:
      * \param who The attacking Creature
      * \return The bitwise return values of Creature::defendYourselfFrom with monsterSplit added
      */
-    uint8_t defendYourselfFrom(Creature *who) override;
+    uint8_t defendYourselfFrom(FieldActor *who) override;
 
 public:
     int getAttack() const;

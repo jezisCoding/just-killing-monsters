@@ -6,7 +6,7 @@ var struct_environment =
       [ "Tree", "struct_environment.html#aa8a964ae498a6fbaac1936b831365a36ab6b52216b3b9c4d65a04ef4468031930", null ],
       [ "Corpse", "struct_environment.html#aa8a964ae498a6fbaac1936b831365a36a4f901774d66de0adbb9fd3d7ab2d9c9c", null ]
     ] ],
-    [ "Environment", "struct_environment.html#a00f4124030dc3de17e1f13c42173353d", null ],
+    [ "Environment", "struct_environment.html#ad45ed964958ce63d89377d1cc4704a0e", null ],
     [ "~Environment", "struct_environment.html#a8e294735187880dd3d59be10c425b29d", null ],
     [ "getType", "struct_environment.html#a7985d7636e167b8499236896e63b6447", null ],
     [ "passableEnvironment", "struct_environment.html#a0d54ac01ba95ad397024c4f2a9c54c82", null ],
