@@ -11,6 +11,7 @@ class FieldActor : public FieldEntity
 public:
     FieldActor(const char& mapSign);
     FieldActor(const FieldActor& orig);
+    ~FieldActor();
 
     //! All the actors must be interactive(able to react)
     virtual int reaction(FieldActor *to) = 0;

@@ -22,14 +22,6 @@ public:
     ~Environment();
 
     /*!
-     * \brief reaction
-     *      Environment's reaction is not yet defined(or needed)
-     * \param to
-     * \return
-     */
-    virtual int reaction(Creature *to);
-
-    /*!
      * \brief getType
      *      Returns the type of environment.
      * \return

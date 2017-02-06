@@ -31,10 +31,14 @@ void GameEngine::play(){
                     loadGame();
                     break;
                 case 'X':
-                    //just let it fall
+                    //just let it go
                     break;
-                default:
+                case 'W':
+                case 'S':
+                case 'A':
+                case 'D':
                     heroTurn(input);
+                default:
                     gameBoard->printBoard();
                 }
 

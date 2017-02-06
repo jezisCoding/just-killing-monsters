@@ -15,9 +15,8 @@ SOURCES += main.cpp \
     gameengine.cpp \
     entityfactory.cpp \
     monsterfearsome.cpp \
-    pointableobject.cpp \
-    boardactor.cpp \
-    boardentity.cpp
+    fieldentity.cpp \
+    fieldactor.cpp
 
 HEADERS += \
     environment.h \

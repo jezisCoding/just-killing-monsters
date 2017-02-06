@@ -5,14 +5,13 @@ GameBoard::GameBoard()
     ef = new EntityFactory();
     board.setSizes(SIZE_X, SIZE_Y);
 
-    initializeBoardRnd();  //use initializeGame()/initializeGameRnd()
+    initializeBoard();  //use initializeGame()/initializeGameRnd()
                         //for (non)random board initialization
 }
 
 GameBoard::~GameBoard()
 {
-    while(!board.empty()) delete *(board.end()), board.pop_back();
-    board.clear();
+    while(!board.empty()) delete *(board.end()-1), board.pop_back();
     delete ef;
     //hero is deleted in board
 }
@@ -35,19 +34,17 @@ void GameBoard::initializeBoardRnd()
 void GameBoard::initializeEnvironment(){
     initializeBoardBase();
 
-    Environment *tempTree = ef->getNewEnvironment(Environment::Tree);;
-
-    board.at(2, 2) = new GameField(tempTree);
-    board.at(3, 2) = new GameField(tempTree);
-    board.at(8, 4) = new GameField(tempTree);
-    board.at(1, 5) = new GameField(tempTree);
-    board.at(2, 5) = new GameField(tempTree);
-    board.at(3, 5) = new GameField(tempTree);
-    board.at(4, 6) = new GameField(tempTree);
-    board.at(5, 6) = new GameField(tempTree);
-    board.at(6, 5) = new GameField(tempTree);
-    board.at(5, 3) = new GameField(tempTree);
-    board.at(4, 3) = new GameField(tempTree);
+    board.at(2, 2) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(3, 2) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(8, 4) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(1, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(2, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(3, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(4, 6) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(5, 6) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(6, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(5, 3) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board.at(4, 3) = new GameField(ef->getNewEnvironment(Environment::Tree));
 }
 
 void GameBoard::initializeEnvironmentRnd()
