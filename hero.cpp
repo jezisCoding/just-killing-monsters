@@ -17,7 +17,7 @@ uint8_t Hero::defendYourselfFrom(FieldActor *who){
 
     attacker->dealDmg(this, attacker->getAttack());
     dealDmg(attacker, getAttack());
-    std::cout << std::endl;
+    StaticOutputStream::getStream() << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (attacker->getHealth() < 1) outcome |= 1;
@@ -28,14 +28,14 @@ uint8_t Hero::defendYourselfFrom(FieldActor *who){
 void Hero::dealDmg(Creature *to, const int& dmgDealt){
     surpriseAttack = false;
 
-    std::cout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
+    StaticOutputStream::getStream() << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
-    std::cout << to->getHealth() << ")" << std::endl;
+    StaticOutputStream::getStream() << to->getHealth() << ")" << std::endl;
 }
 
 void Hero::die()
 {
-    std::cout << name + " is dead, git gud" << std::endl;
+    StaticOutputStream::getStream() << name + " is dead, git gud" << std::endl;
 }
 
 int Hero::getAttack() const{

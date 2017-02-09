@@ -33,7 +33,7 @@ uint8_t Creature::defendYourselfFrom(FieldActor *who){
 
     attacker->dealDmg(this, attacker->getAttack());
     dealDmg(attacker, getAttack());
-    std::cout << std::endl;
+    StaticOutputStream::getStream() << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (attacker->getHealth() < 1) outcome |= 1;
@@ -42,14 +42,14 @@ uint8_t Creature::defendYourselfFrom(FieldActor *who){
 }
 
 void Creature::dealDmg(Creature *to, const int& dmgDealt){
-    std::cout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
+    StaticOutputStream::getStream() << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
-    std::cout << to->getHealth() << ")" << std::endl;
+    StaticOutputStream::getStream() << to->getHealth() << ")" << std::endl;
 }
 
 void Creature::die()
 {
-    std::cout << "A creature just died." << std::endl;
+    StaticOutputStream::getStream() << "A creature just died." << std::endl;
 }
 
 std::string Creature::getName() const{

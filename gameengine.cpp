@@ -4,6 +4,10 @@ GameEngine::GameEngine()
 {
     gameBoard = new GameBoard();
     hero = gameBoard->getHero();
+
+    //oldCoutStreamBuf = StaticOutputStream::getStream().rdbuf();
+    //std::ostringstream strCout;
+    //StaticOutputStream::getStream().rdbuf(myCout->rdbuf());   //&rdbuf()
 }
 
 GameEngine::~GameEngine()
@@ -19,7 +23,6 @@ void GameEngine::play(){
         try{
             do {
                 input = getKeyboardInput();
-
                 switch (input) {
                 case 'Q':
                     welcome();
@@ -41,8 +44,7 @@ void GameEngine::play(){
                 default:
                     gameBoard->printBoard();
                 }
-
-            } while (!(gameOver = endGame(input)));
+            } while (!(gameOver = endGame(input)));   
         } catch (std::exception& ex){
             std::cerr << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
@@ -50,8 +52,26 @@ void GameEngine::play(){
     } while (!gameOver);
 }
 
+std::ostringstream &GameEngine::GUIKeyinput(int key)
+{
+    switch (key) {
+    case Qt::Key_W:
+        heroTurn('W');
+    case Qt::Key_S:
+        heroTurn('S');
+    case Qt::Key_A:
+        heroTurn('A');
+    case Qt::Key_D:
+        heroTurn('D');
+    default:
+        gameBoard->printBoard();
+        return StaticOutputStream::getStream();
+        break;
+    }
+}
+
 void GameEngine::welcome() const{
-    std::cout << "Welcome to the game of Just Killing Monsters\n"
+    StaticOutputStream::getStream() << "Welcome to the game of Just Killing Monsters\n"
               << "Kill the monsters by running into them.\n\n"
 
               << "Controls:"
@@ -95,17 +115,17 @@ void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPositi
  * This method returns input from keyboard converted to Upcase
  */
 char GameEngine::getKeyboardInput() const throw(invalid_input){
-    std::cout << "Hero's action: ";
+    StaticOutputStream::getStream() << "Hero's action: ";
     char input;
     std::cin >> input;
-    std::cout << std::endl;
+    StaticOutputStream::getStream() << std::endl;
     if (!isalpha((int)input)) throw (invalid_input("Use only letters for controlling"));
     return toupper(input);
 }
 
 void GameEngine::saveGame() const throw(file_error){
     try{
-        if(gameBoard->saveBoard()) std::cout << "Game saved." << std::endl;
+        if(gameBoard->saveBoard()) StaticOutputStream::getStream() << "Game saved." << std::endl;
     } catch (file_error& ex){
         throw ex;
     }
@@ -122,11 +142,11 @@ void GameEngine::loadGame() throw(file_error){
 bool GameEngine::endGame(const char &input) const{
 
     if (input == 'X'){
-        std::cout << "Game over" << std::endl;
+        StaticOutputStream::getStream() << "Game over" << std::endl;
         return true;
     }
     else if (hero == nullptr && gameBoard->monstersDead()){
-        std::cout << "After an epic battle with the last of the monsters... You died.\n"
+        StaticOutputStream::getStream() << "After an epic battle with the last of the monsters... You died.\n"
                      "But you did kill them all and the goal of the game was not to survive so "
                      "technically you still won."
                   << std::endl << std::endl
@@ -134,13 +154,13 @@ bool GameEngine::endGame(const char &input) const{
         return true;
     }
     else if (hero == nullptr) {
-        std::cout << "You ded"
+        StaticOutputStream::getStream() << "You ded"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
         return true;
     }
     else if (gameBoard->monstersDead()){
-        std::cout << "You've killed all the monsters and saved the village from certain doom! GG"
+        StaticOutputStream::getStream() << "You've killed all the monsters and saved the village from certain doom! GG"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
         return true;
@@ -152,7 +172,7 @@ void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
     if (monster != nullptr){
         MonsterFearsome* mf = dynamic_cast<MonsterFearsome*>(monster);
 
-        if (mf == nullptr) std::cout << "monstersplit cast error" << std::endl;
+        if (mf == nullptr) StaticOutputStream::getStream() << "monstersplit cast error" << std::endl;
         else {
             int direction = Position::Up;
             Position* splitPos = new Position;
@@ -162,7 +182,7 @@ void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
                 direction++;
             } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::None);
 
-            if (*splitPos == *centerPos) std::cout << "The monster has nowhere to split, good for you" << std::endl;
+            if (*splitPos == *centerPos) StaticOutputStream::getStream() << "The monster has nowhere to split, good for you" << std::endl;
             else {
                 MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
                 gameBoard->setFieldActorAt(mfsplit, splitPos);

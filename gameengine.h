@@ -5,6 +5,11 @@
 #include "myexceptions.h"
 #include <fstream>
 #include <cstdint>
+#include <QCoreApplication>
+
+#include <streambuf>
+#include <iostream>
+#include <sstream>
 
 /*!
  * \brief The GameEngine class
@@ -19,18 +24,23 @@ private:
     GameBoard *gameBoard;
     Hero* hero;
 
+    //std::streambuf* oldCoutStreamBuf;
+    //std::ostringstream* myCout;
+
 public:
     GameEngine();
     ~GameEngine();
     void play();
 
-private:
+    std::ostringstream &GUIKeyinput(int key);
     void welcome() const;
-    void heroTurn(const char &direction);
-    void heroAction(FieldActor *targetFieldActor, Position *targetPosition);
-    char getKeyboardInput() const throw(invalid_input);
     void saveGame() const throw(file_error);
     void loadGame() throw(file_error);
+
+private:
+    void heroTurn(const char &direction);
+    void heroAction(FieldActor *targetFieldActor, Position *targetPosition);
+    char getKeyboardInput() const throw(invalid_input);    
     bool endGame(const char &input) const;
     void splitMonsterAround(FieldActor *monster, Position* centerPos);
 };

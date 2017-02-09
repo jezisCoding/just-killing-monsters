@@ -2,6 +2,7 @@
 #define POTION_H
 
 #include "fieldactor.h"
+#include "staticoutputstream.h"
 
 /*!
  * \brief The Potion class

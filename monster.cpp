@@ -29,7 +29,7 @@ int Monster::getMonsterCount(){
 
 void Monster::die()
 {
-    std::cout << name + ": \"Bleeurhgdjksfgdak......h.\"  *pepsi*" << std::endl;
+    StaticOutputStream::getStream() << name + ": \"Bleeurhgdjksfgdak......h.\"  *pepsi*" << std::endl;
 }
 
 bool Monster::operator==(const Monster& right){
