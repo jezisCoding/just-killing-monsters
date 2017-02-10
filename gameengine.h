@@ -32,7 +32,7 @@ public:
     ~GameEngine();
     void play();
 
-    std::ostringstream &GUIKeyinput(int key);
+    void GUIKeyinput(int key);
     void welcome() const;
     void saveGame() const throw(file_error);
     void loadGame() throw(file_error);

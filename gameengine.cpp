@@ -18,14 +18,14 @@ GameEngine::~GameEngine()
 void GameEngine::play(){
     bool gameOver = false;
     char input = '\0';
-    welcome();
+    this->welcome();
     do {
         try{
             do {
                 input = getKeyboardInput();
                 switch (input) {
                 case 'Q':
-                    welcome();
+                    this->welcome();
                     break;
                 case 'E':
                     saveGame();
@@ -52,26 +52,30 @@ void GameEngine::play(){
     } while (!gameOver);
 }
 
-std::ostringstream &GameEngine::GUIKeyinput(int key)
+void GameEngine::GUIKeyinput(int key)
 {
     switch (key) {
     case Qt::Key_W:
         heroTurn('W');
+        break;
     case Qt::Key_S:
         heroTurn('S');
+        break;
     case Qt::Key_A:
         heroTurn('A');
+        break;
     case Qt::Key_D:
         heroTurn('D');
+        break;
     default:
-        gameBoard->printBoard();
-        return StaticOutputStream::getStream();
         break;
     }
+    gameBoard->printBoard();
 }
 
 void GameEngine::welcome() const{
-    StaticOutputStream::getStream() << "Welcome to the game of Just Killing Monsters\n"
+    StaticOutputStream::getStream()
+              << "Welcome to the game of Just Killing Monsters\n"
               << "Kill the monsters by running into them.\n\n"
 
               << "Controls:"
@@ -88,7 +92,7 @@ void GameEngine::heroTurn(const char& direction){
     *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
     FieldActor *targetFieldActor = gameBoard->getFieldAt(targetPosition)->getFieldActor();
 
-    if (targetFieldActor  != nullptr) heroAction(targetFieldActor , targetPosition);
+    if (targetFieldActor  != nullptr) heroAction(targetFieldActor ,targetPosition);
     else gameBoard->moveHero(targetPosition);
 }
 
