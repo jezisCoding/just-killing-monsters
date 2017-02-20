@@ -36,6 +36,7 @@ public:
     void welcome() const;
     void saveGame() const throw(file_error);
     void loadGame() throw(file_error);
+    bool endGame() const;
 
 private:
     void heroTurn(const char &direction);

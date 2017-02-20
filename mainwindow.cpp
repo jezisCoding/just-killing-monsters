@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->consoleTextBrowser->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
     engine->welcome();
-    printToTextBrowser(StaticOutputStream::wout);
+    putToTextBrowser(StaticOutputStream::wout);
 
     //connect(this, SIGNAL(inputAccepted()), ui->consoleTextBrowser, SLOT(update()));
     //connect(this, SIGNAL(inputAccepted()), ui->consoleTextBrowser, SLOT(clear()));
@@ -26,44 +26,78 @@ MainWindow::~MainWindow()
 
 void MainWindow::keyPressEvent(QKeyEvent* kEvent)
 {
-    if(kEvent->key() == Qt::Key_W || kEvent->key() == Qt::Key_S
-    || kEvent->key() == Qt::Key_A || kEvent->key() == Qt::Key_D){
+    if(engine->endGame()){
+        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
+    } else if(kEvent->key() == Qt::Key_W || kEvent->key() == Qt::Key_S
+           || kEvent->key() == Qt::Key_A || kEvent->key() == Qt::Key_D){
         engine->GUIKeyinput(kEvent->key());
-        printToTextBrowser(StaticOutputStream::wout);
+        putToTextBrowser(StaticOutputStream::wout);
     }
 
     //QWidget::keyPressEvent(key);
 }
 
-void MainWindow::printToTextBrowser(std::ostringstream& oss)
+void MainWindow::putToTextBrowser(std::ostringstream& oss)
 {
-    QString kappa = QString(oss.str().c_str());
+    QString out = QString(oss.str().c_str());
     oss.str("");
     ui->consoleTextBrowser->clear();
-    ui->consoleTextBrowser->setPlainText(kappa);
+    ui->consoleTextBrowser->setPlainText(out);
     ui->consoleTextBrowser->update();
-    emit inputAccepted();
+
+    inputAccepted();
+}
+
+void MainWindow::addToTextBrowser(std::ostringstream &oss, QString what)
+{
+    QString out = QString(oss.str().c_str()) + what;
+
+    ui->consoleTextBrowser->clear();
+    ui->consoleTextBrowser->setPlainText(out);
+    ui->consoleTextBrowser->update();
+
+    inputAccepted();
 }
 
 void MainWindow::on_quitButton_clicked()
 {
+    delete engine;
     QCoreApplication::quit();
 }
 
 void MainWindow::on_welcomeButton_clicked()
 {
-    engine->welcome();
-    printToTextBrowser(StaticOutputStream::wout);
+    if(engine->endGame()){
+        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
+    } else {
+        engine->welcome();
+        putToTextBrowser(StaticOutputStream::wout);
+    }
 }
 
 void MainWindow::on_saveButton_clicked()
 {
-    engine->saveGame();
-    printToTextBrowser(StaticOutputStream::wout);
+    if(engine->endGame()){
+        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
+    } else {
+        engine->saveGame();
+        putToTextBrowser(StaticOutputStream::wout);
+    }
 }
 
 void MainWindow::on_loadButton_clicked()
 {
-    engine->loadGame();
-    printToTextBrowser(StaticOutputStream::wout);
+    if(engine->endGame()){
+        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
+    } else {
+        engine->loadGame();
+        putToTextBrowser(StaticOutputStream::wout);
+    }
+}
+
+void MainWindow::inputAccepted()
+{
+    if(engine->endGame()){
+        delete engine;
+    }
 }

@@ -24,15 +24,14 @@ private slots:
     void on_saveButton_clicked();
     void on_loadButton_clicked();
 
-signals:
-    inputAccepted();
-
 private:
     Ui::MainWindow *ui;
     GameEngine *engine;
 
+    void inputAccepted();
     void keyPressEvent(QKeyEvent *kEvent);
-    void printToTextBrowser(std::ostringstream &oss);
+    void putToTextBrowser(std::ostringstream &oss);
+    void addToTextBrowser(std::ostringstream &oss, QString what);
 };
 
 #endif // MAINWINDOW_H

@@ -143,13 +143,9 @@ void GameEngine::loadGame() throw(file_error){
     }
 }
 
-bool GameEngine::endGame(const char &input) const{
-
-    if (input == 'X'){
-        StaticOutputStream::getStream() << "Game over" << std::endl;
-        return true;
-    }
-    else if (hero == nullptr && gameBoard->monstersDead()){
+bool GameEngine::endGame() const
+{
+    if (hero == nullptr && gameBoard->monstersDead()){
         StaticOutputStream::getStream() << "After an epic battle with the last of the monsters... You died.\n"
                      "But you did kill them all and the goal of the game was not to survive so "
                      "technically you still won."
@@ -170,6 +166,15 @@ bool GameEngine::endGame(const char &input) const{
         return true;
     }
     return false;
+}
+
+bool GameEngine::endGame(const char &input) const{
+
+    if (input == 'X'){
+        StaticOutputStream::getStream() << "Game over" << std::endl;
+        return true;
+    }
+    return endGame();
 }
 
 void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
