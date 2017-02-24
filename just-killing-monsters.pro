@@ -43,7 +43,8 @@ SOURCES += main.cpp \
     fieldentity.cpp \
     fieldactor.cpp \
     mainwindow.cpp \
-    staticoutputstream.cpp
+    staticoutputstream.cpp \
+    myxmlparser.cpp
 
 HEADERS += \
     environment.h \
@@ -62,7 +63,10 @@ HEADERS += \
     fieldentity.h \
     fieldactor.h \
     mainwindow.h \
-    staticoutputstream.h
+    staticoutputstream.h \
+    myxmlparser.h
 
 FORMS += \
     mainwindow.ui
+
+DISTFILES +=

@@ -26,6 +26,7 @@ public:
     static int getMonsterCount();
 
     virtual void die() override;
+    virtual void addToXml(QFile& where, QXmlStreamWriter& writer) const;
 
     bool operator==(const Monster &right);
 };

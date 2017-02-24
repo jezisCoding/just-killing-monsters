@@ -27,6 +27,7 @@ public:
      */
     int reaction(FieldActor *to) override;
     void die() override;
+    void addToXml(QFile& where, QXmlStreamWriter& writer) const;
     int heal(FieldActor* who);
 
     int getHealthBonus();

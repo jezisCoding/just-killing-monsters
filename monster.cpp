@@ -32,6 +32,15 @@ void Monster::die()
     StaticOutputStream::getStream() << name + ": \"Bleeurhgdjksfgdak......h.\"  *pepsi*" << std::endl;
 }
 
+void Monster::addToXml(QFile& where, QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("Monster");
+    writer.writeTextElement("monsterCount", QString(monsterCount));
+    writer.writeEndElement();
+
+    Creature::addToXml(where, writer);
+}
+
 bool Monster::operator==(const Monster& right){
     if (this->getName()==right.getName() && this->getHealth()==right.getHealth()) return true;
     return false;

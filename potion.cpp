@@ -21,6 +21,15 @@ void Potion::die()
     StaticOutputStream::getStream() << "You drank the potion and its gone" << std::endl;
 }
 
+void Potion::addToXml(QFile& where, QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("Potion");
+    writer.writeTextElement("healthBonus", QString(healthBonus));
+    writer.writeEndElement();
+
+    FieldActor::addToXml(where, writer);
+}
+
 int Potion::heal(FieldActor* who){
     Creature* user = dynamic_cast<Creature*>(who);
 

@@ -33,6 +33,7 @@ private:
     uint8_t defendYourselfFrom(FieldActor *who) override;
     void dealDmg(Creature *to, const int& dmgDealt);
     void die() override;
+    void addToXml(QFile& where, QXmlStreamWriter& writer) const;
 
 public:
     int getAttack() const;

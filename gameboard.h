@@ -53,10 +53,16 @@ public:
     /*!
      * \brief saveBoard
      *     The current implementation of saveBoard().
+     *
+     * Not used anymore
      * \return whether the save was successful
      */
     bool saveBoard() throw(file_error);
+    bool saveBoardXml() throw(file_error);
+
+        //! Not used anymore
     void loadBoard() const throw(file_error);
+    bool loadBoardXml() throw(file_error);
     void moveHero(Position *toPos);
 
     /*!

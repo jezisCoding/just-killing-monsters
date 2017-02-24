@@ -52,6 +52,17 @@ void Creature::die()
     StaticOutputStream::getStream() << "A creature just died." << std::endl;
 }
 
+void Creature::addToXml(QFile& where, QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("Creature");
+    writer.writeTextElement("name", QString(name.c_str()));
+    writer.writeTextElement("health", QString(health));
+    writer.writeTextElement("attack", QString(attack));
+    writer.writeEndElement();
+
+    FieldActor::addToXml(where, writer);
+}
+
 std::string Creature::getName() const{
     return name;
 }

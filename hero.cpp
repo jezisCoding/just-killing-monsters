@@ -38,6 +38,17 @@ void Hero::die()
     StaticOutputStream::getStream() << name + " is dead, git gud" << std::endl;
 }
 
+void Hero::addToXml(QFile& where, QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("Hero");
+    writer.writeTextElement("readiness", QString(readiness));
+    writer.writeTextElement("surpriseAttack", QString(surpriseAttack));
+    writer.writeTextElement("pos", QString(pos->x)+QString(pos->y));
+    writer.writeEndElement();
+
+    Creature::addToXml(where, writer);
+}
+
 int Hero::getAttack() const{
     if (surpriseAttack) return attack+readiness;
     return attack;

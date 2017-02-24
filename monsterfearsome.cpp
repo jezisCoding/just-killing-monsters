@@ -38,6 +38,15 @@ uint8_t MonsterFearsome::defendYourselfFrom(FieldActor *who) {
     return outcome;
 }
 
+void MonsterFearsome::addToXml(QFile& where, QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("MonsterFearsome");
+    writer.writeTextElement("fearsomeness", QString(std::to_string(fearsomeness).c_str()));
+    writer.writeEndElement();
+
+    Monster::addToXml(where, writer);
+}
+
 int MonsterFearsome::getAttack() const{
     return fearsomeness*attack;
 }

@@ -21,6 +21,8 @@ public:
     Environment(const char &mapSign, const fieldType &type);
     ~Environment();
 
+    void addToXml(QFile& where, QXmlStreamWriter& writer) const;
+
     /*!
      * \brief getType
      *      Returns the type of environment.

@@ -5,6 +5,7 @@ GameEngine::GameEngine()
     gameBoard = new GameBoard();
     hero = gameBoard->getHero();
 
+    xmlParser = new MyXMLParser;
     //oldCoutStreamBuf = StaticOutputStream::getStream().rdbuf();
     //std::ostringstream strCout;
     //StaticOutputStream::getStream().rdbuf(myCout->rdbuf());   //&rdbuf()
@@ -15,6 +16,7 @@ GameEngine::~GameEngine()
     delete gameBoard;
 }
 
+    //Not used anymore
 void GameEngine::play(){
     bool gameOver = false;
     char input = '\0';
@@ -117,6 +119,8 @@ void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPositi
 
 /**
  * This method returns input from keyboard converted to Upcase
+ *
+ * Not used anymore
  */
 char GameEngine::getKeyboardInput() const throw(invalid_input){
     StaticOutputStream::getStream() << "Hero's action: ";
@@ -129,15 +133,26 @@ char GameEngine::getKeyboardInput() const throw(invalid_input){
 
 void GameEngine::saveGame() const throw(file_error){
     try{
-        if(gameBoard->saveBoard()) StaticOutputStream::getStream() << "Game saved." << std::endl;
+        if(xmlParser->writeXml(QString("gameSave.xml"))) StaticOutputStream::getStream() << "XML saved." << std::endl;
+        if(gameBoard->saveBoardXml()) StaticOutputStream::getStream() << "XML saved." << std::endl;
+        xmlParser->testXML();
     } catch (file_error& ex){
         throw ex;
     }
 }
 
-void GameEngine::loadGame() throw(file_error){
+Hero* GameEngine::loadGame() throw(file_error){
     try{
-        gameBoard->loadBoard();
+        QMap<QString, QString> values;
+
+        StaticOutputStream::getStream() << "Loading Game..." << std::endl;
+
+        //gameBoard->loadBoard();
+        values = xmlParser->readXml("gameSave.xml");
+
+        StaticOutputStream::getStream() << values.find("mapSign").value().toStdString();// + " " + values.find("pos").value().toStdString() << std::endl;
+
+        return hero;
     } catch (file_error& ex){
         throw ex;
     }

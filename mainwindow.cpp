@@ -29,7 +29,8 @@ void MainWindow::keyPressEvent(QKeyEvent* kEvent)
     if(engine->endGame()){
         addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
     } else if(kEvent->key() == Qt::Key_W || kEvent->key() == Qt::Key_S
-           || kEvent->key() == Qt::Key_A || kEvent->key() == Qt::Key_D){
+           || kEvent->key() == Qt::Key_A || kEvent->key() == Qt::Key_D)
+    {
         engine->GUIKeyinput(kEvent->key());
         putToTextBrowser(StaticOutputStream::wout);
     }
@@ -46,6 +47,9 @@ void MainWindow::putToTextBrowser(std::ostringstream& oss)
     ui->consoleTextBrowser->update();
 
     inputAccepted();
+
+    return;
+    //ui->quickWidget
 }
 
 void MainWindow::addToTextBrowser(std::ostringstream &oss, QString what)
@@ -77,21 +81,31 @@ void MainWindow::on_welcomeButton_clicked()
 
 void MainWindow::on_saveButton_clicked()
 {
-    if(engine->endGame()){
-        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
-    } else {
-        engine->saveGame();
-        putToTextBrowser(StaticOutputStream::wout);
+    try{
+        if(engine->endGame()){
+            addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
+        } else {
+            engine->saveGame();
+            putToTextBrowser(StaticOutputStream::wout);
+        }
+    } catch (std::exception& ex){
+    std::cerr << "Exception in MainWindow::on_saveButton_clicked() : "
+              << ex.what() << std::endl;
     }
 }
 
 void MainWindow::on_loadButton_clicked()
 {
-    if(engine->endGame()){
-        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
-    } else {
-        engine->loadGame();
-        putToTextBrowser(StaticOutputStream::wout);
+    try{
+        if(engine->endGame()){
+            addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
+        } else {
+            engine->loadGame();
+            putToTextBrowser(StaticOutputStream::wout);
+        }
+    } catch (std::exception& ex){
+    std::cerr << "Exception in MainWindow::on_loadButton_clicked() : "
+              << ex.what() << std::endl;
     }
 }
 

@@ -39,6 +39,7 @@ public:
     //! Method used in defendYourselfFrom that takes care of dealing damage itself
     virtual void dealDmg(Creature *to, const int& dmgDealt);
     virtual void die();
+    virtual void addToXml(QFile& where, QXmlStreamWriter& writer) const;
 
     std::string getName() const;
     virtual int getAttack() const;

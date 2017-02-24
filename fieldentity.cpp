@@ -16,6 +16,13 @@ FieldEntity::~FieldEntity()
     //StaticOutputStream::getStream() << "An entity was just destroyed." << std::endl;
 }
 
+void FieldEntity::addToXml(QFile& where, QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("FieldEntity");
+    writer.writeTextElement("mapSign", QString(mapSign));
+    writer.writeEndElement();
+}
+
 void FieldEntity::setMapSign(const char &to)
 {
     mapSign = to;
@@ -26,10 +33,10 @@ char FieldEntity::getMapSign() const
     return mapSign;
 }
 
-std::string FieldEntity::getTypeIdStringPointer(){
+std::string FieldEntity::getTypeIdStringPointer() const {
     return typeid(this).name();
 }
 
-std::string FieldEntity::getTypeIdStringValue(){
+std::string FieldEntity::getTypeIdStringValue() const {
     return typeid(*this).name();
 }

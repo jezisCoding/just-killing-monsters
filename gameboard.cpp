@@ -135,7 +135,7 @@ void GameBoard::printBoard() const{
     StaticOutputStream::getStream() << std::endl;
 }
 
-bool GameBoard::saveBoard() throw(file_error){
+bool GameBoard::saveBoard() throw(file_error){  //Not used anymore
     std::ofstream out("map.txt");
     if(out.is_open()){
 
@@ -156,7 +156,42 @@ bool GameBoard::saveBoard() throw(file_error){
     }
 }
 
-void GameBoard::loadBoard() const throw(file_error){
+bool GameBoard::saveBoardXml() throw(file_error)
+{
+    QFile file("savedGame.xml");
+    QXmlStreamWriter writer;
+    writer.setDevice(&file);
+
+    if(file.open(QIODevice::WriteOnly)){
+        writer.writeStartDocument();
+        writer.writeStartElement("GameBoard");
+
+        int i = 0;          //AKO SA ZBAVIT TYCH ZBYTOCNYCH TAGOV? OVERLOAD DAJAKY NEKALY?
+                            //CHCEM TAM FIELDACTORA? AKO SA TO BUDE PARSOVAT
+        for(GameField* field : board){
+            writer.writeStartElement("GameField");
+            writer.writeAttribute("index", std::to_string(i).c_str());
+            field->getFieldEnvironment()->addToXml(file, writer);
+
+            if(field->getFieldActor() != nullptr){
+                field->getFieldActor()->addToXml(file, writer);
+            } else {
+
+            }
+
+            writer.writeEndElement();
+            i++;
+        }
+
+        writer.writeEndElement();
+        writer.writeEndDocument();
+        file.close();
+    } else {
+        throw new file_error("File was not opened(saveBoardXml())");
+    }
+}
+
+void GameBoard::loadBoard() const throw(file_error){    //Not used anymore
     std::ifstream in("map.txt");
     if(in.is_open()){
         StaticOutputStream::getStream() << std::endl;
@@ -170,6 +205,39 @@ void GameBoard::loadBoard() const throw(file_error){
         throw file_error("File is not open");
     }
     in.close();
+}
+
+bool GameBoard::loadBoardXml() throw(file_error)
+{
+    QFile file("savedGame.xml");
+    QXmlStreamReader reader;
+    reader.setDevice(&file);
+
+    if(file.open(QIODevice::ReadOnly)){
+        //delete board;
+
+        reader.readNext();
+
+        if(reader.name() == "fieldType"){
+
+        } else if (reader.name() == "") {
+
+
+
+            if(reader.name() == "Hero"){
+
+            } else if(reader.name() == "Monster"){
+
+            } else if(reader.name() == "MonsterFearsome"){
+
+            } else if(reader.name() == "Potion"){
+
+            }
+        }
+    file.close();
+    } else {
+        throw new file_error("File was not opened(loadBoardXml()");
+    }
 }
 
 void GameBoard::moveHero(Position *toPos){

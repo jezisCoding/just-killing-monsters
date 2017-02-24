@@ -4,12 +4,15 @@
 #include <streambuf>
 #include <iostream>
 #include <sstream>
+#include <QString>
 
 struct StaticOutputStream
 {
     static std::ostringstream wout;
 
     static std::ostringstream& getStream();
+
+    std::ostringstream operator<<(const QString& str);
 
     staticOutputStream();
 };

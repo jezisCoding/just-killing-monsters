@@ -16,6 +16,7 @@ public:
     //! All the actors must be interactive(able to react)
     virtual int reaction(FieldActor *to) = 0;
     virtual void die() = 0;
+    virtual void addToXml(QFile& where, QXmlStreamWriter& writer) const;
 };
 
 #endif // ACTOR_H

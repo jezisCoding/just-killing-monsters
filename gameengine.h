@@ -3,6 +3,8 @@
 
 #include "gameboard.h"
 #include "myexceptions.h"
+#include "myxmlparser.h"
+
 #include <fstream>
 #include <cstdint>
 #include <QCoreApplication>
@@ -23,6 +25,7 @@ class GameEngine
 private:
     GameBoard *gameBoard;
     Hero* hero;
+    MyXMLParser* xmlParser;
 
     //std::streambuf* oldCoutStreamBuf;
     //std::ostringstream* myCout;
@@ -35,7 +38,7 @@ public:
     void GUIKeyinput(int key);
     void welcome() const;
     void saveGame() const throw(file_error);
-    void loadGame() throw(file_error);
+    Hero *loadGame() throw(file_error);
     bool endGame() const;
 
 private:
