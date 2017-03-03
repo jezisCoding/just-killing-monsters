@@ -29,7 +29,7 @@ int Monster::getMonsterCount(){
 
 void Monster::die()
 {
-    StaticOutputStream::getStream() << name + ": \*dying sounds\*  *pepsi*" << std::endl;
+    StaticOutputStream::getStream() << name + ": *dying sounds*  *pepsi*" << std::endl;
 }
 
 void Monster::addToXml(QXmlStreamWriter& writer) const

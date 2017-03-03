@@ -217,7 +217,7 @@ void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
     }
 }
 
-void GameEngine::deleteBoard()  //am i retarded? why not just check for nullptr? yes
+void GameEngine::deleteBoard()
 {
     delete gameBoard;
     gameBoard = nullptr;

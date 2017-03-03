@@ -7,8 +7,6 @@
 
 #include "position.h"
 
-
-
 /*!
  * \brief The My2DBoardVector class
  *      This class is a std::vector wrapper customized for my needs for the GameBoard.

@@ -25,9 +25,6 @@ private:
     GameBoard *gameBoard;
     Hero* hero;
 
-    //std::streambuf* oldCoutStreamBuf;
-    //std::ostringstream* myCout;
-
 public:
     GameEngine();
     ~GameEngine();

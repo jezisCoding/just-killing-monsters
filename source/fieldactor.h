@@ -16,7 +16,7 @@ public:
 public:
     //! All the actors must be interactive(able to react)
     virtual int reaction(FieldActor *to) = 0;
-    virtual void die() = 0;
+    virtual void die();
     virtual void addToXml(QXmlStreamWriter& writer) const;
 
 protected:
