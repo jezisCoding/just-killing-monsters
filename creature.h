@@ -34,11 +34,13 @@ protected:
      * 0-nobody * 1-the other creature(who/attacker/hero) * 2-this creature(this/defender/monster) * 3-both creatures
      */
     virtual uint8_t defendYourselfFrom(FieldActor *who);
+    virtual void addAncestryToXml(QXmlStreamWriter& writer) const;
 
 public:
     //! Method used in defendYourselfFrom that takes care of dealing damage itself
     virtual void dealDmg(Creature *to, const int& dmgDealt);
     virtual void die();
+    virtual void addToXml(QXmlStreamWriter& writer) const;
 
     std::string getName() const;
     virtual int getAttack() const;

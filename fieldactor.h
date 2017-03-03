@@ -9,12 +9,18 @@
 class FieldActor : public FieldEntity
 {
 public:
-    FieldActor(const char& mapSign);
+    FieldActor(const char mapSign);
     FieldActor(const FieldActor& orig);
+    ~FieldActor();
 
+public:
     //! All the actors must be interactive(able to react)
     virtual int reaction(FieldActor *to) = 0;
     virtual void die() = 0;
+    virtual void addToXml(QXmlStreamWriter& writer) const;
+
+protected:
+    virtual void addAncestryToXml(QXmlStreamWriter& writer) const;
 };
 
 #endif // ACTOR_H

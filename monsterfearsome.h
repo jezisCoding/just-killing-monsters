@@ -27,6 +27,7 @@ private:
      * \return The bitwise return values of Creature::defendYourselfFrom with monsterSplit added
      */
     uint8_t defendYourselfFrom(FieldActor *who) override;
+    void addToXml(QXmlStreamWriter& writer) const;
 
 public:
     int getAttack() const;

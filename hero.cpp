@@ -1,7 +1,7 @@
 #include "hero.h"
 
-Hero::Hero(Position* pos, char mapSign, std::string name, int health, int attack, int readiness,
-           bool surpriseHit) : Creature(mapSign, name, health, attack)
+Hero::Hero(char mapSign, std::string name, int health, int attack, int readiness, bool surpriseHit,
+           Position* pos) : Creature(mapSign, name, health, attack)
 {
     this->pos = pos;
     this->readiness = readiness;
@@ -17,7 +17,7 @@ uint8_t Hero::defendYourselfFrom(FieldActor *who){
 
     attacker->dealDmg(this, attacker->getAttack());
     dealDmg(attacker, getAttack());
-    std::cout << std::endl;
+    StaticOutputStream::getStream() << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (attacker->getHealth() < 1) outcome |= 1;
@@ -28,14 +28,26 @@ uint8_t Hero::defendYourselfFrom(FieldActor *who){
 void Hero::dealDmg(Creature *to, const int& dmgDealt){
     surpriseAttack = false;
 
-    std::cout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
+    StaticOutputStream::getStream() << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
-    std::cout << to->getHealth() << ")" << std::endl;
+    StaticOutputStream::getStream() << to->getHealth() << ")" << std::endl;
 }
 
 void Hero::die()
 {
-    std::cout << name + " is dead, git gud" << std::endl;
+    StaticOutputStream::getStream() << name + " is dead, git gud" << std::endl;
+}
+
+void Hero::addToXml(QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("Hero");
+
+    Creature::addAncestryToXml(writer);
+
+    writer.writeTextElement("readiness", QString(std::to_string(readiness).c_str()));
+    writer.writeTextElement("surpriseAttack", QString(std::to_string(surpriseAttack).c_str()));
+    writer.writeTextElement("pos", QString(std::to_string(pos->x).c_str()) + "." + QString(std::to_string(pos->y).c_str()));
+    writer.writeEndElement();
 }
 
 int Hero::getAttack() const{

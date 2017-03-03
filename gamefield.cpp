@@ -8,9 +8,7 @@ GameField::GameField(Environment *fieldEnvironment)
 
 GameField::~GameField()
 {
-    FieldActor* fe = fieldActor;
-    if (fe != nullptr)
-        delete fe;
+    delete fieldActor;  //memory leak? cast and then delete? (protected FieldActor
     delete fieldEnvironment;
 }
 

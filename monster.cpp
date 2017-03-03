@@ -1,16 +1,16 @@
 #include "monster.h"
 
-int Monster::monsterCount = 0;
+int Monster::s_monsterCount = 0;
 
 Monster::Monster(char mapSign, std::__cxx11::string name, int health, int attack)
     : Creature(mapSign, name, health, attack)
 {
-    monsterCount++;
+    s_monsterCount++;
 }
 
 Monster::Monster(const Monster &orig) : Creature(orig)
 {
-    monsterCount++;
+    s_monsterCount++;
 
     this->name = orig.getName() + "(split)";
     this->mapSign = 'V';
@@ -20,16 +20,33 @@ Monster::Monster(const Monster &orig) : Creature(orig)
 
 Monster::~Monster()
 {
-    monsterCount--;
+    s_monsterCount--;
 }
 
 int Monster::getMonsterCount(){
-    return monsterCount;
+    return s_monsterCount;
 }
 
 void Monster::die()
 {
-    std::cout << name + ": \"Bleeurhgdjksfgdak......h.\"  *pepsi*" << std::endl;
+    StaticOutputStream::getStream() << name + ": \*dying sounds\*  *pepsi*" << std::endl;
+}
+
+void Monster::addToXml(QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("Monster");
+
+    Creature::addAncestryToXml(writer);
+
+    writer.writeTextElement("monsterCount", QString(std::to_string(s_monsterCount).c_str()));
+    writer.writeEndElement();
+}
+
+void Monster::addAncestryToXml(QXmlStreamWriter &writer) const
+{
+    Creature::addAncestryToXml(writer);
+
+    writer.writeTextElement("monsterCount", QString(std::to_string(s_monsterCount).c_str()));
 }
 
 bool Monster::operator==(const Monster& right){

@@ -28,7 +28,7 @@ uint8_t MonsterFearsome::defendYourselfFrom(FieldActor *who) {
 
     attacker->dealDmg(this, attacker->getAttack());
     dealDmg(attacker, getAttack());
-    std::cout << std::endl;
+    StaticOutputStream::getStream() << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (attacker->getHealth() < 1) outcome |= 1;
@@ -36,6 +36,16 @@ uint8_t MonsterFearsome::defendYourselfFrom(FieldActor *who) {
     if (monsterSplit()) outcome |= 4;
 
     return outcome;
+}
+
+void MonsterFearsome::addToXml(QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("MonsterFearsome");
+
+    Monster::addAncestryToXml(writer);
+
+    writer.writeTextElement("fearsomeness", QString(std::to_string(fearsomeness).c_str()));
+    writer.writeEndElement();
 }
 
 int MonsterFearsome::getAttack() const{

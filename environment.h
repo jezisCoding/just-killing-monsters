@@ -18,16 +18,10 @@ struct Environment : public FieldEntity
 private:
     fieldType type;
 public:
-    Environment(const char &mapSign, const fieldType &type);
+    Environment(const char mapSign, const fieldType type);
     ~Environment();
 
-    /*!
-     * \brief reaction
-     *      Environment's reaction is not yet defined(or needed)
-     * \param to
-     * \return
-     */
-    virtual int reaction(Creature *to);
+    void addToXml(QXmlStreamWriter& writer) const;
 
     /*!
      * \brief getType

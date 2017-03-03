@@ -2,52 +2,80 @@
 
 GameEngine::GameEngine()
 {
-    gameBoard = new GameBoard();
+    gameBoard = new GameBoard(false);
     hero = gameBoard->getHero();
 }
 
 GameEngine::~GameEngine()
 {
-    delete gameBoard;
+    deleteBoard();
 }
 
+    //Not used anymore
 void GameEngine::play(){
     bool gameOver = false;
     char input = '\0';
-    welcome();
+    this->welcome();
     do {
         try{
             do {
                 input = getKeyboardInput();
-
                 switch (input) {
                 case 'Q':
-                    welcome();
+                    this->welcome();
                     break;
                 case 'E':
-                    saveGame();
+                    saveGame("gameSave.xml");
                     break;
                 case 'R':
-                    loadGame();
+                    loadGame("gameSave.xml");
                     break;
                 case 'X':
-                    //just let it fall
+                    //just let it go
                     break;
-                default:
+                case 'W':
+                case 'S':
+                case 'A':
+                case 'D':
                     heroTurn(input);
+                default:
                     gameBoard->printBoard();
                 }
-
-            } while (!(gameOver = endGame(input)));
-        } catch (std::exception& ex){
+            } while (!(gameOver = endGame(input)));   
+        } catch (file_error& ex){
+            std::cerr << "Exception in GameEngine::play() : "
+                      << ex.what() << std::endl;
+        } catch (invalid_input& ex){
             std::cerr << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
         }
     } while (!gameOver);
 }
 
+void GameEngine::GUIKeyinput(int key)
+{
+    switch (key) {
+    case Qt::Key_W:
+        heroTurn('W');
+        break;
+    case Qt::Key_S:
+        heroTurn('S');
+        break;
+    case Qt::Key_A:
+        heroTurn('A');
+        break;
+    case Qt::Key_D:
+        heroTurn('D');
+        break;
+    default:
+        break;
+    }
+    gameBoard->printBoard();
+}
+
 void GameEngine::welcome() const{
-    std::cout << "Welcome to the game of Just Killing Monsters\n"
+    StaticOutputStream::getStream()
+              << "Welcome to the game of Just Killing Monsters\n"
               << "Kill the monsters by running into them.\n\n"
 
               << "Controls:"
@@ -64,14 +92,14 @@ void GameEngine::heroTurn(const char& direction){
     *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
     FieldActor *targetFieldActor = gameBoard->getFieldAt(targetPosition)->getFieldActor();
 
-    if (targetFieldActor  != nullptr) heroAction(targetFieldActor , targetPosition);
+    if (targetFieldActor != nullptr) heroAction(targetFieldActor, targetPosition);
     else gameBoard->moveHero(targetPosition);
 }
 
 void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPosition){
     uint8_t outcome = hero->interaction(targetFieldActor);
 
-
+        //bitwise
         //opponent(defender) died
     if((outcome & 2) == 2) {
         gameBoard->killActorAt(targetPosition);
@@ -83,72 +111,94 @@ void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPositi
         //hero(attacker) died
     if((outcome & 1) == 1) {
         gameBoard->killActorAt(hero->getPosition());
-        hero = nullptr;
+        hero = nullptr, gameBoard->heroDied();
     }
 }
 
 /**
  * This method returns input from keyboard converted to Upcase
+ *
+ * Not used anymore
  */
 char GameEngine::getKeyboardInput() const throw(invalid_input){
-    std::cout << "Hero's action: ";
+    StaticOutputStream::getStream() << "Hero's action: ";
     char input;
     std::cin >> input;
-    std::cout << std::endl;
+    StaticOutputStream::getStream() << std::endl;
     if (!isalpha((int)input)) throw (invalid_input("Use only letters for controlling"));
     return toupper(input);
 }
 
-void GameEngine::saveGame() const throw(file_error){
+void GameEngine::saveGame(const QString& fileName) const throw(file_error){
     try{
-        if(gameBoard->saveBoard()) std::cout << "Game saved." << std::endl;
+        if(gameBoard->saveBoardXml(fileName)) StaticOutputStream::getStream() << "XML saved." << std::endl;
     } catch (file_error& ex){
         throw ex;
     }
 }
 
-void GameEngine::loadGame() throw(file_error){
+void GameEngine::loadGame(const QString& fileName) throw(file_error){
     try{
-        gameBoard->loadBoard();
+        QFile test(fileName);
+        if(test.open(QIODevice::ReadOnly)){
+            test.close();
+            deleteBoard();   //deletes hero too
+
+            gameBoard = new GameBoard(true);    //load? true
+            hero = gameBoard->loadBoardXml(fileName);   //returns pointer to Hero
+            gameBoard->printBoard();
+        }
     } catch (file_error& ex){
         throw ex;
     }
 }
 
-bool GameEngine::endGame(const char &input) const{
-
-    if (input == 'X'){
-        std::cout << "Game over" << std::endl;
+bool GameEngine::endGame()
+{
+    if (gameBoard == nullptr){
+        StaticOutputStream::getStream() << "Game over." << std::endl;
         return true;
     }
     else if (hero == nullptr && gameBoard->monstersDead()){
-        std::cout << "After an epic battle with the last of the monsters... You died.\n"
+        StaticOutputStream::getStream() << "After an epic battle with the last of the monsters... You died.\n"
                      "But you did kill them all and the goal of the game was not to survive so "
                      "technically you still won."
                   << std::endl << std::endl
                   << "Game over" << std::endl;
+        deleteBoard();
         return true;
     }
     else if (hero == nullptr) {
-        std::cout << "You ded"
+        StaticOutputStream::getStream() << "You ded"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
+        deleteBoard();
         return true;
     }
     else if (gameBoard->monstersDead()){
-        std::cout << "You've killed all the monsters and saved the village from certain doom! GG"
+        StaticOutputStream::getStream() << "You've killed all the monsters and saved the village from certain doom! GG"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
+        deleteBoard();
         return true;
     }
     return false;
+}
+
+bool GameEngine::endGame(const char &input){
+
+    if (input == 'X'){
+        StaticOutputStream::getStream() << "Game over" << std::endl;
+        return true;
+    }
+    return endGame();
 }
 
 void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
     if (monster != nullptr){
         MonsterFearsome* mf = dynamic_cast<MonsterFearsome*>(monster);
 
-        if (mf == nullptr) std::cout << "monstersplit cast error" << std::endl;
+        if (mf == nullptr) StaticOutputStream::getStream() << "monstersplit cast error" << std::endl;
         else {
             int direction = Position::Up;
             Position* splitPos = new Position;
@@ -158,11 +208,17 @@ void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
                 direction++;
             } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::None);
 
-            if (*splitPos == *centerPos) std::cout << "The monster has nowhere to split, good for you" << std::endl;
+            if (*splitPos == *centerPos) StaticOutputStream::getStream() << "The monster has nowhere to split, good for you" << std::endl;
             else {
                 MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
                 gameBoard->setFieldActorAt(mfsplit, splitPos);
             }
         }
     }
+}
+
+void GameEngine::deleteBoard()  //am i retarded? why not just check for nullptr? yes
+{
+    delete gameBoard;
+    gameBoard = nullptr;
 }

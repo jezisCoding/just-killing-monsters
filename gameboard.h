@@ -17,6 +17,8 @@
 #include "my2dboardvector.h"
 #include "entityfactory.h"
 #include "myexceptions.h"
+#include "myqmap.h"
+#include "xmlparser.h"
 
 /*!
  * \brief The GameBoard class
@@ -31,11 +33,12 @@ class GameBoard
 {
     const unsigned int SIZE_X = 10, SIZE_Y = 10;
 
-    My2DBoardVector<GameField*> board;
+    My2DBoardVector<GameField*> *board;
     EntityFactory *ef;
+    XMLParser* xmlParser;
     Hero *hero;
 public:
-    GameBoard();
+    GameBoard(bool load);
     ~GameBoard();
 
 private:
@@ -53,10 +56,16 @@ public:
     /*!
      * \brief saveBoard
      *     The current implementation of saveBoard().
+     *
+     * Not used anymore
      * \return whether the save was successful
      */
     bool saveBoard() throw(file_error);
+    bool saveBoardXml(const QString& fileName) throw(file_error);
+
+        //! Not used anymore
     void loadBoard() const throw(file_error);
+    Hero *loadBoardXml(const QString& fileName) throw(file_error);
     void moveHero(Position *toPos);
 
     /*!
@@ -83,6 +92,8 @@ public:
     void setFieldActorAt(FieldActor *toActor, Position *toPos);
     void deleteActorAt(Position *atPos);
     void killActorAt(Position* at);
+    void heroDied();
+    void deleteBoard();
 };
 
 #endif // GAMEBOARD_H

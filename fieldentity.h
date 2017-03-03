@@ -6,6 +6,15 @@
 #include <typeinfo>
 #include <memory>
 
+#include <QString>
+#include <QXmlStreamWriter>
+#include <QXmlStreamReader>
+#include <QFile>
+#include <QMap>
+#include <QDebug>
+
+#include <QTextStream>
+
 class Creature;
 
 /*!
@@ -17,16 +26,20 @@ class FieldEntity
 protected:
     char mapSign;
 
-    //cant be instantiated
-    FieldEntity(const char& mapSign);
+        //protected constructors -> only children can use for deriving
+    FieldEntity(const char mapSign);
     FieldEntity(const FieldEntity& orig);
     virtual ~FieldEntity();
 
+    virtual void addAncestryToXml(QXmlStreamWriter& writer) const;
+
 public:
+    virtual void addToXml(QXmlStreamWriter& writer) const;
+
     void setMapSign(const char& to);
     char getMapSign() const;
-    std::string getTypeIdStringPointer();
-    std::string getTypeIdStringValue();
+    std::string getTypeIdStringPointer() const;
+    std::string getTypeIdStringValue() const;
 };
 
 #endif // ENTITY_H

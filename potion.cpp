@@ -1,7 +1,7 @@
 #include "potion.h"
 #include "creature.h"
 
-Potion::Potion(char mapSign, int healthBonus)
+Potion::Potion(const char mapSign, const int healthBonus)
     : FieldActor(mapSign)
 {
     this->healthBonus = healthBonus;
@@ -18,7 +18,17 @@ int Potion::reaction(FieldActor *to){
 
 void Potion::die()
 {
-    std::cout << "You drank the potion and its gone" << std::endl;
+    StaticOutputStream::getStream() << "You drank the potion and its gone" << std::endl;
+}
+
+void Potion::addToXml(QXmlStreamWriter& writer) const
+{
+    writer.writeStartElement("Potion");
+
+    FieldActor::addAncestryToXml(writer);
+
+    writer.writeTextElement("healthBonus", QString(std::to_string(healthBonus).c_str()));
+    writer.writeEndElement();
 }
 
 int Potion::heal(FieldActor* who){
@@ -28,11 +38,11 @@ int Potion::heal(FieldActor* who){
     int userMaxHealth = user->getMAX_HEALTH();
 
     if (userHealth > userMaxHealth-1) {
-        std::cout << "You don't need this yet, you are on full health" << std::endl;
+        StaticOutputStream::getStream() << "You don't need this yet, you are on full health" << std::endl;
         return 0;
     }
 
-    std::cout << user->getName() << " drinks a potion ("
+    StaticOutputStream::getStream() << user->getName() << " drinks a potion ("
               << userHealth << "->";
 
     if (userHealth + healthBonus > userMaxHealth){
@@ -40,7 +50,7 @@ int Potion::heal(FieldActor* who){
         user->setHealth(userHealth + healthBonus - overHeal);
     } else user->setHealth(userHealth + healthBonus);
 
-    std::cout << user->getHealth() << ")" << std::endl;
+    StaticOutputStream::getStream() << user->getHealth() << ")" << std::endl;
     return 2;
 }
 

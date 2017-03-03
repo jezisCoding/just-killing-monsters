@@ -21,8 +21,9 @@ class My2DBoardVector
     std::vector<T> myVector;
     unsigned int sizeX = 10, sizeY = 10;
     typedef typename std::vector<T>::const_iterator const_iterator;
+
 public:
-    //My2DBoardVector(unsigned int x, unsigned int y) : sizeX(x), sizeY(y){}
+    My2DBoardVector(unsigned int x, unsigned int y) : sizeX(x), sizeY(y){}
 
     const T& at(unsigned int x, unsigned int y) const {return myVector.at(x * sizeY + y);}
     T& at(unsigned int x, unsigned int y) {return myVector.at(x * sizeY + y);}
