@@ -1,18 +1,22 @@
-#include "gameboard.h"
+﻿#include "gameboard.h"
 
-GameBoard::GameBoard()
+GameBoard::GameBoard(bool load)
 {
-    ef = new EntityFactory();
-    board.setSizes(SIZE_X, SIZE_Y);
+    board = new My2DBoardVector<GameField*>(SIZE_X, SIZE_Y);
 
-    initializeBoard();  //use initializeGame()/initializeGameRnd()
-                        //for (non)random board initialization
+    ef = new EntityFactory();
+    xmlParser = new XMLParser(ef, board, hero);
+
+    if(!load)
+        initializeBoard();  //use initializeGame()/initializeGameRnd()
+                            //for (non)random board initialization
 }
 
 GameBoard::~GameBoard()
 {
-    while(!board.empty()) delete *(board.end()-1), board.pop_back();
+    deleteBoard();
     delete ef;
+    delete xmlParser;
     //hero is deleted in board
 }
 
@@ -34,17 +38,17 @@ void GameBoard::initializeBoardRnd()
 void GameBoard::initializeEnvironment(){
     initializeBoardBase();
 
-    board.at(2, 2) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(3, 2) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(8, 4) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(1, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(2, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(3, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(4, 6) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(5, 6) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(6, 5) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(5, 3) = new GameField(ef->getNewEnvironment(Environment::Tree));
-    board.at(4, 3) = new GameField(ef->getNewEnvironment(Environment::Tree));
+    board->at(2, 2) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(3, 2) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(8, 4) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(1, 5) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(2, 5) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(3, 5) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(4, 6) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(5, 6) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(6, 5) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(5, 3) = new GameField(ef->createNewEnvironment(Environment::Tree));
+    board->at(4, 3) = new GameField(ef->createNewEnvironment(Environment::Tree));
 }
 
 void GameBoard::initializeEnvironmentRnd()
@@ -55,34 +59,34 @@ void GameBoard::initializeEnvironmentRnd()
 
     for (unsigned int i=0; i<10; i++){
         Position* pos = getNewRandomFreeBoardPosition();
-        tempTree = ef->getNewEnvironment(Environment::Tree);
-        board.at(pos->x, pos->y) = new GameField(tempTree);
+        tempTree = ef->createNewEnvironment(Environment::Tree);
+        board->at(pos->x, pos->y) = new GameField(tempTree);
     }
 }
 
 void GameBoard::initializeEntities(){
     Position* heroPos = new Position(1,1);
-    hero = ef->getNewHero(heroPos);
+    hero = ef->createNewHero(heroPos);
 
     setFieldActorAt(hero, heroPos);
-    setFieldActorAt(ef->getNewMonster(0), new Position(4,4));
-    setFieldActorAt(ef->getNewMonster(1), new Position(3,6));
-    setFieldActorAt(ef->getNewMonster(0), new Position(5,7));
-    setFieldActorAt(ef->getNewPotion(), new Position(5,5));
-    setFieldActorAt(ef->getNewPotion(), new Position(6,8));
+    setFieldActorAt(ef->createNewMonster(0), new Position(4,4));
+    setFieldActorAt(ef->createNewMonster(1), new Position(3,6));
+    setFieldActorAt(ef->createNewMonster(0), new Position(5,7));
+    setFieldActorAt(ef->createNewPotion(), new Position(5,5));
+    setFieldActorAt(ef->createNewPotion(), new Position(6,8));
 }
 
 void GameBoard::initializeEntitiesRnd()
 {
     Position* heroPos = getNewRandomFreeBoardPosition();
-    hero = ef->getNewHero(heroPos);
+    hero = ef->createNewHero(heroPos);
 
     setFieldActorAt(hero, heroPos);
-    setFieldActorAt(ef->getNewMonster(0), getNewRandomFreeBoardPosition());
-    setFieldActorAt(ef->getNewMonster(1), getNewRandomFreeBoardPosition());
-    setFieldActorAt(ef->getNewMonster(0), getNewRandomFreeBoardPosition());
-    setFieldActorAt(ef->getNewPotion(), getNewRandomFreeBoardPosition());
-    setFieldActorAt(ef->getNewPotion(), getNewRandomFreeBoardPosition());
+    setFieldActorAt(ef->createNewMonster(0), getNewRandomFreeBoardPosition());
+    setFieldActorAt(ef->createNewMonster(1), getNewRandomFreeBoardPosition());
+    setFieldActorAt(ef->createNewMonster(0), getNewRandomFreeBoardPosition());
+    setFieldActorAt(ef->createNewPotion(), getNewRandomFreeBoardPosition());
+    setFieldActorAt(ef->createNewPotion(), getNewRandomFreeBoardPosition());
 }
 
 void GameBoard::initializeBoardBase()
@@ -92,30 +96,37 @@ void GameBoard::initializeBoardBase()
 
     for (unsigned int i=0; i<SIZE_X; i++){
         for (unsigned int j=0; j<SIZE_Y; j++){
-            tempEmpty = ef->getNewEnvironment(Environment::Empty);
-            board.push_back(new GameField(tempEmpty));
+            tempEmpty = ef->createNewEnvironment(Environment::Empty);
+            board->push_back(new GameField(tempEmpty));
         }
     }
 
     for (unsigned int i=0; i<SIZE_X; i++){
         unsigned int j=0;
-        tempTree = ef->getNewEnvironment(Environment::Tree);
-        board.at(i, j) = new GameField(tempTree);
+        tempTree = ef->createNewEnvironment(Environment::Tree);
+        board->at(i, j) = new GameField(tempTree);
 
         j = SIZE_Y-1;
-        tempTree = ef->getNewEnvironment(Environment::Tree);
-        board.at(i, j) = new GameField(tempTree);
+        tempTree = ef->createNewEnvironment(Environment::Tree);
+        board->at(i, j) = new GameField(tempTree);
     }
 
     for (unsigned int j=1; j<SIZE_Y-1; j++){
         unsigned int i=0;
-        tempTree = ef->getNewEnvironment(Environment::Tree);
-        board.at(i, j) = new GameField(tempTree);
+        tempTree = ef->createNewEnvironment(Environment::Tree);
+        board->at(i, j) = new GameField(tempTree);
 
         i = SIZE_X-1;
-        tempTree = ef->getNewEnvironment(Environment::Tree);
-        board.at(i, j) = new GameField(tempTree);
+        tempTree = ef->createNewEnvironment(Environment::Tree);
+        board->at(i, j) = new GameField(tempTree);
     }
+}
+
+void GameBoard::deleteBoard()
+{
+    if(board != nullptr)
+        while(!board->empty()) delete *(board->end()-1), board->pop_back();    //deletes hero too
+    delete board;
 }
 
 bool GameBoard::monstersDead() const{
@@ -128,7 +139,7 @@ void GameBoard::printBoard() const{
     for (unsigned int i=0; i<SIZE_X; i++){
         for (unsigned int j=0; j<SIZE_Y; j++){
             StaticOutputStream::getStream() << std::left << std::setw(2)
-                      << board.at(i, j)->getPrintSign();
+                      << board->at(i, j)->getPrintSign();
         }
         StaticOutputStream::getStream() << std::endl;
     }
@@ -139,10 +150,10 @@ bool GameBoard::saveBoard() throw(file_error){  //Not used anymore
     std::ofstream out("map.txt");
     if(out.is_open()){
 
-        //std::for_each(board.begin(), board.end(), [out](GameField const& item){ out << item.getPrintSign(); });
-        auto it = board.begin();
+        //std::for_each(board->begin(), board->end(), [out](GameField const& item){ out << item.getPrintSign(); });
+        auto it = board->begin();
         int i = 0;
-        while(it!=board.end()){
+        while(it!=board->end()){
             out << (*it)->getPrintSign();    //double dereference
             ++it;
             if (i%10 == 9) out << std::endl;
@@ -156,38 +167,12 @@ bool GameBoard::saveBoard() throw(file_error){  //Not used anymore
     }
 }
 
-bool GameBoard::saveBoardXml() throw(file_error)
+bool GameBoard::saveBoardXml(const QString& fileName) throw(file_error)
 {
-    QFile file("savedGame.xml");
-    QXmlStreamWriter writer;
-    writer.setDevice(&file);
-
-    if(file.open(QIODevice::WriteOnly)){
-        writer.writeStartDocument();
-        writer.writeStartElement("GameBoard");
-
-        int i = 0;          //AKO SA ZBAVIT TYCH ZBYTOCNYCH TAGOV? OVERLOAD DAJAKY NEKALY?
-                            //CHCEM TAM FIELDACTORA? AKO SA TO BUDE PARSOVAT
-        for(GameField* field : board){
-            writer.writeStartElement("GameField");
-            writer.writeAttribute("index", std::to_string(i).c_str());
-            field->getFieldEnvironment()->addToXml(file, writer);
-
-            if(field->getFieldActor() != nullptr){
-                field->getFieldActor()->addToXml(file, writer);
-            } else {
-
-            }
-
-            writer.writeEndElement();
-            i++;
-        }
-
-        writer.writeEndElement();
-        writer.writeEndDocument();
-        file.close();
-    } else {
-        throw new file_error("File was not opened(saveBoardXml())");
+    try{
+        return xmlParser->saveTo(fileName);
+    } catch (file_error &ex){
+        throw ex;
     }
 }
 
@@ -207,37 +192,15 @@ void GameBoard::loadBoard() const throw(file_error){    //Not used anymore
     in.close();
 }
 
-bool GameBoard::loadBoardXml() throw(file_error)
+Hero* GameBoard::loadBoardXml(const QString &fileName) throw(file_error)
 {
-    QFile file("savedGame.xml");
-    QXmlStreamReader reader;
-    reader.setDevice(&file);
-
-    if(file.open(QIODevice::ReadOnly)){
-        //delete board;
-
-        reader.readNext();
-
-        if(reader.name() == "fieldType"){
-
-        } else if (reader.name() == "") {
-
-
-
-            if(reader.name() == "Hero"){
-
-            } else if(reader.name() == "Monster"){
-
-            } else if(reader.name() == "MonsterFearsome"){
-
-            } else if(reader.name() == "Potion"){
-
-            }
-        }
-    file.close();
-    } else {
-        throw new file_error("File was not opened(loadBoardXml()");
+    try{
+        hero = xmlParser->loadFrom(fileName);
+        return hero;
+    } catch (file_error &ex){
+        throw ex;
     }
+    return nullptr;
 }
 
 void GameBoard::moveHero(Position *toPos){
@@ -271,7 +234,7 @@ bool GameBoard::actorEmptyPosition(Position *pos) const{
 
 bool GameBoard::passableEnvironmentAt(Position *pos) const
 {
-    bool a = board.at(pos)->getFieldEnvironment()->passableEnvironment();
+    bool a = board->at(pos)->getFieldEnvironment()->passableEnvironment();
     return a;
 }
 
@@ -280,20 +243,20 @@ Hero *GameBoard::getHero() const{
 }
 
 GameField *GameBoard::getFieldAt(Position *atPos) const{
-    return board.at(atPos);
+    return board->at(atPos);
 }
 
 FieldActor *GameBoard::getActorAt(Position *atPos) const
 {
-    return board.at(atPos)->getFieldActor();
+    return board->at(atPos)->getFieldActor();
 }
 
 Environment::fieldType GameBoard::getEnvTypeAt(Position *atPos) const{
-    return board.at(atPos)->getFieldEnvironment()->getType();
+    return board->at(atPos)->getFieldEnvironment()->getType();
 }
 
 void GameBoard::setFieldActorAt(FieldActor *toActor, Position* toPos){
-    board.at(toPos)->setFieldActor(toActor);
+    board->at(toPos)->setFieldActor(toActor);
 }
 
 void GameBoard::deleteActorAt(Position *atPos){
@@ -302,15 +265,21 @@ void GameBoard::deleteActorAt(Position *atPos){
 
     Creature *creatureAtPos = dynamic_cast<Creature *>(actorAtPos);
     if (creatureAtPos != nullptr)
-        getFieldAt(atPos)->setFieldEnvironment(ef->getNewEnvironment(Environment::Corpse));
+        getFieldAt(atPos)->setFieldEnvironment(ef->createNewEnvironment(Environment::Corpse));
 
     delete actorAtPos;
 }
 
 void GameBoard::killActorAt(Position *at)
 {
-    board.at(at)->getFieldActor()->die();
+    board->at(at)->getFieldActor()->die();
     deleteActorAt(at);
+}
+
+void GameBoard::heroDied()
+{
+    hero = nullptr;
+    xmlParser->heroDied();
 }
 
 

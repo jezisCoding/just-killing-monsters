@@ -22,19 +22,18 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete engine;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* kEvent)
 {
-    if(engine->endGame()){
-        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
-    } else if(kEvent->key() == Qt::Key_W || kEvent->key() == Qt::Key_S
+    if(!engine->endGame())
+        if(   kEvent->key() == Qt::Key_W || kEvent->key() == Qt::Key_S
            || kEvent->key() == Qt::Key_A || kEvent->key() == Qt::Key_D)
-    {
-        engine->GUIKeyinput(kEvent->key());
-        putToTextBrowser(StaticOutputStream::wout);
-    }
+                engine->GUIKeyinput(kEvent->key());
 
+    putToTextBrowser(StaticOutputStream::wout);
+    inputAccepted();
     //QWidget::keyPressEvent(key);
 }
 
@@ -46,9 +45,6 @@ void MainWindow::putToTextBrowser(std::ostringstream& oss)
     ui->consoleTextBrowser->setPlainText(out);
     ui->consoleTextBrowser->update();
 
-    inputAccepted();
-
-    return;
     //ui->quickWidget
 }
 
@@ -59,36 +55,25 @@ void MainWindow::addToTextBrowser(std::ostringstream &oss, QString what)
     ui->consoleTextBrowser->clear();
     ui->consoleTextBrowser->setPlainText(out);
     ui->consoleTextBrowser->update();
-
-    inputAccepted();
 }
 
 void MainWindow::on_quitButton_clicked()
 {
-    delete engine;
     QCoreApplication::quit();
 }
 
 void MainWindow::on_welcomeButton_clicked()
 {
-    if(engine->endGame()){
-        addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
-    } else {
-        engine->welcome();
-        putToTextBrowser(StaticOutputStream::wout);
-    }
+    if(!engine->endGame()) engine->welcome();
+    putToTextBrowser(StaticOutputStream::wout);
 }
 
 void MainWindow::on_saveButton_clicked()
 {
     try{
-        if(engine->endGame()){
-            addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
-        } else {
-            engine->saveGame();
-            putToTextBrowser(StaticOutputStream::wout);
-        }
-    } catch (std::exception& ex){
+        if(!engine->endGame()) engine->saveGame("gameSave.xml");
+        putToTextBrowser(StaticOutputStream::wout);
+    } catch (file_error& ex){
     std::cerr << "Exception in MainWindow::on_saveButton_clicked() : "
               << ex.what() << std::endl;
     }
@@ -97,13 +82,9 @@ void MainWindow::on_saveButton_clicked()
 void MainWindow::on_loadButton_clicked()
 {
     try{
-        if(engine->endGame()){
-            addToTextBrowser(StaticOutputStream::wout, QString("\n\nGame Over."));
-        } else {
-            engine->loadGame();
-            putToTextBrowser(StaticOutputStream::wout);
-        }
-    } catch (std::exception& ex){
+        engine->loadGame("gameSave.xml");
+        putToTextBrowser(StaticOutputStream::wout);
+    } catch (file_error& ex){
     std::cerr << "Exception in MainWindow::on_loadButton_clicked() : "
               << ex.what() << std::endl;
     }
@@ -111,7 +92,7 @@ void MainWindow::on_loadButton_clicked()
 
 void MainWindow::inputAccepted()
 {
-    if(engine->endGame()){
-        delete engine;
-    }
+    /*if(engine->endGame()){
+        engine->;
+    }*/
 }

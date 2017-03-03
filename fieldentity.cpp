@@ -1,7 +1,7 @@
 #include "fieldentity.h"
 //#include "creature.h"
 
-FieldEntity::FieldEntity(const char &mapSign)
+FieldEntity::FieldEntity(const char mapSign)
 {
     this->mapSign = mapSign;
 }
@@ -16,11 +16,16 @@ FieldEntity::~FieldEntity()
     //StaticOutputStream::getStream() << "An entity was just destroyed." << std::endl;
 }
 
-void FieldEntity::addToXml(QFile& where, QXmlStreamWriter& writer) const
+void FieldEntity::addToXml(QXmlStreamWriter& writer) const
 {
     writer.writeStartElement("FieldEntity");
     writer.writeTextElement("mapSign", QString(mapSign));
     writer.writeEndElement();
+}
+
+void FieldEntity::addAncestryToXml(QXmlStreamWriter &writer) const
+{
+    writer.writeTextElement("mapSign", QString(mapSign));
 }
 
 void FieldEntity::setMapSign(const char &to)

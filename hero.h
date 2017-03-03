@@ -19,8 +19,8 @@ class Hero : public Creature
     Position* pos;
 
 public:
-    Hero(Position *pos, char mapSign, std::string name, int health, int attack,
-         int readiness, bool surpriseAttack);
+    Hero(char mapSign, std::string name, int health, int attack,
+         int readiness, bool surpriseAttack, Position *pos);
     ~Hero();
 
 private:
@@ -33,7 +33,7 @@ private:
     uint8_t defendYourselfFrom(FieldActor *who) override;
     void dealDmg(Creature *to, const int& dmgDealt);
     void die() override;
-    void addToXml(QFile& where, QXmlStreamWriter& writer) const;
+    void addToXml(QXmlStreamWriter& writer) const;
 
 public:
     int getAttack() const;

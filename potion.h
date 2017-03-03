@@ -15,7 +15,7 @@ class Potion : public FieldActor
 private:
     int healthBonus;
 public:
-    Potion(char mapSign, int healthBonus);
+    Potion(const char mapSign, const int healthBonus);
     ~Potion();
 
     /*!
@@ -27,7 +27,7 @@ public:
      */
     int reaction(FieldActor *to) override;
     void die() override;
-    void addToXml(QFile& where, QXmlStreamWriter& writer) const;
+    void addToXml(QXmlStreamWriter& writer) const;
     int heal(FieldActor* who);
 
     int getHealthBonus();

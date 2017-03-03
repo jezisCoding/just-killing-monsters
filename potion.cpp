@@ -1,7 +1,7 @@
 #include "potion.h"
 #include "creature.h"
 
-Potion::Potion(char mapSign, int healthBonus)
+Potion::Potion(const char mapSign, const int healthBonus)
     : FieldActor(mapSign)
 {
     this->healthBonus = healthBonus;
@@ -21,13 +21,14 @@ void Potion::die()
     StaticOutputStream::getStream() << "You drank the potion and its gone" << std::endl;
 }
 
-void Potion::addToXml(QFile& where, QXmlStreamWriter& writer) const
+void Potion::addToXml(QXmlStreamWriter& writer) const
 {
     writer.writeStartElement("Potion");
-    writer.writeTextElement("healthBonus", QString(healthBonus));
-    writer.writeEndElement();
 
-    FieldActor::addToXml(where, writer);
+    FieldActor::addAncestryToXml(writer);
+
+    writer.writeTextElement("healthBonus", QString(std::to_string(healthBonus).c_str()));
+    writer.writeEndElement();
 }
 
 int Potion::heal(FieldActor* who){

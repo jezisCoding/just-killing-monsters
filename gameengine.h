@@ -3,7 +3,6 @@
 
 #include "gameboard.h"
 #include "myexceptions.h"
-#include "myxmlparser.h"
 
 #include <fstream>
 #include <cstdint>
@@ -25,7 +24,6 @@ class GameEngine
 private:
     GameBoard *gameBoard;
     Hero* hero;
-    MyXMLParser* xmlParser;
 
     //std::streambuf* oldCoutStreamBuf;
     //std::ostringstream* myCout;
@@ -37,16 +35,18 @@ public:
 
     void GUIKeyinput(int key);
     void welcome() const;
-    void saveGame() const throw(file_error);
-    Hero *loadGame() throw(file_error);
-    bool endGame() const;
+    void saveGame(const QString& fileName) const throw(file_error);
+    void loadGame(const QString& fileName) throw(file_error);
+    bool endGame();
 
 private:
     void heroTurn(const char &direction);
     void heroAction(FieldActor *targetFieldActor, Position *targetPosition);
     char getKeyboardInput() const throw(invalid_input);    
-    bool endGame(const char &input) const;
+    bool endGame(const char &input);
     void splitMonsterAround(FieldActor *monster, Position* centerPos);
+
+    void deleteBoard();
 };
 
 #endif // GAMEENGINE_H

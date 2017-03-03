@@ -17,7 +17,7 @@ class Monster : public Creature
     //!     A static member which counts the monsters on board, when it
     //!     descends to 0, the game is over.
     //!
-    static int monsterCount;
+    static int s_monsterCount;
 public:
     Monster(char mapSign, std::string name, int health, int attack);
     Monster(const Monster& orig);
@@ -26,8 +26,12 @@ public:
     static int getMonsterCount();
 
     virtual void die() override;
-    virtual void addToXml(QFile& where, QXmlStreamWriter& writer) const;
+    virtual void addToXml(QXmlStreamWriter& writer) const;
 
+protected:
+    virtual void addAncestryToXml(QXmlStreamWriter& writer) const;
+
+public:
     bool operator==(const Monster &right);
 };
 

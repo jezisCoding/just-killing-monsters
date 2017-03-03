@@ -20,7 +20,7 @@ Creature::~Creature()
 
 }
 
-int Creature::interaction(FieldActor *with){
+int Creature::interaction(FieldActor *with){    //reworking actor and entity abstract
     return with->reaction(this);
 }
 
@@ -52,15 +52,25 @@ void Creature::die()
     StaticOutputStream::getStream() << "A creature just died." << std::endl;
 }
 
-void Creature::addToXml(QFile& where, QXmlStreamWriter& writer) const
+void Creature::addToXml(QXmlStreamWriter& writer) const
 {
     writer.writeStartElement("Creature");
-    writer.writeTextElement("name", QString(name.c_str()));
-    writer.writeTextElement("health", QString(health));
-    writer.writeTextElement("attack", QString(attack));
-    writer.writeEndElement();
 
-    FieldActor::addToXml(where, writer);
+    FieldActor::addAncestryToXml(writer);
+
+    writer.writeTextElement("name", QString(name.c_str()));
+    writer.writeTextElement("health", QString(std::to_string(health).c_str()));
+    writer.writeTextElement("attack", QString(std::to_string(attack).c_str()));
+    writer.writeEndElement();
+}
+
+void Creature::addAncestryToXml(QXmlStreamWriter &writer) const
+{
+    FieldActor::addAncestryToXml(writer);
+
+    writer.writeTextElement("name", QString(name.c_str()));
+    writer.writeTextElement("health", QString(std::to_string(health).c_str()));
+    writer.writeTextElement("attack", QString(std::to_string(attack).c_str()));
 }
 
 std::string Creature::getName() const{

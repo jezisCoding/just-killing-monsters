@@ -1,7 +1,7 @@
 #include "hero.h"
 
-Hero::Hero(Position* pos, char mapSign, std::string name, int health, int attack, int readiness,
-           bool surpriseHit) : Creature(mapSign, name, health, attack)
+Hero::Hero(char mapSign, std::string name, int health, int attack, int readiness, bool surpriseHit,
+           Position* pos) : Creature(mapSign, name, health, attack)
 {
     this->pos = pos;
     this->readiness = readiness;
@@ -38,15 +38,16 @@ void Hero::die()
     StaticOutputStream::getStream() << name + " is dead, git gud" << std::endl;
 }
 
-void Hero::addToXml(QFile& where, QXmlStreamWriter& writer) const
+void Hero::addToXml(QXmlStreamWriter& writer) const
 {
     writer.writeStartElement("Hero");
-    writer.writeTextElement("readiness", QString(readiness));
-    writer.writeTextElement("surpriseAttack", QString(surpriseAttack));
-    writer.writeTextElement("pos", QString(pos->x)+QString(pos->y));
-    writer.writeEndElement();
 
-    Creature::addToXml(where, writer);
+    Creature::addAncestryToXml(writer);
+
+    writer.writeTextElement("readiness", QString(std::to_string(readiness).c_str()));
+    writer.writeTextElement("surpriseAttack", QString(std::to_string(surpriseAttack).c_str()));
+    writer.writeTextElement("pos", QString(std::to_string(pos->x).c_str()) + "." + QString(std::to_string(pos->y).c_str()));
+    writer.writeEndElement();
 }
 
 int Hero::getAttack() const{

@@ -18,10 +18,10 @@ struct Environment : public FieldEntity
 private:
     fieldType type;
 public:
-    Environment(const char &mapSign, const fieldType &type);
+    Environment(const char mapSign, const fieldType type);
     ~Environment();
 
-    void addToXml(QFile& where, QXmlStreamWriter& writer) const;
+    void addToXml(QXmlStreamWriter& writer) const;
 
     /*!
      * \brief getType

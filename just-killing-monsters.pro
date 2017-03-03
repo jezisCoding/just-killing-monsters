@@ -29,6 +29,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
+win32 {
+    INCLUDEPATH += C:\Users\eag\Documents\GitHub\boost_1_62_0\
+    #LIBS += "-LC:/dev/Boost/lib/" \    --COPY PASTED
+    #    "-Llibboost_filesystem-mgw53-mt-d-1_61.a",
+    #    "-Llibboost_system-mgw53-mt-d-1_61.a",
+    #    "-Llibboost_serialization-mgw53-mt-d-1_61.a" #-LLIBS
+}
+
 SOURCES += main.cpp \
     environment.cpp \
     creature.cpp \
@@ -44,7 +52,7 @@ SOURCES += main.cpp \
     fieldactor.cpp \
     mainwindow.cpp \
     staticoutputstream.cpp \
-    myxmlparser.cpp
+    xmlparser.cpp
 
 HEADERS += \
     environment.h \
@@ -64,7 +72,8 @@ HEADERS += \
     fieldactor.h \
     mainwindow.h \
     staticoutputstream.h \
-    myxmlparser.h
+    myqmap.h \
+    xmlparser.h
 
 FORMS += \
     mainwindow.ui

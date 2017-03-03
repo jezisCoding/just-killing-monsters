@@ -2,18 +2,13 @@
 
 GameEngine::GameEngine()
 {
-    gameBoard = new GameBoard();
+    gameBoard = new GameBoard(false);
     hero = gameBoard->getHero();
-
-    xmlParser = new MyXMLParser;
-    //oldCoutStreamBuf = StaticOutputStream::getStream().rdbuf();
-    //std::ostringstream strCout;
-    //StaticOutputStream::getStream().rdbuf(myCout->rdbuf());   //&rdbuf()
 }
 
 GameEngine::~GameEngine()
 {
-    delete gameBoard;
+    deleteBoard();
 }
 
     //Not used anymore
@@ -30,10 +25,10 @@ void GameEngine::play(){
                     this->welcome();
                     break;
                 case 'E':
-                    saveGame();
+                    saveGame("gameSave.xml");
                     break;
                 case 'R':
-                    loadGame();
+                    loadGame("gameSave.xml");
                     break;
                 case 'X':
                     //just let it go
@@ -47,7 +42,10 @@ void GameEngine::play(){
                     gameBoard->printBoard();
                 }
             } while (!(gameOver = endGame(input)));   
-        } catch (std::exception& ex){
+        } catch (file_error& ex){
+            std::cerr << "Exception in GameEngine::play() : "
+                      << ex.what() << std::endl;
+        } catch (invalid_input& ex){
             std::cerr << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
         }
@@ -94,14 +92,14 @@ void GameEngine::heroTurn(const char& direction){
     *targetPosition = Position::getNewPositionInDirection(hero->getPosition(), direction);
     FieldActor *targetFieldActor = gameBoard->getFieldAt(targetPosition)->getFieldActor();
 
-    if (targetFieldActor  != nullptr) heroAction(targetFieldActor ,targetPosition);
+    if (targetFieldActor != nullptr) heroAction(targetFieldActor, targetPosition);
     else gameBoard->moveHero(targetPosition);
 }
 
 void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPosition){
     uint8_t outcome = hero->interaction(targetFieldActor);
 
-
+        //bitwise
         //opponent(defender) died
     if((outcome & 2) == 2) {
         gameBoard->killActorAt(targetPosition);
@@ -113,7 +111,7 @@ void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPositi
         //hero(attacker) died
     if((outcome & 1) == 1) {
         gameBoard->killActorAt(hero->getPosition());
-        hero = nullptr;
+        hero = nullptr, gameBoard->heroDied();
     }
 }
 
@@ -131,59 +129,63 @@ char GameEngine::getKeyboardInput() const throw(invalid_input){
     return toupper(input);
 }
 
-void GameEngine::saveGame() const throw(file_error){
+void GameEngine::saveGame(const QString& fileName) const throw(file_error){
     try{
-        if(xmlParser->writeXml(QString("gameSave.xml"))) StaticOutputStream::getStream() << "XML saved." << std::endl;
-        if(gameBoard->saveBoardXml()) StaticOutputStream::getStream() << "XML saved." << std::endl;
-        xmlParser->testXML();
+        if(gameBoard->saveBoardXml(fileName)) StaticOutputStream::getStream() << "XML saved." << std::endl;
     } catch (file_error& ex){
         throw ex;
     }
 }
 
-Hero* GameEngine::loadGame() throw(file_error){
+void GameEngine::loadGame(const QString& fileName) throw(file_error){
     try{
-        QMap<QString, QString> values;
+        QFile test(fileName);
+        if(test.open(QIODevice::ReadOnly)){
+            test.close();
+            deleteBoard();   //deletes hero too
 
-        StaticOutputStream::getStream() << "Loading Game..." << std::endl;
-
-        //gameBoard->loadBoard();
-        values = xmlParser->readXml("gameSave.xml");
-
-        StaticOutputStream::getStream() << values.find("mapSign").value().toStdString();// + " " + values.find("pos").value().toStdString() << std::endl;
-
-        return hero;
+            gameBoard = new GameBoard(true);    //load? true
+            hero = gameBoard->loadBoardXml(fileName);   //returns pointer to Hero
+            gameBoard->printBoard();
+        }
     } catch (file_error& ex){
         throw ex;
     }
 }
 
-bool GameEngine::endGame() const
+bool GameEngine::endGame()
 {
-    if (hero == nullptr && gameBoard->monstersDead()){
+    if (gameBoard == nullptr){
+        StaticOutputStream::getStream() << "Game over." << std::endl;
+        return true;
+    }
+    else if (hero == nullptr && gameBoard->monstersDead()){
         StaticOutputStream::getStream() << "After an epic battle with the last of the monsters... You died.\n"
                      "But you did kill them all and the goal of the game was not to survive so "
                      "technically you still won."
                   << std::endl << std::endl
                   << "Game over" << std::endl;
+        deleteBoard();
         return true;
     }
     else if (hero == nullptr) {
         StaticOutputStream::getStream() << "You ded"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
+        deleteBoard();
         return true;
     }
     else if (gameBoard->monstersDead()){
         StaticOutputStream::getStream() << "You've killed all the monsters and saved the village from certain doom! GG"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
+        deleteBoard();
         return true;
     }
     return false;
 }
 
-bool GameEngine::endGame(const char &input) const{
+bool GameEngine::endGame(const char &input){
 
     if (input == 'X'){
         StaticOutputStream::getStream() << "Game over" << std::endl;
@@ -213,4 +215,10 @@ void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
             }
         }
     }
+}
+
+void GameEngine::deleteBoard()  //am i retarded? why not just check for nullptr? yes
+{
+    delete gameBoard;
+    gameBoard = nullptr;
 }

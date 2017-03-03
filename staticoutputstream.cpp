@@ -6,7 +6,9 @@ std::ostringstream &StaticOutputStream::getStream(){
     return wout;
 }
 
+/*
 std::ostringstream StaticOutputStream::operator<<(const QString& str)
 {
-    //return wout << str.toStdString();
+    return wout << str.toStdString().c_str();
 }
+*/

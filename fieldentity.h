@@ -26,12 +26,15 @@ class FieldEntity
 protected:
     char mapSign;
 
-    FieldEntity(const char& mapSign);
+        //protected constructors -> only children can use for deriving
+    FieldEntity(const char mapSign);
     FieldEntity(const FieldEntity& orig);
     virtual ~FieldEntity();
 
+    virtual void addAncestryToXml(QXmlStreamWriter& writer) const;
+
 public:
-    virtual void addToXml(QFile& where, QXmlStreamWriter& writer) const;
+    virtual void addToXml(QXmlStreamWriter& writer) const;
 
     void setMapSign(const char& to);
     char getMapSign() const;

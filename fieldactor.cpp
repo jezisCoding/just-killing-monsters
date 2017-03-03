@@ -1,6 +1,6 @@
 #include "fieldactor.h"
 
-FieldActor::FieldActor(const char& mapSign) : FieldEntity(mapSign)
+FieldActor::FieldActor(const char mapSign) : FieldEntity(mapSign)
 {
     this->mapSign = mapSign;
 }
@@ -15,7 +15,17 @@ FieldActor::~FieldActor()
 
 }
 
-void FieldActor::addToXml(QFile& where, QXmlStreamWriter& writer) const
+void FieldActor::die()
 {
-    FieldEntity::addToXml(where, writer);
+
+}
+
+void FieldActor::addToXml(QXmlStreamWriter& writer) const
+{
+    FieldEntity::addAncestryToXml(writer);
+}
+
+void FieldActor::addAncestryToXml(QXmlStreamWriter &writer) const
+{
+    FieldEntity::addAncestryToXml(writer);
 }

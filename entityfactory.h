@@ -14,10 +14,18 @@ class EntityFactory
 {
 public:
     EntityFactory();
-    Monster* getNewMonster(const bool& fearsome) const;
-    Hero* getNewHero(Position* heroPos) const;
-    Potion* getNewPotion() const;
-    Environment* getNewEnvironment(const Environment::fieldType& type) const;
+
+    Monster* createNewMonster(const bool& fearsome) const;
+    Hero* createNewHero(Position* heroPos) const;
+    Potion* createNewPotion() const;
+    Environment* createNewEnvironment(const Environment::fieldType& type) const;
+
+    Monster* createNewMonster(char mapSign, std::string name, int health, int attack);
+    MonsterFearsome* createNewMonsterF(char mapSign, std::string name, int health, int attack, float fearsomeness);
+    Hero* createNewHero(char mapSign, std::string name, int health, int attack,
+         int readiness, bool surpriseAttack, Position *pos);
+    Potion* createNewPotion(const char mapSign, const int healthBonus);
+    Environment* createNewEnvironment(const char mapSign, const Environment::fieldType type);
 };
 
 #endif // EntityFactory_H

@@ -12,7 +12,7 @@ struct StaticOutputStream
 
     static std::ostringstream& getStream();
 
-    std::ostringstream operator<<(const QString& str);
+    //std::ostringstream operator<<(const QString& str);
 
     staticOutputStream();
 };
