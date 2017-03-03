@@ -78,4 +78,6 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
-DISTFILES +=
+DISTFILES += \
+    README.md \
+    test/test.txt
