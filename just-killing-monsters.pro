@@ -25,8 +25,8 @@ SOURCES += main.cpp\
     monster.cpp \
     monsterfearsome.cpp \
     potion.cpp \
-    staticoutputstream.cpp \
-    xmlparser.cpp
+    xmlparser.cpp \
+    sos.cpp
 
 HEADERS  += mainwindow.h \
     creature.h \
@@ -45,8 +45,8 @@ HEADERS  += mainwindow.h \
     myqmap.h \
     position.h \
     potion.h \
-    staticoutputstream.h \
-    xmlparser.h
+    xmlparser.h \
+    sos.h
 
 FORMS    += mainwindow.ui
 
