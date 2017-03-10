@@ -40,16 +40,16 @@ Environment* EntityFactory::createNewEnvironment(const Environment::fieldType &t
     }
 }
 
-Monster *EntityFactory::createNewMonster(char mapSign, std::__cxx11::string name, int health, int attack){
+Monster *EntityFactory::createNewMonster(char mapSign, std::string name, int health, int attack){
     return new Monster(mapSign, name, health, attack);
 }
 
-MonsterFearsome *EntityFactory::createNewMonsterF(char mapSign, std::__cxx11::string name, int health,
+MonsterFearsome *EntityFactory::createNewMonsterF(char mapSign, std::string name, int health,
                                                   int attack, float fearsomeness){
     return new MonsterFearsome(mapSign, name, health, attack, fearsomeness);
 }
 
-Hero *EntityFactory::createNewHero(char mapSign, std::__cxx11::string name, int health, int attack,
+Hero *EntityFactory::createNewHero(char mapSign, std::string name, int health, int attack,
                                    int readiness, bool surpriseAttack, Position *pos){
     return new Hero(mapSign, name, health, attack, readiness, surpriseAttack, pos);
 }

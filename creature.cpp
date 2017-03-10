@@ -20,7 +20,7 @@ Creature::~Creature()
 
 }
 
-int Creature::interaction(FieldActor *with){    //reworking actor and entity abstract
+int Creature::interaction(FieldActor *with){
     return with->reaction(this);
 }
 
@@ -33,7 +33,7 @@ uint8_t Creature::defendYourselfFrom(FieldActor *who){
 
     attacker->dealDmg(this, attacker->getAttack());
     dealDmg(attacker, getAttack());
-    StaticOutputStream::getStream() << std::endl;
+    sos::iout << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (attacker->getHealth() < 1) outcome |= 1;
@@ -42,14 +42,14 @@ uint8_t Creature::defendYourselfFrom(FieldActor *who){
 }
 
 void Creature::dealDmg(Creature *to, const int& dmgDealt){
-    StaticOutputStream::getStream() << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
+    sos::iout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
-    StaticOutputStream::getStream() << to->getHealth() << ")" << std::endl;
+    sos::iout << to->getHealth() << ")" << std::endl;
 }
 
 void Creature::die()
 {
-    StaticOutputStream::getStream() << "A creature just died." << std::endl;
+    sos::iout << "A creature just died." << std::endl << std::endl;
 }
 
 void Creature::addToXml(QXmlStreamWriter& writer) const

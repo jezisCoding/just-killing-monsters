@@ -28,7 +28,7 @@ void GameBoard::initializeBoard()
 
 void GameBoard::initializeBoardRnd()
 {
-    StaticOutputStream::getStream() << "Randomizing positions based on time... \n"
+    sos::iout << "Randomizing positions based on time... \n"
                  "This takes 20 seconds... \n"
                  "\n";
     initializeEnvironmentRnd();
@@ -135,15 +135,16 @@ bool GameBoard::monstersDead() const{
 }
 
 void GameBoard::printBoard() const{
-    StaticOutputStream::getStream() << std::endl;
     for (unsigned int i=0; i<SIZE_X; i++){
         for (unsigned int j=0; j<SIZE_Y; j++){
-            StaticOutputStream::getStream() << std::left << std::setw(2)
+            sos::bout << std::left << std::setw(2)
                       << board->at(i, j)->getPrintSign();
         }
-        StaticOutputStream::getStream() << std::endl;
+        sos::bout << std::endl;
     }
-    StaticOutputStream::getStream() << std::endl;
+    sos::bout << std::endl;
+    if(hero != nullptr) sos::bout << "Hero: " << hero->getHealth()
+                                    << "/100" << std::endl;
 }
 
 bool GameBoard::saveBoard() throw(file_error){  //Not used anymore
@@ -179,13 +180,13 @@ bool GameBoard::saveBoardXml(const QString& fileName) throw(file_error)
 void GameBoard::loadBoard() const throw(file_error){    //Not used anymore
     std::ifstream in("map.txt");
     if(in.is_open()){
-        StaticOutputStream::getStream() << std::endl;
+        sos::iout << std::endl;
         std::string line = "";
 
         while (std::getline(in, line)) {
-            StaticOutputStream::getStream() << std::endl << line;
+            sos::iout << std::endl << line;
         }
-        StaticOutputStream::getStream() << std::endl;
+        sos::iout << std::endl;
     } else {
         throw file_error("File is not open");
     }

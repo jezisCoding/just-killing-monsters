@@ -14,8 +14,7 @@ Hero *XMLParser::loadFrom(const QString &fileName) throw(file_error)
     reader.setDevice(&file);
 
     if(file.open(QIODevice::ReadOnly)){
-        StaticOutputStream::getStream() << "Loading Game..." << std::endl;
-
+        if(!file.exists()) throw file_error("file doesnt exis");
         while(reader.readNext() != reader.EndDocument)
             if(reader.isStartElement())
                 if(reader.name() == "GameField")
@@ -36,6 +35,7 @@ bool XMLParser::saveTo(const QString &fileName) throw(file_error)
     writer.setDevice(&file);
 
     if(file.open(QIODevice::WriteOnly)){
+        //writer.setAutoFormatting(true); uncomment to try it
         writer.writeStartDocument();
         writer.writeStartElement("GameBoard");
 

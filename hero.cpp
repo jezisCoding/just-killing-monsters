@@ -17,7 +17,7 @@ uint8_t Hero::defendYourselfFrom(FieldActor *who){
 
     attacker->dealDmg(this, attacker->getAttack());
     dealDmg(attacker, getAttack());
-    StaticOutputStream::getStream() << std::endl;
+    sos::iout << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (attacker->getHealth() < 1) outcome |= 1;
@@ -28,14 +28,15 @@ uint8_t Hero::defendYourselfFrom(FieldActor *who){
 void Hero::dealDmg(Creature *to, const int& dmgDealt){
     surpriseAttack = false;
 
-    StaticOutputStream::getStream() << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
+    sos::iout << this->getName() << " attacks " + to->getName() + "(" << to->getHealth() << "->";
     to->setHealth(to->getHealth() - dmgDealt);
-    StaticOutputStream::getStream() << to->getHealth() << ")" << std::endl;
+    sos::iout << to->getHealth() << ")" << std::endl;
 }
 
 void Hero::die()
 {
-    StaticOutputStream::getStream() << name + " is dead, git gud" << std::endl;
+    sos::iout << name + " is dead, git gud"
+                                    << std::endl << std::endl;
 }
 
 void Hero::addToXml(QXmlStreamWriter& writer) const

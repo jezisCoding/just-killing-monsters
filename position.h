@@ -47,7 +47,7 @@ struct Position
             break;
         default:
             targetPos = *currPos;
-            StaticOutputStream::getStream() << "Invalid direction, returning currPos." << std::endl;
+            sos::iout << "Invalid direction, returning currPos." << std::endl;
             break;
         }
         return targetPos;
@@ -70,7 +70,7 @@ struct Position
             break;
         default:
             targetPos = *currPos;
-            StaticOutputStream::getStream() << "Invalid direction, returning currPos." << std::endl;
+            sos::iout << "Invalid direction, returning currPos." << std::endl;
             break;
         }
         return targetPos;

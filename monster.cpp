@@ -2,7 +2,7 @@
 
 int Monster::s_monsterCount = 0;
 
-Monster::Monster(char mapSign, std::__cxx11::string name, int health, int attack)
+Monster::Monster(char mapSign, std::string name, int health, int attack)
     : Creature(mapSign, name, health, attack)
 {
     s_monsterCount++;
@@ -29,7 +29,7 @@ int Monster::getMonsterCount(){
 
 void Monster::die()
 {
-    StaticOutputStream::getStream() << name + ": *dying sounds*  *pepsi*" << std::endl;
+    sos::iout << name + ": *dying sounds*  *pepsi*" << std::endl << std::endl;
 }
 
 void Monster::addToXml(QXmlStreamWriter& writer) const

@@ -6,15 +6,13 @@
 #include <sstream>
 #include <QString>
 
-struct StaticOutputStream
+    ///StaticOutputStream
+struct sos
 {
-    static std::ostringstream wout;
+    static std::ostringstream bout; //board out
+    static std::ostringstream iout; //info out
 
     static std::ostringstream& getStream();
-
-    //std::ostringstream operator<<(const QString& str);
-
-    staticOutputStream();
 };
 
 #endif // STATICOUTPUTSTREAM_H

@@ -28,7 +28,7 @@ uint8_t MonsterFearsome::defendYourselfFrom(FieldActor *who) {
 
     attacker->dealDmg(this, attacker->getAttack());
     dealDmg(attacker, getAttack());
-    StaticOutputStream::getStream() << std::endl;
+    sos::iout << std::endl;
 
     uint8_t outcome = 0;    //bitwise
     if (attacker->getHealth() < 1) outcome |= 1;

@@ -43,10 +43,10 @@ void GameEngine::play(){
                 }
             } while (!(gameOver = endGame(input)));   
         } catch (file_error& ex){
-            std::cerr << "Exception in GameEngine::play() : "
+            sos::iout << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
         } catch (invalid_input& ex){
-            std::cerr << "Exception in GameEngine::play() : "
+            sos::iout << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
         }
     } while (!gameOver);
@@ -74,7 +74,7 @@ void GameEngine::GUIKeyinput(int key)
 }
 
 void GameEngine::welcome() const{
-    StaticOutputStream::getStream()
+    sos::iout
               << "Welcome to the game of Just Killing Monsters\n"
               << "Kill the monsters by running into them.\n\n"
 
@@ -83,7 +83,7 @@ void GameEngine::welcome() const{
               << "ENTER to confirm\n\n"
 
               << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
-              << "Legend: [H]-Hero, [P]-Health Potion, [M,W,V]-Monsters, [T]-Tree\n";
+              << "Legend: [H]-Hero, [P]-Health Potion, [M,W,V]-Monsters, [T]-Tree\n\n";
     gameBoard->printBoard();
 }
 
@@ -121,17 +121,20 @@ void GameEngine::heroAction(FieldActor* targetFieldActor, Position* targetPositi
  * Not used anymore
  */
 char GameEngine::getKeyboardInput() const throw(invalid_input){
-    StaticOutputStream::getStream() << "Hero's action: ";
+    sos::iout << "Hero's action: ";
     char input;
     std::cin >> input;
-    StaticOutputStream::getStream() << std::endl;
+    sos::iout << std::endl;
     if (!isalpha((int)input)) throw (invalid_input("Use only letters for controlling"));
     return toupper(input);
 }
 
 void GameEngine::saveGame(const QString& fileName) const throw(file_error){
     try{
-        if(gameBoard->saveBoardXml(fileName)) StaticOutputStream::getStream() << "XML saved." << std::endl;
+        if(gameBoard->saveBoardXml(fileName)){
+            gameBoard->printBoard();
+            sos::iout << "XML Saved." << std::endl << std::endl;
+        }
     } catch (file_error& ex){
         throw ex;
     }
@@ -146,9 +149,14 @@ void GameEngine::loadGame(const QString& fileName) throw(file_error){
 
             gameBoard = new GameBoard(true);    //load? true
             hero = gameBoard->loadBoardXml(fileName);   //returns pointer to Hero
-            gameBoard->printBoard();
+            gameBoard->printBoard();            
+            sos::iout << "Game Loaded." << std::endl;
+        } else {
+            throw file_error("Error in GameEngine::loadGame : "
+                             "File not open(may not exist, save game first?)");
         }
     } catch (file_error& ex){
+        sos::iout << "File not open" << std::endl;
         throw ex;
     }
 }
@@ -156,11 +164,11 @@ void GameEngine::loadGame(const QString& fileName) throw(file_error){
 bool GameEngine::endGame()
 {
     if (gameBoard == nullptr){
-        StaticOutputStream::getStream() << "Game over." << std::endl;
+        sos::iout << "Game over." << std::endl;
         return true;
     }
     else if (hero == nullptr && gameBoard->monstersDead()){
-        StaticOutputStream::getStream() << "After an epic battle with the last of the monsters... You died.\n"
+        sos::iout << "After an epic battle with the last of the monsters... You died.\n"
                      "But you did kill them all and the goal of the game was not to survive so "
                      "technically you still won."
                   << std::endl << std::endl
@@ -169,14 +177,14 @@ bool GameEngine::endGame()
         return true;
     }
     else if (hero == nullptr) {
-        StaticOutputStream::getStream() << "You ded"
+        sos::iout << "You ded"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
         deleteBoard();
         return true;
     }
     else if (gameBoard->monstersDead()){
-        StaticOutputStream::getStream() << "You've killed all the monsters and saved the village from certain doom! GG"
+        sos::iout << "You've killed all the monsters and saved the village from certain doom! GG"
                   << std::endl << std::endl
                   << "Game over" << std::endl;
         deleteBoard();
@@ -184,11 +192,10 @@ bool GameEngine::endGame()
     }
     return false;
 }
-
+    //for CLI version
 bool GameEngine::endGame(const char &input){
-
     if (input == 'X'){
-        StaticOutputStream::getStream() << "Game over" << std::endl;
+        sos::iout << "Game over" << std::endl;
         return true;
     }
     return endGame();
@@ -198,7 +205,7 @@ void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
     if (monster != nullptr){
         MonsterFearsome* mf = dynamic_cast<MonsterFearsome*>(monster);
 
-        if (mf == nullptr) StaticOutputStream::getStream() << "monstersplit cast error" << std::endl;
+        if (mf == nullptr) sos::iout << "monstersplit cast error" << std::endl;
         else {
             int direction = Position::Up;
             Position* splitPos = new Position;
@@ -208,7 +215,7 @@ void GameEngine::splitMonsterAround(FieldActor* monster, Position* centerPos){
                 direction++;
             } while (!gameBoard->freeFieldAt(splitPos) && direction <= Position::direction::None);
 
-            if (*splitPos == *centerPos) StaticOutputStream::getStream() << "The monster has nowhere to split, good for you" << std::endl;
+            if (*splitPos == *centerPos) sos::iout << "The monster has nowhere to split, good for you" << std::endl;
             else {
                 MonsterFearsome* mfsplit = new MonsterFearsome(*mf);
                 gameBoard->setFieldActorAt(mfsplit, splitPos);

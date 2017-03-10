@@ -6,6 +6,8 @@
 #include "potion.h"
 #include "environment.h"
 
+#include <string>
+
 /*!
  * \brief The EntityFactory class
  *      This class is used for returning standardized instances of Entities.

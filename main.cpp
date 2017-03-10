@@ -1,6 +1,6 @@
 #include <iostream>
 //#include "gameengine.h"
-#include <mainwindow.h>
+#include "mainwindow.h"
 #include <QApplication>
 
 

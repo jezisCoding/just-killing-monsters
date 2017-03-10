@@ -18,7 +18,8 @@ int Potion::reaction(FieldActor *to){
 
 void Potion::die()
 {
-    StaticOutputStream::getStream() << "You drank the potion and its gone" << std::endl;
+    sos::iout << "You drank the potion and its gone"
+                                    << std::endl << std::endl;
 }
 
 void Potion::addToXml(QXmlStreamWriter& writer) const
@@ -38,11 +39,11 @@ int Potion::heal(FieldActor* who){
     int userMaxHealth = user->getMAX_HEALTH();
 
     if (userHealth > userMaxHealth-1) {
-        StaticOutputStream::getStream() << "You don't need this yet, you are on full health" << std::endl;
+        sos::iout << "You don't need this yet, you are on full health" << std::endl;
         return 0;
     }
 
-    StaticOutputStream::getStream() << user->getName() << " drinks a potion ("
+    sos::iout << user->getName() << " drinks a potion ("
               << userHealth << "->";
 
     if (userHealth + healthBonus > userMaxHealth){
@@ -50,7 +51,7 @@ int Potion::heal(FieldActor* who){
         user->setHealth(userHealth + healthBonus - overHeal);
     } else user->setHealth(userHealth + healthBonus);
 
-    StaticOutputStream::getStream() << user->getHealth() << ")" << std::endl;
+    sos::iout << user->getHealth() << ")" << std::endl;
     return 2;
 }
 
