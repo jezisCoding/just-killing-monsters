@@ -43,10 +43,10 @@ void GameEngine::play(){
                 }
             } while (!(gameOver = endGame(input)));   
         } catch (file_error& ex){
-            std::cerr << "Exception in GameEngine::play() : "
+            sos::iout << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
         } catch (invalid_input& ex){
-            std::cerr << "Exception in GameEngine::play() : "
+            sos::iout << "Exception in GameEngine::play() : "
                       << ex.what() << std::endl;
         }
     } while (!gameOver);
@@ -151,8 +151,12 @@ void GameEngine::loadGame(const QString& fileName) throw(file_error){
             hero = gameBoard->loadBoardXml(fileName);   //returns pointer to Hero
             gameBoard->printBoard();            
             sos::iout << "Game Loaded." << std::endl;
+        } else {
+            throw file_error("Error in GameEngine::loadGame : "
+                             "File not open(may not exist, save game first?)");
         }
     } catch (file_error& ex){
+        sos::iout << "File not open" << std::endl;
         throw ex;
     }
 }

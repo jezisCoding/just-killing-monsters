@@ -14,6 +14,7 @@ Hero *XMLParser::loadFrom(const QString &fileName) throw(file_error)
     reader.setDevice(&file);
 
     if(file.open(QIODevice::ReadOnly)){
+        if(!file.exists()) throw file_error("file doesnt exis");
         while(reader.readNext() != reader.EndDocument)
             if(reader.isStartElement())
                 if(reader.name() == "GameField")

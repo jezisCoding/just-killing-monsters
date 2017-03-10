@@ -35,8 +35,9 @@ void MainWindow::on_saveButton_clicked()
         if(!engine->endGame()) engine->saveGame("gameSave.xml");
         putToTextBrowser(sos::bout, sos::iout);
     } catch (file_error& ex){
-    std::cerr << "Exception in MainWindow::on_saveButton_clicked() : "
-              << ex.what() << std::endl;
+        sos::iout << "Exception in MainWindow::on_saveButton_clicked() : "
+                  << ex.what() << std::endl;
+        putToTextBrowser(sos::bout, sos::iout);
     }
 }
 
@@ -46,8 +47,9 @@ void MainWindow::on_loadButton_clicked()
         engine->loadGame("gameSave.xml");
         putToTextBrowser(sos::bout, sos::iout);
     } catch (file_error& ex){
-    std::cerr << "Exception in MainWindow::on_loadButton_clicked() : "
-              << ex.what() << std::endl;
+        sos::iout << "Exception in MainWindow::on_loadButton_clicked() : "
+                  << ex.what() << std::endl;
+        putToTextBrowser(sos::bout, sos::iout);
     }
 }
 
