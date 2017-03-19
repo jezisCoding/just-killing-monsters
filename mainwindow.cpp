@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     engine(new GameEngine)
 {
     ui->setupUi(this);
-    setWindowTitle(QString("Just Killing Mosnters"));
+    setWindowTitle("Just Killing Mosnters");
     setFocusPolicy(Qt::StrongFocus);
 
     ui->consoleTextBrowser->setFont(
