@@ -6,6 +6,7 @@ For now it's basically a console application with some GUI, but i am working on 
 
 I also added some makeshift documentation(outdated now). Go to documentation/html/index.html
 
-Executables are on my Google Drive: https://goo.gl/eB3bQJ in c++ folder.
+GitHub : https://github.com/vlasacCoding/console-chat
+Executables are in the Releases section of project. Tested on Windows 7 and 10.
 
 This project uses GPL open source license distribution of Qt. 
