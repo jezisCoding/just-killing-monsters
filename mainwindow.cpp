@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     engine(new GameEngine)
 {
     ui->setupUi(this);
-    setWindowTitle(QString("Just Killing Mosnters"));
+    setWindowTitle("Just Killing Mosnters");
     setFocusPolicy(Qt::StrongFocus);
 
     ui->consoleTextBrowser->setFont(
@@ -62,11 +62,15 @@ void MainWindow::keyPressEvent(QKeyEvent *kEvent)
 {
     if(!engine->endGame())
         if(   kEvent->key() == Qt::Key_W || kEvent->key() == Qt::Key_S
-           || kEvent->key() == Qt::Key_A || kEvent->key() == Qt::Key_D)
-                engine->GUIKeyinput(kEvent->key());
-    engine->endGame();  //solely for endgame message w/o another keypress
+           || kEvent->key() == Qt::Key_A || kEvent->key() == Qt::Key_D){
+            engine->GUIKeyinput(kEvent->key());
+            putToTextBrowser(sos::bout, sos::iout);
+        }
 
-    putToTextBrowser(sos::bout, sos::iout);
+            //this line is needed for endgame message w/o another keypress
+    if(engine->endGame()) putToTextBrowser(sos::bout, sos::iout);
+
+
     //inputAccepted();
     //QWidget::keyPressEvent(key);
 }
