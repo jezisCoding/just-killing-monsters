@@ -1,10 +1,11 @@
 # just-killing-monsters
-A home game project aimed to train and display my programmer skills.
+A home game project aimed to train my programmer skills.
+I tried to make the code clean and readable, although the game itself is not supposed to be super entertaining :D
 
-For now it's basically a console application with GUI, but i am working on some simple graphics for the game too(apart from other features).
+For now it's basically a console application with some GUI, but i am working on some simple graphics for the game too.
 
-Executables are on my Google Drive: https://goo.gl/eB3bQJ in c++ folder,
-there are 2 console versions and 1 GUI version. They should all be executable on all desktop platforms(only tested on Windows 10 though).
-I also added some makeshift documentation. Go to documentation/html/index.html
+I also added some makeshift documentation(outdated now). Go to documentation/html/index.html
+
+Executables are on my Google Drive: https://goo.gl/eB3bQJ in c++ folder.
 
 This project uses GPL open source license distribution of Qt. 

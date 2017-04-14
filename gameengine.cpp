@@ -74,15 +74,12 @@ void GameEngine::GUIKeyinput(int key)
 }
 
 void GameEngine::welcome() const{
-    sos::iout
-              << "Welcome to the game of Just Killing Monsters\n"
-              << "Kill the monsters by running into them.\n\n"
+    sos::iout << "Welcome to the game of Just Killing Monsters\n"
+              << "Kill all the monsters by running into them.\n"
+              << "When you move between your hits, you get Surprise strike bonus damage on hit\n\n"
 
-              << "Controls:"
-              << "WSAD to move, Q for this Intro, X to exit, E to save game, R to load game,\n"
-              << "ENTER to confirm\n\n"
+              << "Controls: WSAD to move\n\n"
 
-              << "When you move between your hits, you get Surprise strike bonus damage on hit\n"
               << "Legend: [H]-Hero, [P]-Health Potion, [M,W,V]-Monsters, [T]-Tree\n\n";
     gameBoard->printBoard();
 }
